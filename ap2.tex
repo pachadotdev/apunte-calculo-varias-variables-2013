@@ -1,0 +1,265 @@
+\chapter{Conceptos de \'Algebra Lineal}\label{ap2}
+
+\section{Dependencia Lineal y Base de un Espacio}
+
+\begin{definicion}\index{Combinaci\'on!lineal}
+Un vector $\vec{x}\in \R^n$ se dice que es combinaci\'on lineal de un conjunto de vectores $A = \{ \vec{x}_1, \ldots,\vec{x}_n \}$, $A\subset \R^n$ si existe una forma de expresarlo como la suma de vectores de $A$ ponderados por un escalares $\alpha_1,\ldots,\alpha_n$, de forma que:
+$$\vec{x} = \alpha_1 \vec{x}_1 + \ldots + \alpha_n \vec{x}_n = \sum_{i=1}^n \alpha_i \vec{x}_i$$
+\end{definicion}
+
+\begin{definicion}\index{Dependencia!lineal}
+Sea $A=\{\vec{x}_1,\ldots,\vec{x}_n\}$, $A\subset \R^n$ diremos que este conjunto es linealmente independiente si y s\'olo si:
+$$\sum_{i=1}^n \alpha_i \vec{x}_i = \vec{0} \:\Rightarrow\: \alpha_j=0 \:\forall j=1,\ldots,n$$
+Se debe tener presente que:
+\begin{enumerate}
+\item Si $\vec{0}\in A$ entonces $A$ es un conjunto linealmente dependiente.
+\item Si un vector de $A$ es multiplo de otro vector de $A$, entonces el conjunto es linealmente dependiente.
+\item $A$ es linealmente dependiente si y s\'olo si existe $j=1,\ldots,n$ tal que $\vec{x}_j$ es combinaci\'on lineal de $A\setminus \{\vec{x}_j\}$.
+\item Si $A\subset B$ y $B$ es un conjunto linealmente independiente, entonces $A$ es linealmente independiente. 
+\item Si $A\subset B$ y $B$ es un conjunto linealmente dependiente, entonces $A$ es linealmente dependiente. 
+\end{enumerate}
+\end{definicion}
+
+La proposici\'on 3. se puede demostrar como sigue: $A$ es linealmente dependiente si y s\'olo si
+$$\sum_{i=1}^n \alpha_n \vec{x}_n = \vec{0} \text{ con } \alpha_1,\ldots,\alpha_n \text{ no todos nulos}$$
+supongamos que $\alpha_j \neq 0$ para $1\leq j \leq n$ entonces
+\begin{align*}
+\alpha_j \vec{x}_j &= -\sum_{\substack{i=1\\i\neq j}} \alpha_i \vec{x}_i \\
+\vec{x}_j &= -\frac{1}{\alpha_j}\sum_{\substack{i=1\\i\neq j}} \alpha_i \vec{x}_i 
+\end{align*}
+si definimos $\beta_i = -\alpha_i / \alpha_j$ se tiene
+$$\vec{x}_j = -\sum_{\substack{i=1\\i\neq j}} \beta_i \vec{x}_i $$
+y por lo tanto $\vec{x}_j$ es combinaci\'on lineal de $A\setminus \{\vec{x}_j\}$.
+
+\begin{definicion}\index{Base!de $\R^n$}\index{Conjunto!libre}\index{Conjunto!generador}
+Sea $B=\{\vec{b}_1,\ldots,\vec{b}_n\}$, $B\subset \R^n$ diremos que este conjunto es una base de $\R^n$ si y s\'olo si:
+\begin{enumerate}
+\item $B$ es linealmente independiente (libre)
+\item $B$ es tal que el conjunto de todas combinaciones lineales posibles del conjunto da lugar a $\R^n$ (generador)
+\end{enumerate}
+\end{definicion}
+
+Todas las bases de un espacio o subespacio poseen la misma cardinalidad o n\'umero de vectores. As\'i en en caso de $\R^3$ la cardinalidad de toda base es 3.
+
+\section{Ortogonalidad y Ortonormalidad}
+
+\begin{definicion}\index{Ortogonalidad}
+Dos vectores de $\R^n$ son ortogonales si y s\'olo si $\vec{a}\cdot \vec{b}= 0$. 
+\end{definicion}
+
+Siguiendo la definici\'on $\vec{0}$ es ortogonal con cualquier vector de $\R^n$.
+
+\begin{definicion}\index{Conjunto!ortogonal}\index{Conjunto!ortonormal}
+Sea $A\subset \R^n$ diremos que el conjunto $A$ es ortogonal si y s\'olo si
+$$\vec{x}_i\cdot \vec{x}_j =
+\begin{cases}
+0 &\text{ si } i\neq j \\
+\|\vec{x}_j\|^2 &\text{ si } i=j
+\end{cases}$$
+y diremos que $A$ es ortonormal si y s\'olo si
+$$\vec{x}_i\cdot \vec{x}_j =
+\begin{cases}
+0 &\text{ si } i\neq j \\
+1 &\text{ si } i=j
+\end{cases}$$
+\end{definicion}
+
+Por ejemplo, en $\R^3$ el conjunto $\{(1,0,0),(0,1,0),(0,0,1)\}$ es ortonormal.
+
+Sea $\{\vec{x}_1,\ldots\vec{x}_n\}$ ortogonal con $\vec{x}_j\neq \vec{0}\:\forall j$ y supongamos que
+$$\sum_{i=1}^n \alpha_i \vec{x}_i = \vec{0}$$
+entonces 
+\begin{align*}
+\left(\sum_{i=1}^n \alpha_i \vec{x}_i\right)\cdot \vec{x}_1 &= \vec{0}\cdot \vec{x}_1 \\
+\vec{x}_1 \cdot \vec{x}_1 + \left(\sum_{i=2}^n \alpha_i \vec{x}_i\right)\cdot \vec{x}_1 &= \vec{0}\cdot \vec{x}_1 \\
+\vec{x}_1 \cdot \vec{x}_1 + 0 &= 0 \\
+\alpha_1 \|\vec{x}_1\|^2 &= 0 \\
+\alpha_1 &= 0
+\end{align*}
+entonces $\alpha_i = 0 \: \forall i$ por lo que $A$ es linealmente independiente y en conclusi\'on todo conjunto ortogonal de vectores no nulos es linealmente independiente.
+
+\section{Transformaciones Lineales}
+
+\begin{definicion}\index{Transformaci\'on!lineal}
+Una transformaci\'on lineal de $\R^n$ en $\R^m$ es una funci\'on
+\begin{align*}
+T: \R^n &\to \R^m \\
+\vec{x} &\mapsto T(\vec{x})
+\end{align*}
+y es tal que $T(\vec{x}+\vec{y})=T(\vec{x})+T(\vec{y})$ y $T(\alpha \vec{x})=\alpha T(\vec{x})$
+\end{definicion}
+
+Por ejemplo, $T:\R^2 \to \R$ definida por $T(x,y)=2x-5y$ es una transformaci\'on lineal (verif\'iquelo).
+
+\section{Valores y Vectores Propios}
+
+\begin{definicion}\index{Valor!propio}\index{Vector!propio}
+Sea $T: \R^n \to \R^n$ una trasformaci\'on lineal. Un escalar $t$ es un valor propio de $T$ si existe $\vec{x}\neq \vec{0}$ en $\R^n$ tal que $T(\vec{x})=t\vec{x}$. El vector $\vec{x}$ ya definido es un vector propio de $T$ asociado a $t$.
+\end{definicion}
+
+Por definici\'on $\vec{0}$ no puede ser vector propio de una tranformaci\'on lineal. Esto no quiere decir que $0$ no puede ser valor propio de una transformaci\'on lineal. 
+
+Una transformaci\'on lineal puede o no tener valores propios. Por ejemplo, la identidad $T(\vec{x})=\vec{x}$ admite como valor propio a $1$ pero la transformaci\'on en $\R^2$ $T(x,y)=(-y,x)$ no tiene valores propios ya que no existe $t\in \R$ tal que $tx=-y$ y $ty=x$ pues reemplazando nos queda que $t^2 y = -y$.
+
+\section{Formas Cuadr\'aticas}
+
+\begin{definicion}\index{Forma!cuadr\'atica}
+Sea $A\in \mathcal{M}_{n\times n} (\R)$ una matriz sim\'etrica, definimos la funci\'on
+\begin{align*}
+q:\R^n &\to \R \\
+\vec{x} &\mapsto q(\vec{x})=\vec{x}^tA \vec{x}
+\end{align*}
+la cual se denomina forma cuadr\'atica en $\R^n$. 
+\end{definicion}
+
+Por ejemplo, $f(x,y)=x^2+2xy+y^2$ define una forma cuadr\'atica con $\begin{pmatrix}
+1 & 1 \\
+1 & 1
+\end{pmatrix}$.
+
+N\'otese que una forma cuadr\'atica en $\R^n$ es una funci\'on homog\'enea de grado 2, es decir $\forall \vec{x}\in \R^n\: q(t\vec{x})=t^2q(\vec{x})$. En efecto $q(t\vec{x})=(t\vec{x})^t A (t\vec{x})=t^2\vec{x}A\vec{x}=t^2q(\vec{x})$.
+
+\begin{definicion}\index{Matriz!(semi)definida positiva}\index{Matriz!(semi)definida negativa}
+Diremos que la matriz $A$ es:
+\begin{enumerate}
+\item Definida positiva si $\forall \vec{x}\neq \vec{0}$ $\vec{x}^t A \vec{x}>0$.
+\item Semidefinida positiva si $\forall \vec{x}$ $\vec{x}^t A \vec{x}\geq 0$.
+\item Definida negativa si $\forall \vec{x}\neq \vec{0}$ $\vec{x}^t A \vec{x}<0$
+\item Semidefinida negativa si $\forall \vec{x}$ $\vec{x}^t A \vec{x}\leq 0$.
+\end{enumerate}
+\end{definicion}
+
+Si $A$ es una matriz sim\'etrica, entonces $A$ es diagonalizable, es decir,
+existe una matriz $P$ tal que
+\begin{equation}\label{DIAG}
+A=PDP^t
+\end{equation}
+donde $P$ es una matriz invertible (ortogonal) y $D$ es una matriz diagonal,
+es decir:
+\[
+P^tP=I
+\]
+donde $I$ es la matriz identidad y
+\[
+D=\left[
+\begin{array}
+[c]{llll}%
+\lambda_{1} & 0 & \cdots & 0\\
+0 & \lambda_{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & \lambda_{n}%
+\end{array}
+\right]
+\]
+De \eqref{DIAG} tenemos que
+\[
+AP=PD
+\]
+y por columna
+\[
+Ap_i=\lambda_ip_i%
+\]
+donde $p_i$ representa la i-\'esima columna de $P$. Los $\lambda_i$ son
+los valores propios de la matriz $A$ mientras que los $p_i$ son \ vectores
+propios correspondientes a dichos valores propios.
+
+Si una matriz es definida positiva y adem\'as es sim\'etrica, usando la diagonalizaci\'on vista
+anteriormente, tenemos que
+\[
+\vec{x}^tPDP^t\vec{x}>0\:\forall \vec{x}\neq \vec{0}
+\]
+o sea (haciendo $P^t\vec{x}=\vec{y}$)
+\[
+\vec{y}^tD\vec{y}>0\:\forall \vec{y}\neq \vec{0}
+\]%
+\[
+\Rightarrow\sum\lambda_i y_i^{2} > 0\:\forall \vec{y}\neq \vec{0}
+\]
+y de aqui se obtiene el siguiente teorema.
+
+\begin{teorema}
+Una matriz $A$ es definida positiva si y s\'olo si los valores propios de $A$
+son positivos.
+\end{teorema}
+
+\begin{demostracion}
+Haremos la demostraci\'on en dos partes. Sean
+\begin{enumerate}
+\item $A$ es definida positiva ($\vec{x}^tA\vec{x} >0,\:\forall \vec{x}\neq \vec{0}$).
+\item Los valores propios de $A$ son positivos.
+\end{enumerate}
+
+(1) $\Rightarrow$ (2):
+\\Sea $\lambda$ un valor propio de $A$ e $\vec{y}\neq \vec{0}$ un vector propio correspondiente al valor propio $\lambda$. Entonces
+$$0<\vec{y}^tA\vec{y}=\vec{y}^t(\lambda \vec{y})=\lambda \vec{y}^t\vec{y}=\lambda \|\vec{y}\|^2 \:\Rightarrow\: \lambda > 0$$
+
+(2) $\Rightarrow$ (1):
+\\Suponiendo que $A$ es sim\'etrica entonces $A=PDP^t$, donde las columnas de $P$ son una base ortonormal del vectores propios y $D$ es la diagonal de los valores propios respectivos. De esta forma
+$$\vec{x}^tA\vec{x}=\vec{x}^tPDP^t\vec{x}=(P^t\vec{x})^tDP^t\vec{x}$$
+entonces definiendo $\vec{z}=P^t\vec{x}$ se tendr\'a que en t\'erminos de estas nuevas variables la forma cuadr\'atica queda
+$$\vec{x}^tA\vec{x}=\vec{z}^tD\vec{z}=\lambda_1z_1^2 + \ldots + \lambda_nz_n^2 \leq 0$$
+dado que los valores propios son positivos. La \'unica forma de que la forma cuadr\'atica sea nula es con $z_1=\ldots=z_n=0$, es decir $\vec{z}=\vec{0}$, pero entonces $P^t\vec{x}=0 \:\Rightarrow\: \vec{x}=\vec{0}$ (se debe tener presente que $P^{-1}=P^t$).
+\end{demostracion}
+
+\begin{corolario}
+Si $A$ es definida positiva entonces existe $c>0$ tal que
+\[
+\vec{x}^tA\vec{x}\geq c\left\|  \vec{x}\right\|  ^{2}\:\forall \vec{x}\in\R^{n}%
+\]
+donde, $c=\min\left\{  \lambda_i\text{ tal que } i=1,...,n\right\}  .$
+\end{corolario}
+
+\begin{demostracion}%
+\begin{align*}
+\vec{x}^tA\vec{x}  & =\sum\lambda_iy_i^{2} \\
+& \geq\min\left\{\lambda_i\text{ tal que } i=1,...,n\right\}  \left\|  y\right\|^{2} \\
+& =c\left\|P^t\vec{x}\right\|^{2} \\
+& =c\vec{x}^tPP^t\vec{x}\text{ , recordemos que
+}PP^t=P^tP=I \\
+& =c\left\|\vec{x}\right\|^{2}%
+\end{align*}
+\end{demostracion}
+
+\begin{teorema}
+Una matriz $A$ es semi-definida positiva si y s\'olo si los valores propios de
+$A$ son positivos o nulos.
+\end{teorema}
+
+\begin{nota}
+De las definiciones vistas hasta ahora de matrices definidas y semi-definidas
+positivas, haciendo los cambios de desigualdad correspondientes, se obtienen
+las definiciones de matrices definidas y semi-definidas negativas.
+
+Existen muchos criterios para determinar si una matriz es definida positiva o
+no, uno de los usados por su f\'acil comprobaci\'on es el siguiente: Una
+matriz $B$ cuadrada $(n\times n)$ es definida positiva si y solo si todas las
+submatrices cuadradas a lo largo de la diagonal tienen determinantes
+positivos. Para el caso de las matrices definidas negativas los signos de los
+determinantes deben alternarse, comenzando con negativo.
+
+De esta forma, cuando la matriz es semi-definida positiva se tiene que
+$$|B_i|\geq 0 \: \forall i=1,\ldots , n$$ 
+mientras que cuando la matriz es semi-definida negativa se tiene que $|B_1|\leq 0,|B_2|\geq 0, \ldots$ tal que
+\begin{equation*}
+(-1)^i |B_i|\geq 0 \: \forall i=1,\ldots , n
+\end{equation*}
+\end{nota}
+
+\begin{ejemplo}
+Para el caso de una funci\'on de tres variables los determinantes de las tres submatrices del Hessiano corresponden a
+\begin{equation*}
+|H_1| =\dpr{f(\vec{x})}{x_1^2}
+\quad
+|H_2| =\left|\begin{array}{cc}
+\dpr{^{2}f(\vec{x})}{x_{1}^{2}} & \dpr{^{2}f(\vec{x})}{x_{1}\partial x_{2}} \\
+ & \\
+\dpr{^{2}f(\vec{x})}{x_{2}\partial x_{1}} & \dpr{^{2}f(\vec{x})}{x_{2}^2} \\ \end{array} \right|
+\quad
+|H_3| =\left|\begin{array}{ccc}
+\dpr{^{2}f(\vec{x})}{x_{1}^{2}} & \dpr{^{2}f(\vec{x})}{x_{2}\partial x_{1}} & \dpr{^{2}f(\vec{x})}{x_{3}\partial x_{1}} \\
+ & & \\
+\dpr{^{2}f(\vec{x})}{x_{1}\partial x_{2}} & \dpr{^{2}f(\vec{x})}{x_{2}^{2}} & \dpr{^{2}f(\vec{x})}{x_{3}\partial x_{2}} \\
+ & & \\
+\dpr{^{2}f(\vec{x})}{x_{1}\partial x_{3}} & \dpr{^{2}f(\vec{x})}{x_{2}\partial x_{3}} & \dpr{^{2}f(\vec{x})}{x_{3}^2} \\ \end{array} \right|
+\end{equation*}
+\end{ejemplo}

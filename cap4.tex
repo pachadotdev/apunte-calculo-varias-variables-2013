@@ -1,0 +1,1145 @@
+\chapter{Topolog\'ia B\'asica}\label{cap4}
+
+La idea de este cap\'itulo es formalizar conceptos abstractos que son de alta importancia en los temas que siguen. No es posible entender a cabalidad los temas que vienen a continuaci\'on en este apunte sin tener claro lo m\'as b\'asico de topolog\'ia, por esto es que preferimos destinar espacio a estos conceptos.
+
+\section{Normas y espacios normados}
+
+\begin{definicion}\label{defnorma}
+Sea $E$ un espacio vectorial\index{Espacio!vectorial}. Una norma\index{Norma} en $E$ es una funci\'on que satisface las siguientes propiedades:
+\[\| \cdot\|:E\to\R_+\cup\{0\}\]
+\begin{enumerate}
+    \item Positividad: $\|\vec{x}\|=0\Leftrightarrow \vec{x}=0$
+    \item Linealidad: $\|\lambda \vec{x}\|=|\lambda|\|\vec{x}\|\: \forall\lambda\in\R ,\forall \vec{x}\in E$
+    \item Desigualdad triangular: $\|\vec{x}+\vec{y}\|\leq\|\vec{x}\|+\|\vec{y}\|\:\forall \vec{x},\vec{y}\in E$ \index{Desigualdad!triangular}
+\end{enumerate}
+Al par ordenado $(E,\|\cdot\|)$ se lo conoce como espacio vectorial normado.\index{Espacio!vectorial normado}
+\end{definicion}
+
+\begin{ejemplo}
+En $\R^n$ podemos definir muchas normas:
+\begin{enumerate}
+\item Norma 1\index{Norma!$1$}: $\|\vec{x}\|_1=|x_1|+\ldots +|x_n|$
+\item Norma 2 o euclideana\index{Norma!euclideana}: $\|\vec{x}\|_2=\sqrt{x_1^2+\ldots +x_n^2}$
+\item Norma infinito o uniforme\index{Norma!infinito o uniforme}: $\|\vec{x}\|_\infty = \max_{i=1,2,\ldots ,n} |x_i|$
+\item Norma $\rho$\index{Norma!$\rho$}: $\|\vec{x}\|_\rho =\sqrt[\rho]{|x_1|^\rho +\ldots +|x_n|^\rho}$ para $1\leq \rho <\infty$
+\end{enumerate}
+De forma que $(\R^n,\|\cdot\|)$ con cualquiera de las normas definidas tiene estructura de espacio vectorial normado.
+\end{ejemplo}
+
+Demostrar que $\|\cdot\|_2,\|\cdot\|_1$ y $\|\cdot\|_\infty$ satisfacen efectivamente las propiedades de una norma es tarea sencilla. Un poco m\'as dif\'icil es demostrar que $\|\cdot\|_p$ con $1<p<\infty$ es tambi\'en una norma.
+
+Las normas mencionadas son casos particulares de $\|\vec{x}\|_\rho$. Las normas 1, 2 e infinito se obtienen cuando $\rho$ toma los valores $1$, $2$ y tendiendo a infinito respectivamente. 
+
+\begin{ejemplo}\label{ejemplo-norma}
+Para fijar ideas, en $\R^2$ el dibujo de $\|\vec{x}\|_\rho = 1$ con $\rho$ igual a 1/2, 1, 2 y tendiendo a infinito nos queda de la siguiente forma
+\begin{figure}[H]
+	\centering
+	\input{figuras/norma.pdf_tex}
+	\caption{Normas en $\R^2$}
+\end{figure}
+Decimos $\|\vec{x}\|_\rho$ es norma cuando $\rho \geq 1$ pues en caso de que $\rho<1$ no se cumple la desigualdad triangular. 
+
+Sean $\vec{x}=(1,0)$ e $\vec{y}=(0,1)$. Si $p=1/2$ tenemos que 
+\begin{eqnarray*}
+\|\vec{x}\|_\rho &=& (|0|^{1/2} + |1|^{1/2})^2 = 1 \\
+\|\vec{y}\|_\rho &=& (|1|^{1/2} + |0|^{1/2})^2 = 1 
+\end{eqnarray*}
+de lo cual se obtiene $\|\vec{x}\|_\rho + \|\vec{y}\|_\rho = 2$ mientras que $\|\vec{x} + \vec{y}\|_\rho = 4$.
+\end{ejemplo}
+
+\begin{lema}
+Sean $a, b \geq 0$, sea $\lambda \in (0,1)$, entonces
+$$a^{\lambda} b^{1-\lambda} \leq \lambda a + (1-\lambda)b$$
+\end{lema}
+
+\begin{demostracion}
+Si $b = 0$ es directo. En el caso $b \neq 0$ se tiene
+$$\left( \frac{a}{b}\right)^{\lambda} \leq \lambda \frac{a}{b} + 1 - \lambda $$
+Sea $t=\frac{a}{b}$, $t\geq 0$ y $f(t)=1-\lambda + \lambda t - t^{\lambda}$. Hay que demostrar que $f(t)\geq 0$.
+$$f'(t) =  \lambda (1-t^{\lambda -1})$$
+Si $t<1$, como $\lambda - 1 <0$ $\Rightarrow$ $f'(t) < 0 \Rightarrow f(t) > f(1) = 0$.
+Si $t>1$, como $\lambda - 1 <0$ $\Rightarrow$ $f'(t) > 0 \Rightarrow f(t) > f(1) = 0$. 
+ Entonces $f(t)\geq 0$.
+\end{demostracion}
+
+En el lema anterior si tomamos $a=x^p$, $b=y^{q}$, $\lambda = \frac{1}{p}$ y $1-\lambda = \frac{1}{q}$ se tiene el siguiente resultado.
+\begin{lema}\label{lemautil}
+Sean $\rho,\sigma>1$ tales que $\frac{1}{p}+\frac{1}{q}=1$. Entonces,
+\begin{equation}
+xy \leq \frac{x^p}{p} + \frac{y^q}{q}  \label{ecuacionconvexidad}
+\end{equation}
+\end{lema}
+
+%\begin{demostracion}
+%Consideremos la siguiente curva
+%$$\rho(\sigma)=\sigma^{t-1} \:\Leftrightarrow\: \sigma(\rho)=\rho^{q-1}$$
+%la gr\'afica de esto corresponde a lo siguiente:
+%\begin{figure}[H]
+%	\centering
+%	\input{figuras/lemautil.pdf_tex}
+%\end{figure}
+%Consideremos las \'areas $S_1$ y $S_2$ del gr\'afico y se tiene que
+%$$S_1=\int_{0}^{a} \sigma^{t-1} d\sigma = \frac{a^\rho}{\rho} \:,\: S_2 = \int_{0}^{b} \rho^{q-1} d\rho = \frac{b^\sigma}{\sigma}$$
+%De la figura se puede inferir que
+%\begin{eqnarray*}
+%ab &\leq& S_1 + S_2 \\
+%ab &\leq& \frac{a^\rho}{\rho} + \frac{b^\sigma}{\sigma}
+%\end{eqnarray*}
+
+%Una forma m\'as rigurosa de demostrar este lema es por medio de la definici\'on de funci\'on convexa- Una funci\'on $f:A\subseteq \R \to \R$ es convexa si
+%$$f(\lambda x + (1-\lambda) y) \leq \lambda f(x) + (1-\lambda) f(y) \qquad \forall x,y \in A , 0\leq %\lambda \leq 1 $$
+%Otro criterio para determinar la convexidad de una funci\'on de una variable, en caso de que sea dos veces continua y diferenciable, es determinar que su segunda derivada sea no decreciente ($f''(x)\geq 0 \:\forall x\in A$).
+
+%Otra forma de demostrar es utilizando la definici\'on de funci\'on convexa. Tomando la funci\'on $-\ln(x)$ (verifique la convexidad de esta funci\'on) y fijando un valor $\lambda=1/\rho$ se tiene que
+%\begin{eqnarray}
+%-\ln\left(\frac{a^\rho}{\rho}+\frac{b^\sigma}{\sigma}\right) &\leq& -\frac{\ln(a^\rho)}{\rho}  - \frac{\ln(b^\sigma)}{\sigma} \nonumber \\
+%-\ln\left(\frac{a^\rho}{\rho}+\frac{b^\sigma}{\sigma}\right) &\leq& -\ln(ab) \nonumber \\
+%\ln\left(\frac{a^\rho}{\rho}+\frac{b^\sigma}{\sigma}\right)  &\geq& \ln(ab) \nonumber \\
+%\frac{a^\rho}{\rho}+\frac{b^\sigma}{\sigma}                  &\geq& ab
+%\end{eqnarray}
+%\end{demostracion}
+
+\begin{teorema}
+$\|\cdot \|_{\rho}$ es una norma.
+\end{teorema}
+
+\begin{demostracion}
+Debemos demostrar las tres propiedades que aparecen en la definici\'on \ref{defnorma}.
+
+Positividad: $\| \vec{x} \|_{\rho} \geq 0$ $\forall \vec{x} \in \R^n$
+\\Primero veamos qu\'e pasa con $\| \vec{x} \|_{\rho} \geq 0$
+$$|x_i|\geq 0 \:\forall x_i \in \R \Rightarrow \|\vec{x}\|_\rho =\left(\sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} \geq 0$$ 
+luego debe cumplirse que $\| \vec{x} \|_{\rho} = 0 \Leftrightarrow \vec{x}=0$, entonces si $\vec{x}=0$
+$$|x_i|= 0 \:\forall x_i \in \R \Rightarrow \|\vec{x}\|_\rho =\left(\sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} = 0 $$
+La otra implicancia es como sigue, si $\|\vec{x}\|_\rho =0$
+$$\left(\sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} = (|x_1|^{\rho} + \ldots + |x_n|^{\rho})^{1/\rho} = 0$$
+luego $|x_i| \in \R_+$ y, por definici\'on, $|x_i|\geq 0$ adem\'as de que la suma de elementos no negativos es nula s\'olo si todos los elementos son nulos 
+$$\left(\sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} = (|x_1|^{\rho} + \ldots + |x_n|^{\rho})^{1/\rho} = 0 \Rightarrow \vec{x} = 0$$
+
+Linealidad: $\|\lambda \vec{x} \|_{\rho} = |\lambda| \|\vec{x}\|_{\rho}$ $\forall \vec{x} \in \R^n, \lambda \in \R$
+\begin{align*}
+\|\lambda \vec{x} \|_{\rho} &= \left(\sum_{i=1}^n |\lambda x_i|^{\rho} \right)^{1/\rho} \cr
+                      &= \left(|\lambda|^{\rho} \sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} \cr
+                      &= |\lambda| \|\vec{x}\|_{\rho}
+\end{align*}
+ 
+Desigualdad triangular: $\|\vec{x}+\vec{y}\|_{\rho} \leq \|\vec{x}\|_{\rho} + \|\vec{y}\|_{\rho}$ $\forall \vec{x},\vec{y} \in \R^n$
+$$\left(\sum_{i=1}^n |x_i + y_i|^{\rho} \right)^{1/\rho} \leq \left(\sum_{i=1}^n |x_i|^{\rho} \right)^{1/\rho} + \left(\sum_{i=1}^n |y_i|^{\rho} \right)^{1/\rho}$$
+
+Sea $\rho=1$
+$$\sum_{i=1}^n |x_i+y_i| \leq \sum_{i=1}^n \left( |x_i| + |y_i| \right)$$
+
+Sean $\rho>1$ y $\vec{x},\vec{y}\in \R^n$. Si tomamos un real $x\geq 0$ entonces $x \in \R_{+}$ y se tiene que $x=|x|$. Usando esta propiedad, reescribiremos (\ref{ecuacionconvexidad}).
+%$$|ab| \leq \frac{|a|^\rho}{\rho} + \frac{|b|^\sigma}{\sigma}$$
+Escojamos $a=\frac{|x_i|}{(\sum_{j=1}^n |x_j|^\rho )^{1/\rho}}$ y
+$b=\frac{|y_i|}{(\sum_{j=1}^n |y_j|^\sigma)^{1/\sigma}}$, entonces la desigualdad nos queda
+$$\frac{|x_i|}{(\sum_{j=1}^n |x_j|^\rho )^{1/\rho}} \cdot \frac{|y_i|}{(\sum_{j=1}^n |y_j|^\sigma )^{1/\sigma}} \leq \frac{1}{\rho}\cdot \left(\frac{|x_i|}{(\sum_{j=1}^n |x_j|^\rho )^{1/\rho}} \right)^\rho + \frac{1}{\sigma}\cdot \left(\frac{|y_i|}{(\sum_{j=1}^n |y_j|^\sigma )^{1/\sigma}} \right)^\sigma $$
+$$\frac{|x_i y_i|}{(\sum_{j=1}^n |x_j|^\rho )^{1/\rho} \cdot (\sum_{j=1}^n |y_j|^\sigma )^{1/\sigma}} \leq \frac{1}{\rho}\cdot \frac{|x_i|^\rho}{\sum_{j=1}^n |x_j|^\rho} + \frac{1}{\sigma}\cdot \frac{|y_i|^\sigma}{\sum_{j=1}^n |y_j|^\sigma}$$
+Aplicando $\sum_{i=1}^n(\cdot)$ a la \'ultima desigualdad obtenemos
+\begin{eqnarray}
+\frac{\sum_{i=1}^n |x_i y_i|}{(\sum_{j=1}^n |x_j|^\rho )^{1/\rho} \cdot (\sum_{j=1}^n |y_j|^\sigma )^{1/\sigma}} &\leq& \left(\frac{1}{\rho}+\frac{1}{\sigma} = 1 \right) \nonumber \\
+\sum_{i=1}^n |x_i y_i| &\leq& \left(\sum_{j=1}^n |x_j|^\rho \right)^{1/\rho} \cdot \left(\sum_{j=1}^n |y_j|^\sigma \right)^{1/\sigma} \label{desigualdad}
+\end{eqnarray}
+Como $|x_i+y_i|\leq |x_i|+|y_i|$
+\begin{eqnarray*}
+%(|x_i|+|y_i|)^\rho &=& (|x_i|+|y_i|)^{\rho-1}(|x_i|+|y_i|) \cr
+|x_i + y_i|^\rho &=& |x_i + y_i|^{\rho-1}|x_i + y_i| \cr
+|x_i + y_i|^\rho   &\leq& |x_i + y_i|^{\rho-1}(|x_i|+|y_i|) 
+\end{eqnarray*}
+Aplicando $\sum_{i=1}^n(\cdot)$ a la \'ultima desigualdad obtenemos
+\begin{eqnarray}
+\sum_{i=1}^n |x_i + y_i|^\rho   &\leq& \sum_{i=1}^n |x_i+y_i|^{\rho-1}(|x_i|+|y_i|) \nonumber \\
+\sum_{i=1}^n |x_i + y_i|^\rho   &\leq& \sum_{i=1}^n |x_i+y_i|^{\rho-1} |x_i| + \sum_{i=1}^n |x_i+y_i|^{\rho-1}|y_i| 
+\end{eqnarray}
+Combinando esto \'ultimo con la ecuaci\'on \eqref{desigualdad} y como $\sigma (\rho-1) = \rho$ se tiene
+\begin{eqnarray*}
+\sum_{i=1}^n |x_i + y_i|^\rho &\leq& \left[\left(\sum_{i=1}^n |x_i|^\rho \right)^{\frac{1}{\rho}} + \left(\sum_{i=1}^n |y_i|^\rho \right)^{\frac{1}{\rho}} \right] \left(\sum_{i=1}^n |x_i+y_i|^{\sigma (\rho-1)} \right)^{\frac{1}{\sigma}} \cr
+\sum_{i=1}^n |x_i + y_i|^\rho &\leq& \left[\left(\sum_{i=1}^n |x_i|^\rho \right)^{\frac{1}{\rho}} + \left(\sum_{i=1}^n |y_i|^\rho \right)^{\frac{1}{\rho}} \right] \left(\sum_{i=1}^n |x_i+y_i|^{\rho} \right)^{\frac{1}{\sigma}} \cr
+\left(\sum_{i=1}^n |x_i + y_i|^\rho \right)^{1-\frac{1}{\sigma}} &\leq& \left(\sum_{i=1}^n |x_i|^\rho \right)^{1/\rho} + \left(\sum_{i=1}^n |y_i|^\rho \right)^{1/\rho} \cr
+\left(\sum_{i=1}^n |x_i + y_i|^\rho \right)^{1/\rho} &\leq& \left(\sum_{i=1}^n |x_i|^\rho \right)^{1/\rho} + \left(\sum_{i=1}^n |y_i|^\rho \right)^{1/\rho}
+\end{eqnarray*}
+\end{demostracion}
+
+\begin{ejemplo}
+Si $E=\{f:[a,b]\to\R : f \text{ es continua }\}=C[a,b]$ entonces definimos
+\[\|\cdot\|_\infty :E\to\R\cup\{0\}\]
+\[\|f\|_\infty=\sup_{x\in [a,b]}{|f(x)|}\]
+\end{ejemplo}
+\begin{ejemplo}
+En ${\cal{P}}=\{\text{polinomios de }\R\}$ definimos
+$$\|p\|=|p(1)|+|p(0)|+|p(-1)|$$ 
+lo anterior no es una norma pues no satisface la condici\'on 1 de norma. En los polinomios de grado dos si es norma.
+\end{ejemplo}
+
+En un espacio vectorial $E$ podemos considerar
+diferentes normas.
+
+\begin{teorema}{\rm (Equivalencia de normas)}\label{equivalencia-de-normas}
+\\Dos normas $\|\cdot\|_1$ y $\|\cdot\|_2$ en $E$ se dicen equivalentes\index{Normas!equivalentes}\index{Teorema!de equivalencia de normas} si existen constantes $c_1$ y $c_2$ no negativas tales que:
+$$ c_1 \|\vec{x}\|_1 \leq \|\vec{x}\|_2 \leq c_2 \|\vec{x}\|_1 \: \forall \vec{x} \in E$$
+\end{teorema}
+
+\begin{demostracion}
+Supongamos que $\|\cdot\|_1$ y $\|\cdot\|_2$ en $E$ son equivalentes.
+
+Tomemos el lado izquierdo de la desigualdad y supongamos que no existe $c_1 \in \R_+$ que cumpla $ c_1 \|\vec{x}\|_1 \leq \|\vec{x}\|_2$. Entonces
+$$\inf_{\vec{x}\in E\setminus \{0\}} \frac{\|\vec{x}\|_2}{\|\vec{x}\|_1}=0$$
+Escojamos $\{\vec{x}_n\}_{n\in \N}$ en $E$ tal que $\{\vec{x}_n\}\rightarrow 0$, entonces 
+$$\frac{\|\vec{x}_n\|_2}{\|\vec{x}_n\|_1} \rightarrow 0$$
+Consideremos que $\|\vec{x}_n\|_1 , \|\vec{x}_n\|_2 \in \R_+$ por lo que esto \'ultimo lo podemos reescribir como
+$$\left\| \frac{\vec{x}_n}{\|\vec{x}\|_1} \right\|_2 \rightarrow 0$$
+Definamos $\vec{y}_n = \frac{\vec{x}_n}{\|\vec{x}\|_1}$, entonces $\|\vec{y}_n\|_1 = 1$ e $\|\vec{y}_n\|_2 \rightarrow 0$ lo que significa que las normas no pueden ser equivalentes.
+
+Tomemos el lado derecho de la desigualdad y supongamos que no existe $c_2 \in \R_+$ que cumpla $\|\vec{x}\|_2 \leq c_2 \|\vec{x}\|_1$. Entonces
+$$\inf_{\vec{x}\in E\setminus \{0\}} \frac{\|\vec{x}\|_1}{\|\vec{x}\|_2}=0$$
+Escojamos $\{\vec{x}_n\}_{n\in \N}$ en $E$ tal que $\{\vec{x}_n\}\rightarrow 0$, entonces 
+$$\frac{\|\vec{x}_n\|_1}{\|\vec{x}_n\|_2} \rightarrow 0$$
+Consideremos que $\|\vec{x}_n\|_1 , \|\vec{x}_n\|_2 \in \R_+$ por lo que esto \'ultimo lo podemos reescribir como
+$$\left\| \frac{\vec{x}_n}{\|\vec{x}\|_2} \right\|_1 \rightarrow 0$$
+Definamos $\vec{y}_n = \frac{\vec{x}_n}{\|\vec{x}\|_2}$, entonces $\|\vec{y}_n\|_1 \rightarrow 0$ y $\|\vec{y}_n\|_2 = 1$ lo que significa que las normas no pueden ser equivalentes.
+
+\end{demostracion}
+
+Cuando a la estructura de espacio vectorial se le agrega una norma, se le dota de propiedades topol\'ogicas. Veremos m\'as adelante que si $\|\cdot\|_1$ y $\|\cdot\|_2$ son normas equivalentes en $E$ entonces $(E,\|\cdot\|_1)$ y $(E,\|\cdot\|_2)$ tienen las mismas propiedades topol\'ogicas.
+
+\begin{definicion}Dados dos puntos $\vec{x},\vec{y}\in E$ definimos la distancia\index{Distancia!entre vectores} entre $\vec{x}$ e $\vec{y}$ por:
+$$d(\vec{x},\vec{y})=\|\vec{x}-\vec{y}\|$$
+\end{definicion}
+
+Observamos que la noci\'on de distancia entre dos puntos depende de la norma considerada.
+
+\begin{ejemplo}
+En $M_{n\times m}(\R)$ definimos dos normas
+$$\|A\|_\infty=\max_{i,j}{|a_{ij}|}$$
+$$\|A\|_1=\sum_i\sum_j|a_{ij}|$$ 
+Si $A=\begin{pmatrix}2&3\cr4&5\cr\end{pmatrix}$ y $B=\begin{pmatrix}6&7\cr 8&9\cr\end{pmatrix}$ 
+$$\|A-B\|_\infty = \left\|\begin{pmatrix}-4&-4\cr -4&-4\cr\end{pmatrix}\right\|_\infty = 4 \qquad , \qquad \|A-B\|_1 = \left\|\begin{pmatrix}-4&-4\cr -4&-4\cr\end{pmatrix}\right\|_1 = 16$$
+\end{ejemplo}
+
+\section{Sucesiones}
+
+En el estudio de la topolog\'ia de un espacio normado, un rol muy importante es jugado por las sucesiones. Como en el caso de $\R$ uno puede definir sucesiones de vectores en $\R^n$. %Se trata de una funciones de $\N \to \R^n$ tales que $n\mapsto \vec{x}_n$. Usualmente se considera la notaci\'on $\{\vec{x}_n\}_{n\in\N}$. 
+
+\begin{definicion}{\rm (Sucesi\'on)}
+\\Una sucesi\'on\index{Sucesi\'on} en el espacio vectorial $E$ es una funci\'on
+\[\begin{matrix}\N & \to &E \cr n &\mapsto &\vec{x}_n \cr\end{matrix}\] 
+y se anota usualmente como $\{\vec{x}_n\}_{n\in \N}$. Una sucesi\'on $\{\vec{x}_n\}_{n\in \N}$ converge\index{Sucesi\'on!convergente} a $\vec{x}$ si
+$$\forall \varepsilon >0,\: \exists n\in\N \text{ tal que } \|\vec{x}_n-\vec{x}\|<\varepsilon,\:\forall n\geq N$$
+
+Si una sucesi\'on converge a un vector $\vec{x}$ diremos que este es el l\'imite de la sucesi\'on y se denota
+$$\lim_{n} \vec{x}_n = \vec{x}$$
+\end{definicion}
+
+\begin{proposicion}
+El l\'imite de una sucesi\'on\index{L\'imite!de una sucesi\'on}, cuando existe, es \'unico.
+\end{proposicion}
+
+\begin{demostracion}
+Supongamos que $\lim \vec{x}_n = \vec{x}_1$ y  $\lim \vec{x}_n = \vec{x}_2$. Tendremos que para todo $\varepsilon > 0$ existen enteros $n_1$ y $n_2$ tales que $\|\vec{x}_n-\vec{x}\|\leq \varepsilon/2$ para todo $n\geq n_1$ y  $\|\vec{x}_n-\vec{x}\|\leq \varepsilon/2$ para todo $n\geq n_2$. Sea $m = \max\{n_1,n_2\}$ tenemos que
+$$\|\vec{x}_1 - \vec{x}_2 \| \leq \|\vec{x}_1 - \vec{x}_{m} \| + \|\vec{x}_{m} - \vec{x}_2 \| \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon$$
+y esta desigualdad es v\'alida para todo $\varepsilon > 0$, por lo tanto $\|\vec{x}_1 - \vec{x}_2 \| = 0$ y por las propiedades de la norma concluimos que $\vec{x}_1 = \vec{x}_2$.
+\end{demostracion}
+
+\begin{nota}
+En adelante escribiremos $\vec{x}_n \to \vec{x}$ en lugar de $ \lim_{n} \vec{x}_n = \vec{x}$ para referirnos al l\'imite de una sucesi\'on.
+\end{nota}
+
+\subsection{Sucesiones de Cauchy}
+
+\begin{definicion}{\rm (Sucesi\'on de Cauchy)}
+\\Una sucesi\'on $\{\vec{x}_n\}_{n\in \N}$ se dice de Cauchy\index{Sucesi\'on!de Cauchy} si $\forall \varepsilon >0$ existe $n\in \N$ tal que
+$$\|\vec{x}_n-\vec{x}_m\|<\varepsilon\: \forall n,m\geq N$$
+\end{definicion}
+
+\begin{nota}
+Las nociones de sucesiones convergentes y sucesiones de Cauchy no cambian seg\'un la norma por la equivalencia de estas.
+\end{nota}
+
+\begin{proposicion}
+Toda sucesi\'on convergente\index{Sucesi\'on!convergente} es sucesi\'on de Cauchy.
+\end{proposicion}
+
+\begin{demostracion}
+Supongamos que $\{\vec{x}_n\}_{n\in \N}$ converge a $\vec{x}$. Dado $\varepsilon > 0$ existir\'a $n_0 \in \N$ tal que $\|\vec{x}_n - \vec{x}\|\leq \varepsilon / 2$ para cualquier $n \geq n_0$. Entonces 
+$$\|\vec{x}_n - \vec{x}_m\| \leq \|\vec{x}_n - \vec{x}\| + \|\vec{x} - \vec{x}_m\| \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon \: \forall n,m \geq n_0$$ 
+lo cual concluye la demostraci\'on.
+\end{demostracion}
+
+\begin{nota}
+En general no toda sucesi\'on de Cauchy es convergente por lo que la rec\'iproca de la proposici\'on es falsa.
+\end{nota}
+
+\begin{ejemplo} 
+En $\Q^2$ usamos la norma euclideana. La sucesi\'on definida por 
+$$\vec{x}_k=\left(\left(1+\frac{1}{k}\right)^k,\frac{1}{k}\right)$$
+es de Cauchy pero no converge en $\Q^2$.
+\end{ejemplo}
+
+\begin{ejemplo}
+En $C[-1,1]$ dotado de la norma
+$$\|f\|_1=\int_{-1}^1|f(x)|dx$$ 
+consideramos la sucesi\'on
+$$f_n(x)=\begin{cases}
+1-(1-x)^n  & \text{ si } x>0 \cr 
+-1+(1+x)^n & \text{ si } x\leq 0
+\end{cases}$$
+Supongamos sin perdida de generalidad que $n\geq m$
+\begin{eqnarray*}
+\|f_n-f_m\|_1  &=& \int_0^1|(1-x)^n-(1-x)^m|dx+\int_{-1}^0|(1+x)^n-(1+x)^m|dx \\ 
+               &=& \int_0^1(1-x)^m|(1-x)^{n-m}-1|dx+\int_{-1}^0(1+x)^m|(1+x)^{n-m}-1| \\ 
+                 & \leq &\int_0^1(1+x)^mdx+\int_{-1}^0(1+x)^mdx\leq \frac{2}{m+1}  
+\end{eqnarray*} 
+es decir,
+$$\|f_n-f_m\|_1\leq \frac{2}{\min\{n,m\}+1}$$ 
+por lo tanto $\{f_n\}$ es de Cauchy. Pero $\{f_n\}$ no tiene limite en $C([-1,1])$ En efecto, supongamos que existe la funci\'on l\'imite que llamaremos $f$. Entonces
+$$\|f_n-f\|_1\stackrel{n\to\infty}{\to} 0$$ 
+Como
+$$\int_a^1|f_n-f|dx\leq\int_{-1}^1|f_n-f|dx$$ 
+entonces
+$$\int_a^1|f_n-f|dx\stackrel{n\to\infty}{\to}0\: \forall a\in[-1,1]$$ 
+tomemos $a\in (0,1]$. Como en $[a,1],\:f_n$ converge uniformemente a $1$, entonces
+$$\int_a^1|1-f|dx=0\Rightarrow f=1\text{ en }[a,1]\: \forall a\in (0,1]$$ 
+por lo tanto $f(x)=1\:\forall x\in (0,1]$. An\'alogamente $f(x)=-1 \:\forall a\in [-1,0)$. Concluimos as\'i que $f$ no puede ser continua. 
+\end{ejemplo}
+
+\section{Espacios de Banach}
+
+\begin{definicion}{\rm (Espacio de Banach)}
+\\Un espacio vectorial normado $E$ se dice espacio de Banach\index{Espacio!de Banach} si toda sucesi\'on de Cauchy en $E$ converge en $E$, es decir
+$$\{\vec{x}_n\}_{n\in\N}\subseteq E,\text{ es de Cauchy }\Rightarrow\exists\:\vec{x}\in E \text{ tal que } \vec{x}_n\stackrel{n\to\infty}{\to}\vec{x}$$
+en este caso $E$ tambi\'en recibe el nombre de espacio vectorial completo.
+\end{definicion}
+
+\begin{nota}
+La gran mayor\'ia de los modelos que se utilizan en modelos matem\'aticos de la ingenier\'ia se construyen sobre espacios de Banach.
+\end{nota}
+
+\begin{ejemplo}
+$(\R,|\cdot|)$. En $\R$ toda sucesi\'on de Cauchy es convergente. Esto es una consecuencia del axioma del supremo.
+\end{ejemplo}
+
+\begin{ejemplo}
+$(\R^n,\|\cdot\|_2)$ es un espacio de Banach. En efecto, si $\{\vec{x}_k\}_{k\in\N}\subseteq \R^n$ es una sucesi\'on de Cauchy, entonces
+$$\forall\:\varepsilon >0\: \exists N\in\N \text{ tal que } \|\vec{x}_k-\vec{x}_m\|_2<\varepsilon\: \forall k,l>N$$ 
+lo que implica que
+$$|x_k^i-x_m^i|<\varepsilon \:\forall k,m>N\: \forall i\in\{1,\dots,n\}$$ 
+donde $x_k^i$ es la i-\'esima componente de $\vec{x}_k$. Por lo tanto la sucesi\'on $\{x_k^i\}_{k\in\N}$ es de Cauchy en $\R$ y en consecuencia converge. Denotemos por $x^i$ su l\'imite. Tenemos asi que dado $\varepsilon>0$ existe $N_i$ que satisface 
+$$|x_k^i-x^i|<\frac{\varepsilon}{\sqrt{n}}\: \forall k>N_i$$
+escogiendo $N= \max\{N_i : i=1,\ldots,n\}$ y llamando $\vec{x}$ al vector $(x^1,\ldots,x^n)$ tenemos finalmente que
+$$\|\vec{x}_k-\vec{x}\|_2=\sqrt{\sum_{i=1}^n|x_k^i -x^i|^2}<\varepsilon\: \forall k>N$$ 
+es decir la sucesi\'on $\vec{x}_k$ converge a $\vec{x}$ en $\R^n$
+\end{ejemplo}
+
+\begin{nota}
+Es f\'acil ver que
+$$\vec{x}_k\rightarrow \vec{x} \text{ en } (\R^n,\|\cdot\|_2)\Leftrightarrow x_k^i\rightarrow x^i \:\forall i\in\{1,..,n\}$$
+\end{nota}
+
+\begin{ejemplo}
+$(M_{n\times m}(\R),\|\cdot\|_\infty)$ es completo. Sea $\{A_k\}_{k\in \N}$ una sucesi\'on de Cauchy. Entonces $\forall\varepsilon >0\:\exists N\in\N$ tal que
+$$\|A_k-A_m\|_\infty <\varepsilon\: \forall k,m>N$$ 
+es decir,
+$$\max_{\substack{1\leq i\leq n\\1\leq j\leq m}}{|a_{ij}^k-a_{ij}^m|}<\varepsilon$$ 
+en consecuencia cada una de las sucesiones $\{a_{ij}^k\}_{k\in \N}$ son de Cauchy en $\R$. Cada una de ellas converge entonces a un l\'imite que denotamos
+$a_{ij}$. De esta manera, dado $\varepsilon >0\:\exists N_{ij}>0$ tal que
+$$|a_{ij}^k-a_{ij}|<\varepsilon \:\forall k>N_{ij}$$ 
+escogiendo $N=\max\{N_{ij} \text{ tal que } i=1,\ldots,n,\:j=1,\ldots,m\}$, obtenemos
+$$\max_{\substack{1\leq i\leq n\\1\leq j\leq m}}{|a_{ij}^k-a_{ij}|}<\varepsilon\: \forall k>N$$ 
+o sea, si $A=(a_{ij})$ 
+$$\|A_k-A\|_\infty <\varepsilon\:\forall k>n$$ 
+por lo tanto $A_k\rightarrow A$. El espacio de matrices de dimensi\'on $n\times m$ con la norma $\|\cdot\|_\infty$ es un espacio de Banach.
+\end{ejemplo}
+
+\begin{ejemplo}
+$(C([a,b],\R),\|\cdot\|_\infty)$ es un espacio de Banach. Sea $\{f_n\}_{n\in\N}$ una sucesi\'on de Cauchy. Dado $\varepsilon >0,\:\exists N\in\N$ tal que
+$$\|f_k-f_m\|_\infty=\sup_{x\in[a,b]}{|f_k(x)-f_m(x)|} <\varepsilon\: \forall k,m>N$$ 
+en particular, para cualquier $x\in[a,b]$ se tendr\'a que $$|f_k(x)-f_m(x)|<\varepsilon\: \forall k,m>N$$ es decir, $\forall x\in [a,b]$ la sucesi\'on $\{f_n(x)\}_{n\in\N}$ es de Cauchy en $\R$, y por lo tanto converge a un l\'imite que llamaremos $f(x)$ $$\lim_{k\rightarrow\infty}{f_k(x)}=f(x)$$ De esta manera, hemos definido una funci\'on $f:[a,b]\to\R$. Probaremos que esta funci\'on es el l\'imite de la sucesi\'on $\{f_n\}$ en $C([a,b],\R)$.
+
+Ten\'iamos que dado $\varepsilon >0,\:\exists N>0$ tal que 
+$$|f_k(x)-f_m(x)|<\varepsilon\: \forall k,m>N\:\forall x\in [a,b]$$ 
+lo que implica que 
+$$|f_k(x)-f(x)|<\varepsilon\: \forall k>N\:\forall x\in [a,b]$$ 
+y entonces 
+$$\|f_k-f\|_\infty <\varepsilon \: \forall k>N.$$ 
+Con esto hemos probado que
+$$f_n\stackrel{\|\cdot\|_\infty}{\rightarrow}f$$ 
+es decir, $f$ es el l\'imite uniforme de las funciones continuas $f_n$. Para concluir la demostraci\'on de que $(C([a,b],\R),\|\cdot\|_\infty)$ es Banach debemos probar que $f$ es continua.
+\end{ejemplo}
+
+\begin{proposicion}
+El l\'imite uniforme\index{L\'imite!uniforme} de funciones continuas \index{L\'imite!uniforme!de funciones continuas} de la forma $f:[a,b]\to \R$ es una funci\'on continua.\index{Funci\'on!continua}
+\end{proposicion}
+
+\begin{demostracion}
+Sea $\{f_n\}_{n\in\N}$ una sucesi\'on de funciones continuas en $[a,b]$ que converge uniformemente a una funci\'on $f$. Sea $x_0\in [a,b]$ y $\varepsilon>0$, entonces existe $N$ tal que 
+$$\|f_k-f\|_\infty <\frac{\varepsilon}{3}\:\forall k\geq N$$ 
+en particular tendremos que
+$$|f_N(x)-f(x)|<\frac{\varepsilon}{3}\:\forall x\in [a,b]$$ 
+pero $f_N$ es una funci\'on continua y por lo tanto $\exists\delta >0$ tal que si $|x-x_0|<\delta$ entonces
+$$|f_N(x)-f_N(x_0)|<\frac{\varepsilon}{3}$$ 
+Con todo esto obtenemos que si $|x-x_0|<\delta$
+\begin{eqnarray*}
+ |f(x)-f(x_0)| &\leq & |f(x)-f_N(x)|+|f_N(x)-f_N(x_0)|+|f_N(x_0)-f(x_0)| \\
+               &\leq & \frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}=\varepsilon
+\end{eqnarray*}
+Es decir, $f$ es una funci\'on continua.
+\end{demostracion}
+
+Con esto concluimos que $(C([a,b],\R),\|\cdot\|_\infty)$ es un Espacio de Banach.
+
+\section{Subsucesiones}
+
+\begin{definicion}{\rm (Subsucesi\'on)}\index{Subsucesi\'on}
+\\Sea $\{\vec{x}_n\}_{n\in\N}$ una sucesi\'on en un espacio normado $(E,\|\cdot\|)$. Consideremos una funci\'on $f:\N\to\N$ estrictamente creciente, es decir, $n<m\Rightarrow f(n)<f(m)$. Entonces, la nueva sucesi\'on $\{\vec{x}_{f(k)}\}_{k\in\N}$ se llama subsucesi\'on de $\{\vec{x}_n\}$. A menudo se anota $n_k=f(k)$ y as\'i la subsucesi\'on se anota como $\{\vec{x}_{n_k}\}_{k\in\N}$.
+\end{definicion}
+
+\begin{ejemplo}
+Las sucesiones siguientes
+$$\left\{\left(-\frac{1}{2}\right)^{2n}\right\}_{n\in\N} \:,\:
+\left\{\left(-\frac{1}{2}\right)^{2n+1}\right\}_{n\in\N}\text{ y }
+\left\{\left(-\frac{1}{2}\right)^{8n+7}\right\}_{n\in\N},
+$$
+son subsucesiones de
+$\{{(-\frac{1}{2})}^{n}\}_{n\in\N}$
+\end{ejemplo}
+
+\begin{ejemplo}
+La sucesi\'on $\{\vec{x}_n\}\subseteq \R^2$ definida por
+$$\vec{x}_n=\left((-1)^n,\left(1+\frac{1}{n}\right)^n\right)$$ 
+no converge. Sin embargo la subsucesi\'on $\{\vec{x}_{2n}\}_{n\in\N}$ si converge y lo hace a $(1,e)\in \R^2$. La subsucesi\'on $\{\vec{x}_{2n+1}\}_{n\in\N}$
+tambi\'en converge, pero a $(-1,e)\in \R^2$. Por otra parte la subsucesi\'on $\{\vec{x}_{3n}\}_{n\in\N}$ no converge (n\'otese como cambia el signo de $(-1)^{kn}$) para los valores $k=1,2,3$).
+\end{ejemplo}
+
+\begin{ejemplo}
+La sucesi\'on $\vec{x}_n=(2^n,\frac{1}{n},\frac{n}{n+1})\in \R^3$ no converge. En este caso $\{\vec{x}_n\}_{n\in\N}$ no tiene subsucesiones convergentes.
+\end{ejemplo}
+
+\begin{ejemplo}
+En el espacio de Banach $(C([0,1],\R),\norm{\cdot}_\infty)$ consideremos la siguiente sucesi\'on:
+$$ f_n(x)= \left\{ \begin{array}{llllll}
+0             & ,0             & \leq & x & \leq & \sfrac{1}{(n+1)} \\
+1+(n+1)(nx-1) & ,\sfrac{1}{(n+1)} & \leq & x & \leq & \sfrac{1}{n} \\
+1-(n-1)(nx-1) & ,\sfrac{1}{n}   & \leq & x & \leq & \sfrac{1}{(n-1)} \\
+0             & ,\sfrac{1}{(n-1)} & \leq & x & \leq & 1 \end{array} \right.$$
+Para esta sucesi\'on se cumple que:
+\begin{itemize}
+\item $\norm{f_n}_\infty =1\:\forall n\in\N$
+\item $\norm{f_n-f_{n+1}}_\infty =1\:\forall n\in\N$
+\item $\norm{f_n-f_k}_\infty =1\:\forall n\not= k$
+\end{itemize}
+Entonces $\{f_n\}$ no converge y ninguna subsucesi\'on puede hacerlo, pues no son de Cauchy.
+\\Esto muestra que en $(C([0,1],\R),\norm{\cdot}_\infty)$ hay sucesiones acotadas que no tienen subsucesiones convergentes. En particular mostramos que $B=\overline{B}(0,1)$, la bola unitaria cerrada, no es compacta.
+\end{ejemplo}
+
+\begin{teorema}
+Sea $\{\vec{x}_n\}_{n\in\N}$ una sucesi\'on en un espacio normado. Entonces $\{\vec{x}_n\}_{n\in\N}$ converge\index{Sucesi\'on!convergente} a $\vec{x}$ si y s\'olo si toda subsucesi\'on $\{\vec{x}_{n_k}\}_{n\in\N}$ de $\{\vec{x}_n\}_{n\in\N}$ converge\index{Subsucesi\'on!convergente} a $\vec{x}$
+\end{teorema}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\$(\Leftarrow)$: Directo pues $\{\vec{x}_n\}_{n\in\N}$ es una subsucesi\'on $\{\vec{x}_n\}_{n\in\N}$.
+
+\smallskip
+
+$(\Rightarrow)$: $\{\vec{x}_n\}_{n\in\N}$ converge a $\vec{x}$, entonces $\forall \varepsilon > 0 \:\exists N \in \N$ tal que $$\norm{\vec{x}_n-\vec{x}}<\varepsilon \: \forall n\geq N$$
+Sea $\{\vec{x}_{n_k}\}_{n\in\N}$ una subsucesi\'on de $\{\vec{x}_n\}_{n\in\N}$ entonces $\exists k\in \N$ tal que $n_1<n_2<\dots <n_k<n_{k+1}<n_{k+2}<\dots$. Entonces 
+$$\norm{\vec{x}_{n_k}-\vec{x}}<\varepsilon\: \forall k\geq K$$ 
+Por lo tanto $\{\vec{x}_{n_k}\}_{n\in\N}$ converge a $\vec{x}$.
+\end{demostracion}
+
+El siguiente es un teorema fundamental en la topolog\'ia de $\R^n$, de hecho es una extensi\'on del teorema \ref{bolzanoenr}.
+
+\begin{teorema}{\rm (Teorema de Bolzano-Weierstrass en $\R^{n}$)\index{Teorema!de Bolzano Weierstrass en $\R^{n}$}}
+\\Toda sucesi\'on acotada en $\R^{n}$ tiene a lo menos una subsucesi\'on convergente.
+\end{teorema}
+
+\begin{demostracion} Sea $\{\vec{x}_n\}$ una sucesi\'on acotada en $\R^n$. Para cada componente de la sucesi\'on se tiene $\{x_n^i\}_{i\in \N}$ que corresponde a una sucesi\'on acotada de n\'umeros reales. De acuerdo al teorema \ref{bolzanoenr}, $\{x_n^i\}_{i\in \N}$ tiene a lo menos una subsucesi\'on convergente $\{x_{\gamma (n)}^i\}_{i\in \N}$. Esto es, si $\{x_n^i\} \to a^i \in \R$ entonces $\{x_{\gamma (n)}^i\} \to b^i \in \R$.
+\\Sea $A_1 \subset \N$ y $a_1^i \in A$, entonces $\lim_{n \in A_1} \{x_n^1\} = a_1^i$. Sea $A_2 \subset A_1$, entonces $\lim_{n\in A_2} \{x_n^2\} = a_2^i$. Podemos construir la inclusi\'on $A_n \subset A_{n-1}$ tal que $A_n \subset \N$ y $\lim_{n \in A_j} \{x_n^i\} = a_j^i$ para $j\in\{1,\ldots , n\}$. Definiendo $\vec{a}=(a_1 , \ldots , a_n)$ se tiene que $\lim_{n \in A_n} \{\vec{x}_n\} = \vec{a}$, lo que concluye la demostraci\'on. 
+\end{demostracion}
+
+\section{Conjuntos abiertos y cerrados}
+
+El conjunto b\'asico con el cual definimos la topolog\'ia de un espacio normado\index{Espacio!normado} es 
+$$B(\vec{x}_0,\varepsilon)=\{\vec{x}\in E : \|\vec{x}-\vec{x}_0\|<\varepsilon\}$$ 
+que recibe el nombre de bola abierta de radio\index{Bola!abierta} $\varepsilon$ y centro $\vec{x}_0$.
+
+\begin{definicion} Un punto $\vec{x}\in E$ es interior\index{Punto!interior} a $C$ si existe $\varepsilon > 0$ tal que $B(\vec{x},\varepsilon)\subseteq C.$ y un conjunto $A\subseteq E$ se dice abierto\index{Conjunto!abierto} si:
+$$\forall \vec{x}\in A,\exists\varepsilon > 0 \text{ tal que } B(\vec{x},\varepsilon)\subseteq A$$
+\end{definicion}
+
+\begin{proposicion}
+Un conjunto es abierto\index{Conjunto!abierto} $\Leftrightarrow$ todos sus puntos son interiores.
+\end{proposicion}
+
+\begin{proposicion}{\rm (Propiedades de los abiertos)\index{Propiedades!de los abiertos}}
+\begin{enumerate}
+\item Si $A_1,A_2,\ldots,A_n$ son abiertos entonces $\bigcap_{i=1}^n{A_i}$ es abierto.
+\item Si $\{A_i\}_{i\in I}$ es una familia de abiertos entonces $\bigcup_{i\in I}{A_i}$ es abierto.
+\item $E$ es abierto, $\varnothing$ es abierto.
+\end{enumerate}
+
+Sea $\tau =\{A\subseteq E : A \text{ es abierto}\}$, $\tau$ se conoce como topolog\'ia en $E$\index{Topolog\'ia!en $E$} gracias a que satisface las propiedades 1,2 y 3 de los abiertos.
+\end{proposicion}
+
+\begin{definicion}
+Sea $A\subseteq E$. Un punto $\vec{x}\in E$ se dice punto de acumulaci\'on\index{Punto!de acumulaci\'on} de $A$ si
+$$\forall \varepsilon > 0 \: A\cap(B(\vec{x},\varepsilon)\backslash \{\vec{x}\})\neq \varnothing$$
+\end{definicion}
+
+\begin{nota}
+Para ser punto de acumulaci\'on de $A$ no es necesario pertenecer a $A$. Por otra parte, no es suficiente estar en $A$ para ser de acumulaci\'on.
+\end{nota}
+
+\begin{ejemplo}\textcolor{white}{linea en blanco}
+\begin{enumerate}
+\item Sea $A=(0,1)$. Entonces $x=0$ es punto de acumulaci\'on de $A$.
+\item Sea $A=(0,1)\cup\{3\}$. Luego $x=3\in A$, pero $x$ no es punto de acumulaci\'on.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{definicion} 
+$A\subseteq E$ es cerrado\index{Conjunto!cerrado} si $A$ contiene a todos sus puntos de acumulaci\'on.
+\end{definicion}
+
+\begin{proposicion} $A\subseteq \R^n$ es cerrado si y s\'olo si:
+$$
+\text{Para toda sucesi\'on } \{\vec{x}_k\}_{k\in\N}\subseteq A : 
+(\thinspace (\vec{x}_k\to \vec{x}) \Rightarrow \vec{x}\in A)
+$$
+\end{proposicion}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\($\Rightarrow$): Supongamos que $A$ es cerrado. Sea  
+$\{\vec{x}_k\}_{k\in\N}\subseteq A$ una sucesi\'on cualquiera tal que
+$ \lim_{\vec{x}_k\to \vec{x}}\vec{x}_k=\vec{x}$. Queremos demostrar que $\vec{x}\in A$.
+Supongamos que no, es decir, que $\vec{x}\in A^C$. Como $A$ es cerrado, existe
+$\varepsilon>0$ tal que  $B(\vec{x},\varepsilon)\subset A^C$. 
+Por otra parte, de la definici\'on de l\'imite, 
+existe $k_0\in\N$ tal que $\vec{x}_k\in B(\vec{x},\varepsilon)$ para todo $k\ge k_0$, lo que
+es imposible pues $\vec{x}_k\in A$.
+
+\smallskip
+
+($\Leftarrow$): Para demostrar la rec\'iproca probemos la contrarrec\'iproca.
+Es decir, si $A$ no es cerrado entonces existe una sucesi\'on $\{\vec{x}_k\}_{k\in\N}
+\subset A$
+que converge a $\vec{x}$ y $\vec{x}\not \in A$.
+
+Como $A$ no es cerrado, $A^C$ no es abierto, entonces existe un punto 
+$\vec{x}\in A^C$ tal que
+$$
+\text{Para todo }\varepsilon>0 \text{ se tiene } B(\vec{x},\varepsilon)\cap A\not =\varnothing
+$$
+Esta proposici\'on nos permite construir una sucesi\'on $\{\vec{x}_k\}\subset A$
+de la siguiente manera: para cada $k\in \N$  
+tomamos $\varepsilon=\frac{1}{k}$ entonces, como $ B(\vec{x},1/k )\cap A\not 
+=\varnothing$, podemos elegir $\vec{x}_k\in B(\vec{x},\frac{1}{k})$ y $\vec{x}_k\in A$. Por 
+definici\'on esta sucesi\'on converge a $\vec{x}$, concluyendo la demostraci\'on pues 
+$\vec{x}\not \in A$.
+\end{demostracion}
+
+\begin{teorema} 
+$A\subseteq E$ es cerrado $\Leftrightarrow A^C$ es abierto.
+\end{teorema}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\$({\Rightarrow})$: Supongamos que $A$ es
+cerrado. Sea $\vec{x}\in A^C$, entonces $\vec{x}$ no es punto de acumulaci\'on
+de $A$, por lo tanto existe $\varepsilon >0$ tal que
+$$A\cap(B(\vec{x},\varepsilon)\backslash \{\vec{x}\})=\varnothing$$ pero esto es equivalente
+a $B(\vec{x},\varepsilon)\backslash \{\vec{x}\}\subseteq A^C$ y como adem\'as $\vec{x}\in
+A^C$, tenemos que $B(\vec{x},\varepsilon)\subseteq A^C$, y por lo tanto $A^C$
+es abierto.
+
+\smallskip
+
+$(\Leftarrow)$: Supongamos ahora que $A^C$ es
+abierto. Sea $\vec{x}\in E$ punto de acumulaci\'on de $A$. Debemos
+demostrar que $\vec{x}\in A$. Por contradicci\'on, si $\vec{x}\in A^C$, como
+es abierto,$\exists\varepsilon >0$ talque 
+$$B(\vec{x},\varepsilon)\subseteq A
+\Rightarrow B(\vec{x},\varepsilon)\cap A=\varnothing \Rightarrow B(\vec{x},\varepsilon)\backslash
+\{\vec{x}\}\cap A=\varnothing \quad \Rightarrow\Leftarrow$$ tenemos una
+contradicci\'on, pues $\vec{x}$ es punto de acumulaci\'on de $A$. Por lo
+tanto $\vec{x}\in A$.
+\end{demostracion}
+
+
+\begin{teorema}Sean $\|\cdot \|_1$ y $\|\cdot \|_2$ dos normas equivalentes\index{Normas!equivalentes} en el espacio $E$. $A\subseteq E$ es abierto\index{Conjunto!abierto} en $(E,\|\cdot\|_1) \Leftrightarrow A$ es abierto en $(E,\|\cdot\|_2)$.
+\end{teorema}
+
+\begin{demostracion}\textcolor{white}{linea en blanco}
+\\$(\Rightarrow)$: Recordemos que existen constantes $c_1>0,\:
+c_2>0$ tales que
+$$ c_1 \|\vec{x}\|_1 \leq \|\vec{x}\|_2 \leq c_2 \|\vec{x}\|_1 \: \forall \vec{x}\in E$$ 
+Supongamos que $A\subseteq E$ es abierto
+en $(E,\|\cdot\|_1)$.Sea $\vec{x}\in A$, entonces existe $\varepsilon >0$ tal
+que 
+$$\{\vec{y} \in E : \|\vec{x}-\vec{y}\|_1<\varepsilon\}\subseteq A$$ 
+pero entonces
+$$\{\vec{y} \in E : \|\vec{x}-\vec{y}\|_2<c_1\varepsilon\}\subseteq \{\vec{y} \in E
+: \|\vec{x}-\vec{y}\|_1<\varepsilon\}\subseteq A$$ 
+o sea, encontramos $\varepsilon c_1>0$
+tal que 
+$$B_{\|\cdot\|_2}(\vec{x},\varepsilon c_1)\subseteq A$$ 
+As\'i que todos los puntos de $A$ son interiores con la norma
+$\|\cdot\|_2$ lo que implica que $A$ es abierto en $(E,\|\cdot\|_2)$.
+
+\smallskip
+
+$(\Leftarrow)$: \emph{Tarea}.
+\end{demostracion}
+
+\begin{nota} 
+Todas las nociones que se definan a partir de los conjuntos abiertos de $(E,\|\cdot\|)$ quedan inalteradas cuando se cambia $\|\cdot\|$ por una norma equivalente.
+\end{nota}
+
+%\begin{ejercicio}{\rm  Demuestre las siguientes identidades de conjuntos
+%\begin{enumerate}
+%\item $int(A\cap B)=\int{A}\cap int(B)$
+%\item $int(A^C)=\adh{A}^c$
+%\item $adh(A\cap B)\subseteq \adh{A}\cap adh(B)$
+%\end{enumerate}
+%}\end{ejercicio}
+
+\section{Conjuntos compactos}
+
+\textbf{Motivaci\'on:} Podemos pensar en los conjuntos compactos como aquellos que tienen un radio finito o mejor dicho cuyas dimensiones son acotadas. En diversos problemas de ingenier\'ia es com\'un encontrarse con problemas de maximizaci\'on o minimizaci\'on. Si  maximizamos o minimizamos determinada funci\'on sobre un compacto gracias a algunos teoremas, que veremos en el cap\'itulo siguiente, nos aseguramos de que la soluci\'on existe.
+
+\begin{definicion}{\rm (Conjunto compacto)}\index{Conjunto!compacto}\label{def-compacto}
+\\En el caso de conjuntos de $\R^n$, como ya veremos a continuaci\'on, podemos decir que $C\subset \R^n$ es compacto si es cerrado y acotado a la vez. 
+
+De forma general un conjunto $C\subset \R^n$ es compacto si para toda familia de conjuntos abiertos $\{A_i\}_{i \in \Lambda}$ tal que $C\subset \bigcup_{i \in \Lambda} A_i$, existe un subconjunto finito $\Lambda^* \subset \Lambda$ tal que  $C\subset \bigcup_{i \in \Lambda^*} A_i$. Esto es, un conjunto $C$ es compacto cuando toda cobertura por abiertos de $C$ tiene una subcobertura finita. 
+\end{definicion}
+
+%Si suponemos que un conjunto $C^*$ es compacto se demuestra por contradicci\'on que no lo es si encontramos una cobertura por abiertos de $C^*$ que no tenga una subcobertura finita.
+
+\begin{ejemplo}Para fijar ideas, consideremos los siguientes conjuntos:
+\begin{enumerate}
+\item $(0,1)$ en los reales no es compacto, ya que la cobertura por abiertos $\{(\frac{1}{n},1),n\in \N\}$  no tiene una subcobertura finita. Notemos que $(0,1)$ tiene una cobertura por abiertos definida por $\bigcup_{i\in \Lambda} A_i = (\frac{1}{2},1)\cup (\frac{1}{3},1)\cup \ldots \cup (\frac{1}{n},1)$. Sin embargo, no existe una subcobertura finita por abiertos que cubra completamente a $(0,1)$. Esto \'ultimo es porque el \'infimo de cualquier subcobertura finita puede acercarse a cero pero, en la medida que la cantidad de elementos de la subcobertura sea finita, el valor del \'infimo queda ``lejos'' de cero y entonces es posible converger y acercarse lo suficiente a cero en la medida que la cantidad de elementos de la subcobertura tienda a infinito.
+\item $[0, 1)$ en los reales no es compacto, ya que la cobertura por abiertos $\{(-1,1-\frac{1}{n}),n\in \N\}$ no tiene una subcobertura finita. En este caso el extremo derecho no es cerrado por lo que se puede construir una sucesi\'on que converge a uno y este hecho impide que el conjunto tenga una cobertura finita.
+\item $[0,+\infty)$ en los reales no es compacto, ya que $\{(-1,n),n\in \N\}$ no tiene una subcobertura finita. En este caso se puede construir una sucesi\'on que no converge y tiende a infinito lo cual impide que el conjunto tenga una cobertura finita.
+\item $[0,1]$ en los racionales no es compacto pero si lo es en los reales. En el caso de los racionales $\{[\frac{1}{n},1],n\in \Q\}$ no tiene una subcobertura finita.
+\\ Este caso debe ser analizado aparte, pues la cobertura abarca completamente el conjunto $[0,1]$ en los racionales pero no tiene subcobertura finito alguno. Para el caso en que $[0,1]$ se define en los reales se puede razonar por contradicci\'on: Supongamos que $[0,1]$ tiene una cobertura por abiertos $\bigcup_{i\in \Lambda} A_i$ pero no existe un subcobertura finita por abiertos $\bigcup_{i\in \Lambda^*} A_i$ de $\bigcup_{i\in \Lambda} A_i$. Entonces $[0,\frac{1}{2}]$ y $[\frac{1}{2},0]$ no pueden ser cubiertos por $\bigcup_{i\in \Lambda^*} A_i$. Digamos, de manera arbitraria, que $[a_1,b_1]$ es cualquiera de estos dos intervalos y entonces $[a_1,\frac{1}{2}(b_1-a_1)]$ y $[\frac{1}{2}(b_1-a_1),b_1]$ tampoco pueden ser cubiertos por $\bigcup_{i\in \Lambda^*} A_i$. Digamos que $[a_2,b_2]$ es cualquiera de estos dos intervalos y as\'i mediante un razonamiento inductivo se pueden definir dos sucesiones $\{a_i\}_{i=1}^n$ y $\{b_i\}_{i=1}^n$ en $[0,1]$ tales que
+$$a_n \leq a_{n+1} < b_{n+1} \leq b_n$$
+$$b_n - a_n = \frac{1}{2^n}$$
+$$\bigcup_{i\in \Lambda^*} A_i \subset [a_n,b_n]$$
+Las primeras dos ecuaciones nos dicen que, intuitivamente, es posible encontrar un valor $c\in [0,1]$ tal que $c=\bigcap_{i=1}^{\infty} [a_i,b_i]$ y la tercera ecuaci\'on nos dice que $[a_n,b_n]$ no puede ser cubierto por $\bigcup_{i\in \Lambda^*} A_i$. Supongamos que $c \in \bigcup_{i\in \Lambda^*} A_i$, entonces $c$ est\'a contenido en un abierto y adem\'as se tiene que $\lim_{n\to \infty} a_n = \lim_{n\to \infty} b_n = c$, entonces $[a_n,b_n] \in \bigcup_{i\in \Lambda^*} A_i$ en la medida que $n\to \infty$ y esto nos dice que efectivamente $[a_n,b_n]$ es cubierto por $\bigcup_{i\in \Lambda^*} A_i$. Llegamos a una contradicci\'on y por definici\'on $[0,1]$ es compacto, luego es posible concluir que toda cobertura por abiertos del conjunto tiene una subcobertura finita.
+\end{enumerate} 
+\end{ejemplo}
+
+%\begin{definicion}{\rm (Intersecci\'on finita)}\index{Intersecci\'on!finita)}
+%\\Sea $\{C_i\}_{i \in \Lambda}$ una familia arbitraria de conjuntos. Diremos que esta familia de conjuntos cumple la propiedad de intersecci\'on finita si toda subfamilia finita $\{C_i\}_{\lambda \in \Lambda^*}$ de $\{C_i\}_{i \in \Lambda}$, con $\Lambda^* \subset \Lambda$, tiene una intersecci\'on $\bigcap_{i\in \Lambda^*} C_i$ no vac\'ia. 
+%\end{definicion}
+
+%\begin{teorema}
+%$C\subset \R^n$ es compacto si y s\'olo si cada familia arbitraria de subconjuntos cerrados de $C$, que cumplen la propiedad de intersecci\'on finita, tiene una intersecci\'on no vac\'ia. 
+%\end{teorema}
+
+%\begin{demostracion}\textcolor{white}{linea en blanco}\\
+%($\Rightarrow$): Supongamos que $C$ es compacto y sea $\{C_i:i=1,\ldots ,n\}$ una familia de conjuntos cerrados de $C$. Entonces si $\bigcap_{i=1}^n C_i = \varnothing$, se tiene que $C=\bigcup_{i=1}^n C_i^C$ y por lo tanto $\{C_i^C:i=1,\ldots , n\}$ es un cobertura por abiertos de $C$. Entonces, se tiene que $\{C_i:i=1,\ldots , n\}$ es tal que $C = \bigcup_{i=1}^n C_i^C$. Esto implica que $\bigcap_{i=1}^n C_i = \varnothing$, por lo que $\{C_i:i=1,\ldots , n\}$ no cumple la propiedad de intersecci\'on finita. Contrariamente, como $C$ es compacto, $\{C_i:i=1,\ldots , n\}$ cumple la propiedad de intersecci\'on finita y se cumple que $\bigcap_{i=1}^n C_i \neq \varnothing$.
+
+%($\Leftarrow$): Supongamos que $\{C_i:i=1,\ldots , n\}$ cumple la propiedad de intersecci\'on finita y sea $\{A_i\}_{i \in \Lambda}$ un cobertura por abiertos de $C$. Entonces si $\bigcap_{i \in \Lambda} A_i^C = \varnothing$, la propiedad de intersecci\'on finita no se cumple. Contrariamente, si existe $\{A_i:i=1,\ldots ,n\} \subset \{A_i\}_{i \in \Lambda}$ tales que $\bigcap_{i=1}^n A_i^C = \varnothing$, o alternativamente $C = \bigcup_{i \in \Lambda^*} A_i$. Para que se cumpla esto \'ultimo $C$ necesariamente es compacto.
+%\end{demostracion}
+
+\begin{definicion}{\rm (Conjunto secuencialmente compacto)}\index{Conjunto!secuencialmente compacto}
+\\Sea $C\subset \R^n$, diremos que este conjunto es secuencialmente compacto si toda sucesi\'on convergente en $C$ tiene una subsucesi\'on convergente en $C$. La misma definici\'on aplica si reemplazamos $\R^n$ por un e.v.n. $E$.
+\end{definicion}
+
+\begin{teorema}\label{cerrado-en-compacto-es-compacto}
+Todo conjunto $S\subset C$ cerrado es compacto si $C\subset \R^n$ es compacto.
+\end{teorema}
+
+\begin{demostracion} Sea $S$ cerrado y $\{A_i\}_{i\in \Lambda}$ una cobertura por abiertos de $S$, entonces $\{A_i\}_{i\in \Lambda}  \cup S^C$ es una cobertura por abiertos de $C$. Como $C$ es compacto, tiene una subcobertura finita por abiertos $\{A_i\}_{i\in \Lambda^*}  \cup S^C$ que adem\'as es una subcobertura finita por abiertos de $\{A_i\}_{i\in \Lambda}  \cup S^C$. Entonces, $\{A_i\}_{i\in \Lambda^*}$ es una subcobertura finita por abiertos de $\{A_i\}_{i\in \Lambda}$ lo que concluye la demostraci\'on.
+\end{demostracion}
+
+\begin{teorema}\label{compacto-es-cerrado-y-acotado}
+Si $C\subset \R^n$ es compacto, entonces $C$ es cerrado y acotado.
+\end{teorema}
+
+\begin{demostracion} Para demostrar que es acotado, partamos de la base que $C$ es compacto y diferente de vac\'io. Por definici\'on, sea $\{A_i\}_{i\in \Lambda}$ una cobertura por abiertos de $C$, entonces necesariamente esta cobertura tiene un subcobertura finita $\{A_i\}_{i\in \Lambda^*}$ tal que $C \subset \bigcup_{i \in \Lambda^*} A_i$. Sea $n = \max_{i \in \Lambda^*} i$, entonces $C \subset \bigcup_{i=1}^n A_i$, como $\Lambda^*$ tiene m\'aximo, $C$ est\'a contenido completamente en una uni\'on finita lo que demuestra que es acotado. El razonamiento no es v\'alido si $C$ no es una parte finita de $\R^n$ pero ese no es el caso que debemos demostrar.
+
+Ahora debemos demostrar que $C$ es cerrado. Los casos $C = \R^n$ y $C = \varnothing$ significan que no hay nada que demostrar. Supongamos que $C \cap \R^n = C$, entonces escojamos $\vec{x} \in C$ e $\vec{y} \in C^C$. Se tendr\'a que dado $\varepsilon > 0$ existe $B(\vec{x},\varepsilon)$ tal que $B(\vec{x},\varepsilon) \cap B(\vec{y},\varepsilon) = \varnothing$, por ejemplo, si escogemos $\varepsilon = \frac{1}{2} d(\vec{x},\vec{y})$. Sea $\{A_i\}_{i\in \Lambda}$ una cobertura por abiertos de $C$, debe existir $\{A_i\}_{i\in \Lambda^*} \subset \{A_i\}_{i\in \Lambda}$ que corresponde a una subcobertura finita por abiertos de $C$. Definamos $\varepsilon^* = \min_{\vec{x}\in \{A_i\}} d(\vec{x},\vec{y}): i\in \Lambda^*$ y entonces $B(\vec{y},\varepsilon^*) \cap C^C \neq \varnothing$ y $B(\vec{y},\varepsilon^*) \subset C^C$ por lo que $C^C$ es abierto, lo que  concluye la demostraci\'on.
+\end{demostracion}
+
+\begin{teorema}{\rm (Heine-Borel)}\index{Teorema!de Heine-Borel}
+\\Sea $C\subset \R^n$. $C$ es compacto si y s\'olo si es un conjunto cerrado y acotado.
+\end{teorema}
+
+\begin{demostracion}\textcolor{white}{linea en blanco}\\
+($\Rightarrow$): Esta implicancia ya fue demostrada en el teorema \ref{compacto-es-cerrado-y-acotado}.
+
+($\Leftarrow$): Si $C$ es acotado, existe $\varepsilon > 0$ tal que $C \subset B(\vec{x},\varepsilon)$ para $\vec{x}\in C$. Entonces, $C$ corresponde a un subconjunto cerrado del rect\'angulo $[a,b]\times \ldots \times [a,b]$. Escojamos $a=\min\{x_i - \varepsilon , i ={1,\ldots , n}\}$ y $b=\max\{x_i + \varepsilon , i =1,\ldots , n\}$, con lo cual $[a,b]^n$ es compacto y el teorema \ref{cerrado-en-compacto-es-compacto} permite concluir que $C$ es compacto lo cual finaliza la demostraci\'on.
+\end{demostracion}
+
+\begin{proposicion}
+En $\R^n$ las siguientes propiedades son equivalentes:
+\begin{enumerate}
+\item $C\subset \R^n$ es compacto.
+\item $C\subset \R^n$ es cerrado y acotado.
+\item Toda sucesi\'on en $C\subset \R^n$ tiene una subsucesi\'on convergente.
+\end{enumerate}
+\end{proposicion}
+
+\section{Consecuencias de la compacidad}
+
+Daremos algunas consecuencias no menores que resultan de los conjuntos compactos. Su importancia radica en la existencia de elementos que maximizan o minimizan funciones cuyo dominio es compacto.
+
+\begin{teorema}
+Sea $f:U\subset \R^n \to \R$ una funci\'on continua. Si $C\subset U$ es compacto, entonces $f(C)$ es compacto. 
+\end{teorema}
+
+\begin{demostracion} Podemos escoger arbitrariamente cualquier familia de conjuntos abiertos tales que $f(C)\subset \bigcup_{i \in \Lambda} A_i$. Es decir, estamos fijando una cobertura por abiertos $\{A_i\}_{i \in \Lambda}$ de $f(C)$. Se tendr\'a que $C\subset f^{-1} \left(\bigcup_{i \in \Lambda} A_i\right)=\bigcup_{i \in \Lambda} f^{-1}(A_i)$, lo cual significa que existe una subcobertura finita $\bigcup_{i\in \Lambda^*} f^{-1}(A_i)$ de $C$, con $\Lambda^* \subset \Lambda$. Entonces, $f(C)$ es compacto ya que $f(C)$ puede ser cubierto por una cantidad finita de elementos de $\{A_i\}_{i \in \Lambda}$. 
+\end{demostracion}
+
+\begin{definicion}
+Sea $f: U\subset \R^n \to \R^m$ una funci\'on no necesariamente continua. Diremos que $f$ alcanza su m\'aximo (respectivamente m\'inimo) en $U$, si existe $\vec{x}_M \in U$ (respectivamente $\vec{x}_m \in U$) tal que $f(\vec{x})\leq f(\vec{x}_M)$ (respectivamente $f(\vec{x}_m)\leq f(\vec{x})$), para todo $\vec{x} \in U$. 
+\end{definicion}
+
+De esto se obtiene un corolario importante:
+
+\begin{corolario}\label{f-en-compacto}
+Toda funci\'on continua $f:C\subset \R^n \to \R$ definida en un conjunto compacto $C$ alcanza su m\'aximo y su m\'inimo en $C$.
+\end{corolario}
+
+\begin{demostracion} Como $f$ es continua, $f(C)$ es compacto. De esta forma, $f(C)$ es cerrado y acotado. Por ser $f(C)$ acotado, existe $\vec{x}^i=\inf \{\vec{x}:\vec{x}\in f(C)\}$ y $\vec{x}^s=\sup \{\vec{x}:\vec{x}\in f(C)\}$. Por definici\'on de \'infimo y supremo, podemos construir las sucesiones $\{\vec{x}_n^i\}_{n\in \N} \subset f(C)$ y $\{\vec{x}_n^s\}_{n\in \N} \subset f(C)$ que convergen, respectivamente, a $\vec{x}^i$ y $\vec{x}^s$. Por ser $f(C)$ cerrado, $\vec{x}^i$ y $\vec{x}^s$ est\'an en $f(C)$, lo cual concluye la demostraci\'on. 
+\end{demostracion}
+
+A partir del corolario \ref{f-en-compacto} se tiene la siguiente consecuencia:
+
+%Esta forma elimina la salvedad que habia con el caso de solo norma 2
+\begin{corolario} 
+En $\R^n$ todas las normas\index{Normas!equivalentes} son equivalentes.
+\end{corolario}
+
+\begin{demostracion}
+La demostraci\'on ya fue hecha para el teorema \ref{equivalencia-de-normas}. El corolario proviene de que las normas definen funciones continuas (la demostraci\'on de esto queda de \emph{tarea}). Definiendo $S=\{\vec{x}\in \R^n : \|\vec{x}\|=1\}$ se define un conjunto cerrado y acotado en $(\R^n,\|\cdot\|)$ para cualquier norma. Sobre este hecho, el teorema \ref{compacto-es-cerrado-y-acotado} y el corolario \ref{f-en-compacto} permiten concluir la equivalencia. 
+\end{demostracion}
+
+\begin{definicion}
+Sean $(E,\norm{\cdot}_E)$, $(F,\norm{\cdot}_F)$ espacios vectoriales normados y $f:A\subseteq E\to F$. $f$ es uniformemente continua\index{Continuidad!uniforme} en $A$ si
+$$(\forall \varepsilon >0)(\exists \delta >0)(\forall \vec{x},\vec{y}\in A) \text{ tal que } \norm{\vec{x}-\vec{y}}_E \leq \delta \Rightarrow \norm{f(\vec{x})-f(\vec{y})}_F \leq \varepsilon$$
+\end{definicion}
+
+\begin{nota}
+En el caso de la continuidad uniforme cambia el orden de los cuantificadores. La raz\'on de esto es que en la continuidad uniforme el valor de $\delta$ no depende del $\vec{x}$ que se escoja. 
+\end{nota}
+
+\begin{proposicion}
+Si $f$ es uniformemente continua en $A$, entonces $f$ es continua en $A$. La rec\'iproca es, en general, falsa. Un claro ejemplo de esto \'ultimo es que la funci\'on $f(x)=x^2$ es continua pero no es uniformemente continua en $\R$.
+\end{proposicion}
+
+Finalizamos esta secci\'on con el siguiente teorema:
+
+\begin{teorema}\label{teo:continuaEnCompactoEsuniformementeContinua}
+Sean $(E,\norm{\cdot}_E)$ y $(F,\norm{\cdot}_F)$ espacios vectoriales normados.
+\\Sea $f:A\subseteq E\to F$ continua y $A$ compacto. Entonces $f$ es uniformemente continua en $A$.\index{Continuidad!uniforme}
+\end{teorema}
+
+\begin{demostracion}
+Supongamos que $f$ no es uniformemente continua en $A$. Entonces 
+$$\exists \varepsilon >0\:\forall \delta >0\: \exists \vec{x},\vec{y}\in A \text{ tal que } \norm{\vec{x}-\vec{y}}_E<\delta\: \wedge\: \norm{f(\vec{x})-f(\vec{y})}_F>\varepsilon$$ 
+Sea $n\in\N$, tomamos $\delta=1/n >0 $ y escogemos $\vec{x}_n,\vec{y}_n\in A$ tales que
+$$\norm{\vec{x}_n-\vec{y}_n}_E<\frac{1}{n}\:\wedge\:\norm{f(\vec{x}_n)-f(\vec{y}_n)}_F>\varepsilon$$
+Como $\{\vec{x}_n\}_{n\in \N}\subseteq A$ y $A$ es compacto, existe una subsucesi\'on $\{x_{n_k}\}_{n\in \N}$ de $\{x_{n}\}_{n\in \N}$ que converge a un $\vec{x}\in A$. A su vez la sucesi\'on $\{\vec{y}_{n_k}\}_{k\in\N}\subseteq A$ posee una subsucesi\'on $\{\vec{y}_{n_{k_l}}\}_{l\in\N}$ convergente, $\vec{y}_{n_{k_l}}\rightarrow \vec{y}\in A$. Notemos que $\{\vec{x}_{n_{k_l}}\}$ es una subsucesi\'on de $\{\vec{x}_{n_k}\}$ y por lo tanto tambi\'en converge a $\vec{x}$. Lo anterior implica que $(\vec{x}_{n_{k_l}}-\vec{y}_{n_{k_l}})\rightarrow (\vec{x}-\vec{y})$ cuando $l\rightarrow\infty$, pero por otra parte tenemos que
+$$\norm{\vec{x}_n-\vec{y}_n}_E<\frac{1}{n}\:\forall n\in\N\:\Rightarrow\:\norm{\vec{x}_{n_{k_l}}-\vec{y}_{n_{k_l}}}_E<\frac{1}{n_{k_l}}\rightarrow 0$$ 
+es decir, $(\vec{x}_{n_{k_l}}-\vec{y}_{n_{k_l}})\rightarrow 0$ cuando $l\rightarrow \infty$ lo que implica que $\vec{x}=\vec{y}$.
+\\Por la elecci\'on de las sucesiones tenemos que
+$$\norm{f(\vec{x}_{n_{k_l}})-f(\vec{y}_{n_{k_l}})}_F>\varepsilon\:\forall l\in\N$$ 
+Tomando l\'imite cuando $l\rightarrow\infty$ y gracias a la continuidad de $f$ obtenemos que 
+$$\norm{f(\vec{x})-f(\vec{y})}_F\geq \varepsilon >0$$ 
+lo que es imposible pues $\vec{x}=\vec{y}$.
+\end{demostracion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conjuntos convexos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Motivaci\'on:} La importancia de los convexos es que estos se pueden separar matem\'aticamente y sus propiedades de separaci\'on nos sirven para demostrar que la soluci\'on de un problema es la mejor de todas las soluciones posibles. Retomaremos esta idea en los cap\'itulos siguientes.
+
+\begin{definicion}\label{conjuntoconvexo}
+Un conjunto $C$ es convexo\index{Conjunto!convexo} si el segmento que une dos puntos pertenecientes al conjunto tambi\'en pertenece a $C$.
+\begin{figure}[H]
+	\centering
+	\input{figuras/convexo-noconvexo.pdf_tex}
+	\caption{Conjunto convexo y no convexo respectivamente}
+\end{figure}
+De manera formal, un conjunto $C$ es convexo si dados dos elementos $\vec{x},\vec{y} \in C$ y un n\'umero real $\lambda \in [0,1]$ se cumple
+\begin{equation} \label{cconvexa}
+\vec{z} \in C \Leftrightarrow \vec{z}=\lambda \vec{x} + (1 - \lambda) \vec{y} 
+\end{equation}
+Es decir, \eqref{cconvexa} es una combinaci\'on lineal \index{Combinaci\'on!lineal} que define un segmento de extremos $\vec{x},\vec{y}$. 
+\end{definicion}
+
+\begin{definicion}
+Sean $\vec{x}_1 , \ldots , \vec{x}_n \in \R^n$ y $\lambda_1 , \ldots , \lambda_n \in \R$ tales que $\sum_{i=1}^{n} \lambda_i =1$. El vector $\vec{y} = \sum_{i=1}^{n} \lambda_i \vec{x}_i$ es una combinaci\'on convexa\index{Combinaci\'on!convexa} de $\vec{x}_1 , \ldots , \vec{x}_n$.
+\end{definicion}
+
+\begin{proposicion} 
+Todo espacio vectorial\index{Espacio!vectorial} define un conjunto convexo.
+\end{proposicion}
+
+\begin{demostracion}
+No es necesario demostrar. Como todo espacio vectorial, por definici\'on, es cerrado para la suma y la ponderaci\'on por escalar se tiene que es convexo.
+\end{demostracion}
+
+Ahora que ya tenemos la definici\'on de convexidad podemos agregar algo m\'as sobre las normas. Ya hab\'iamos se\~nalado que en el caso de la norma $\rho$ se debe cumplir que $\rho \geq 1$ porque adem\'as de la desigualdad triangular se debe cumplir que el conjunto
+$$C = \{\vec{x} \in \R^n : \|\vec{x}\|_{\rho} \leq \alpha,\: \alpha \in \R\}$$
+debe ser convexo. Con $\rho <1$ se tiene que $C$ no es convexo y el ejemplo \ref{ejemplo-norma} es \'util para fijar ideas.
+
+\begin{proposicion}
+Sea $C \subset \R^n$ convexo. Entonces $\inte{C}$ y $\adh{C}$ son convexos.
+\end{proposicion}
+
+\begin{demostracion}
+Sean $\vec{x},\vec{y} \in \inte{C}$ y $\vec{z}=\lambda \vec{x} + (1-\lambda) \vec{y}$. Dado que $\vec{x},\vec{y}$ son interiores a $C$, existe $r > 0$ tal que $B(\vec{x},r)\in C$ y $B(\vec{y},r) \in C$. 
+
+Sea $\vec{v}\in \R^n$ y $\|\vec{v}\|<r$, entonces $\vec{x}+\vec{v} \in B(\vec{x},r)$ y adem\'as $\vec{y}+\vec{v} \in B(\vec{y},r)$. Luego
+\begin{eqnarray*}
+\vec{z}+\vec{v} &=& \left(\lambda \vec{x} + (1-\lambda)\vec{y} \right) + \left(\lambda \vec{v} + (1-\lambda) \vec{v} \right) \\
+&=& \lambda (\vec{x}+\vec{v}) + (1-\lambda) (\vec{y}+\vec{v})
+\end{eqnarray*}
+Tenemos que $\vec{z}+\vec{v} \in C$ dado que $C$ es convexo. Definamos $\vec{v}=\vec{z}_0-\vec{z}$ tal que $\vec{z}_0 \in B(\vec{z},r)$, entonces $\|\vec{v}\|<r$ y se obtiene $\vec{z}_0=\vec{z}+\vec{v} \in C$. Por lo tanto $B(\vec{x},r)\subset C$, $\vec{z}\in \inte{C}$ y llegamos a que $\inte{C}$ es convexo.
+
+Supongamos ahora que $\vec{x},\vec{y} \in \adh{C}$. Sean $\vec{z}=\lambda \vec{x} + (1-\lambda) \vec{y}$ y $r_0 > 0$, entonces existen $\vec{v},\vec{w}$ tales que $\|\vec{v}\|< r_0$, $\|\vec{w}\|<r_0$, $\vec{x}+\vec{v} \in C$ y adem\'as $\vec{y}+\vec{w} \in C$. Llegamos a que $\vec{z}_0 = \lambda (\vec{x}+\vec{v}) + (1-\lambda) (\vec{y}+\vec{w}) \in C$ y por lo tanto $\|\vec{z}_0-\vec{z}\|\leq \lambda \|\vec{v}\| + (1-\lambda) \|\vec{w}\| < r_0$, $\vec{z}\in \adh{C}$ que permite concluir que $\adh{C}$ es un conjunto convexo.
+\end{demostracion}
+
+  
+
+\section{Ejercicios}
+
+\subsection*{Base algebraica y geom\'etrica de \texorpdfstring{$\R^n$}{Rn}}
+
+\calcdif{
+Sean $\vec{x}_0,\vec{x}_1,\ldots,\vec{x}_{n-1} \in \R^n$ tales que $\vec{x}_1-\vec{x}_0,\ldots,\vec{x}_{n-1}-\vec{x}_0$ son linealmente independientes. Probar que existe exactamente un hiperplano conteniendo a $\vec{x}_0, \vec{x}_1,\ldots,\vec{x}_{n-1}$.
+}
+
+\calcdif{Sea $\vec{x}$ un vector cualquiera de $\R^n$ y $\vec{d}$ es un vector unitario:
+	\begin{enumerate}
+	\item Demuestre que $\vec{x}=\vec{y}+\vec{z}$, donde $\vec{y}$ es un  m\'ultiplo de $d$  y $\vec{z}$ es perpendicular a $\vec{d}$.
+	\item Demuestre que los vectores $\vec{y}$ y $\vec{z}$ de la parte 1. est\'an determinados 		un\'ivocamente.
+	\end{enumerate}
+}
+
+\calcdif{
+Sea $A\in M_{n\times n}(\R)$ una matriz sim\'etrica.
+	\begin{enumerate}
+	\item Pruebe que existen vectores $\vec{e}_1,\ldots,\vec{e}_n\in \R^n, \lambda_1,\ldots,\lambda_n\in\R$ tales que:$$A\vec{x}=\sum_{i=1}^n 					\lambda_i(\vec{x}\cdot \vec{e}_i)\vec{e}_i\qquad\forall \vec{x}\in\R^n.$$
+	
+	\smallskip
+		
+	\textit{Indicaci\'on}. Piense en los valores y vectores propios de $A$.
+	\item Pruebe usando lo anterior que $\|A \vec{x}\|\leq C\|\vec{x}\|$.
+	\end{enumerate}
+}
+
+\subsection*{Normas y conjuntos en un e.v.n}
+
+\topologia{
+Dados dos conjuntos $A,B$ en un espacio vectorial normado $E$, demuestre
+	\begin{enumerate}
+	\item $\inte{A\cap B} =\inte{A}\cap \inte{B}$
+	\item $\inte{A}\cup \inte{B}
+	\subset \inte{A\cup B}$ (d\'e un ejemplo donde no hay	
+	igualdad)
+	\item $\adh{A\cup B)} = \adh{A}
+	\cup \adh{B}$.
+	\item $\adh{A\cap B)}\subset
+	\adh{A}
+	\cap \adh{B}$ (d\'e un
+	ejemplo donde no hay igualdad).
+	\item $\adh{A} = \inte{A}\cup \fr{A}$
+	\item $A\subset B\Rightarrow \inte{A}\subset
+	\inte{B}$ y $\adh{A}\subset \adh{B}$
+	\item $\inte{A}\cap B=\varnothing \Leftrightarrow
+	\inte{A}\cap \adh{B}=\varnothing$
+	\item $\adh{A}= E$ y
+	$\inte{B}\cap A=\varnothing \Rightarrow \inte{B}=\varnothing$
+	\item $\inte{A^C} = (\adh{A})^C$
+	\item $(\adh{A^C})=(\inte{A})^C$
+	\end{enumerate}
+}
+
+\topologia{
+Sea 
+$$A=\{(x,y)\in \R^2 : (x-1)^2 + y^2 = \frac{1}{4} \wedge x<1 \}$$
+Determine $\inte{A}$, $\adh{A}$, $\fr{A}$ y deduzca si $A$ es un conjunto abierto o cerrado.
+}
+
+\topologia{
+Sea $E$ el espacio vectorial de los polinomios de
+una variable real con coeficientes reales. Definamos la funci\'on
+$\|\cdot\|:E\to\R$ por $$ \|p\| = \max\lim_{x\in[0,1]}
+|p(x)| \quad \forall p\in  E $$ 
+	\begin{enumerate}
+	\item Demuestre que $\|\cdot\|$ es una norma en el
+	espacio $E$.\hfill\break Hint: Use que un polinomio tiene
+	exactamente tantos ceros como el grado, excepto si es el polinomio
+	nulo.
+	\item Considere la funci\'on $\ell_1: E\to\R$ definida por
+	$$\ell_1(p)= p(1/2)\hbox{ para todo } p\in E$$ Demuestre que:
+	\item la funci\'on $\ell_1$ es lineal y verifica la
+	desigualdad: $$\exists K\in\R\hbox{ tal que } |\ell_1(p)|\le
+	K\|p\| \hbox{ para todo } p\in E$$
+	\item La funci\'on $\ell_1$ es continua.
+	\end{enumerate}
+}	
+
+\topologia{
+Sea $A\in \mathcal{M}_{n\times n}$ una matriz invertible. Se define $n: \R^n \rightarrow \R$ como
+$$n = \|\vec{x}\| + \|A\vec{x}\|$$
+Demuestre que $n$ es una norma
+}
+
+\topologia{
+Dada una norma $\|\cdot \|$ en $\R^n$ y una matriz $A$ de $n\times n$ invertible. Demuestre que la funci\'on $\|\vec{x}\|^* = \|A\vec{x}\|$ es una norma en $\R^n$.
+}
+
+%\topologia{
+%Demuestre que en $\R^n$, $\norm{\cdot}_p$ es efectivamente
+%una norma para $1\leq p\leq\infty$. Para ello le ser\'a \'util
+%demostrar primero la siguiente desigualdad de numeros reales:
+%(Desigualdad de Minkowsi) Sean $p,q\in (1,+\infty)$ tales que
+%$\frac{1}{p}+\frac{1}{q}=1$. $\forall\:a,b>0$
+%\[ab<\frac{1}{p}a^p+\frac{1}{q}b^q\]
+%Para probar esto recuerde que $\log$ es una funci\'on concava e
+%inyectiva.
+%}
+
+%\item Demostrar que un conjunto es abierto s\'{\i} y s\'olo
+%s\'{\i} su complemento es cerrado.
+
+\subsection*{Conjuntos abiertos y cerrados}
+
+\topologia{
+Analice el interior, la adherencia, el derivado y la frontera de
+$$
+A= \bigcup_{k=2}^\infty B\left(\left(\frac{3}{2^{k+1}},0\right), \frac{1}{2^{k+1}}\right)\bigcup 
+\overline{B}\left(\left(\frac{3}{4},0\right), \frac{1}{4}\right).
+$$
+}
+
+\topologia{Demuestre que:
+	\begin{enumerate}
+	\item $\adh{A}$ es un conjunto cerrado. 
+	\item $\inte{A}$ es un conjunto abierto.
+	\item $\adh{A}$ es el cerrado m\'as peque\~no que contiene a $A$ y a su vez $\inte{A}$ es el abierto m\'as grande contenido en $A$.
+	\item $\R^n\setminus \inte{A}=\adh{\R^n\setminus A}$.
+	%\item $x\in adh(A)$ s\'i y s\'olo s\'i existe una sucesi\'on $\{x_k\}_k\subset A$ tal que $\lim_{k\to\infty}x_k=x$.
+	\end{enumerate}
+}
+
+\topologia{
+Pruebe que en general no se tiene que $\inte{\adh{A}}=A$. Para esto siga los
+siguientes pasos:
+	\begin{enumerate}
+	\item Pruebe que $\adh{\Q}=\R$.
+	\item Pruebe que $\inte{\R}=\R$
+	\item Concluya.
+	\end{enumerate}
+}
+
+\topologia{
+Sean $A,B\subset\R^n$. Se define $A+B=\{\vec{x} : \vec{x} = \vec{a}+\vec{b},  \vec{a}\in A, \vec{b}\in B\}$.
+	\begin{enumerate}
+	\item Demuestre que $A+B$ es abierto si $A$  es
+	abierto
+	\item D\'e un ejemplo en $\R$ donde $A$ y $B$ sean cerrados
+	pero $A+B$ no sea cerrado.
+	\end{enumerate}
+}
+
+\topologia{
+Verificar que el conjunto $$ A=\{(x,y)\in\R^2:
+x^2+xy<x\}\hbox{ es abierto en } \R^2 $$
+}
+
+\topologia{
+Encontrar en $\R^2$ un conjunto que no sea abierto ni cerrado.
+}
+
+\topologia{
+Sea $d$ la distancia en $\R^n$, asociada
+a alguna norma en $\R^n$ $(d(\vec{x},\vec{y})=\|\vec{x}-\vec{y}\|)$. Sean $A\subseteq
+\R^n$ y $B\subseteq\R^n$ dos conjuntos  no vac\'ios,
+demuestre:
+	\begin{enumerate}
+	\item $C=\{\vec{x}\in\R^n : d(\vec{x},A)=d(\vec{x},B)\}$ es cerrado
+	\item $D=\{\vec{x}\in\R^n : d(\vec{x},A)<d(\vec{x},B)\}$ es abierto donde
+	$d(\vec{x},A)=\inf \{d(\vec{x},\vec{y}) : \vec{y}\in A\}$.
+	\item Si $A$ y $B$ son cerrados y disjuntos entonces  existen
+	dos  abiertos no vac\'ios $U$ y $V$ tales que $A\subset U$ y
+	$B\subset V$ y $U\cap V=\varnothing$.
+	\end{enumerate}
+}
+
+\topologia{
+Dada una matriz $A$ de $2 \times 2$ considere su determinante y demuestre que el conjunto
+$$B = \{A\in \mathcal{M}_2 (\R) : A \text{ es invertible}\}$$
+es abierto.
+
+\textit{Indicaci\'on}. Identifique $\mathcal{M}_2 (\R)$ con $\R^4$.
+}
+
+\subsection*{Sucesiones en un e.v.n}
+
+\topologia{
+Considere el espacio vectorial $C([0,1],\R)$
+ de las funciones continuas $f:[0,1]\to\R$. Definamos la sucesi\'on
+$\{f_k\}$ por: 
+$$ f_k =
+\begin{cases}1 &\text{si $x\in [0,1/2] $}\\
+-2^k(x-1/2)+1 &\text{si $x\in [1/2, 2^{-k}+ 1/2]$}\\ 0 &\text{si
+$x\in [2^{-k}+ 1/2, 1] $}
+\end{cases}
+$$
+	\begin{enumerate}
+	\item Verificar que $f_k\in C([0,1],\R)\ \forall k\in\N$.
+	\item  Se define la norma $\|\cdot \|_1$ en $C([0,1],\R)$,
+	como $\|f\|_1=\int\lim^1_0|f(x)|dx$. Demuestre que para esta
+	norma $\{f_k\}$ es de Cauchy y no es convergente.
+	\item Sea $A([0,1],\R)$ el espacio vectorial de las funciones
+	acotadas de $[0,1]$ en $\R$, dotado de la norma $\| \cdot \|_\infty$,
+	definida por $\|f\|_\infty=\sup\lim_{x\in[0,1]}|f(x)|$,
+	demuestre que $\{f_k\}$ es convergente en este espacio.
+	\end{enumerate}
+}
+
+%\topologia{
+%Demuestre que si $\{p_k\}$ es una sucesi\'on en $ E$
+%convergente a un polinomio $p$ entonces $$p_k(x)\to p(x)\quad
+%\forall x\in [0,1]$$
+%}
+
+\topologia{
+Sea $\| \cdot \|_1$ una norma en el e.v. $ E$ y $\{\vec{a}_k\}$ una
+sucesi\'on de Cauchy respecto de dicha norma. Demostrar que si
+$\| \cdot \|_2$ es otra norma en $E$ equivalente a $\| \cdot \|_1$, entonces
+$\{\vec{a}_k\}$ es sucesi\'on de Cauchy tambi\'en respecto a $\|\cdot \|_2$.
+\\Si $E$ es Banach respecto a $\|\cdot \|_1$. {\textquestiondown}Se puede decir que es Banach
+con $\|\cdot \|_2$?
+}
+
+\topologia{
+Demuestre que dos sucesiones de Cauchy $(\vec{x}_k)$ y $(\vec{y}_k)$ en $\R^n$ tienen el mismo l\'imite s\'i y s\'olo s\'i $$\lim\lim_{k\to\infty}\|\vec{x}_k-\vec{y}_k\|=0$$
+}
+
+%\topologia{
+%Sea $E'=\{L:E\to \R : L\: \text{es lineal y continua}\}$
+%este conjunto se conoce como espacio dual de $E$. Pruebe que $E'$
+%es un espacio vectorial, y que
+%\[\norm{L}_{E'}=\sup_{\vec{x}\in E, \vec{x}\neq
+%0}\frac{|L\vec{x}|}{\norm{\vec{x}}}=\sup_{\norm{\vec{x}}\leq 1}|L\vec{x}|\] define una
+%norma en $E'$. Pruebe tambi\'en que $E'$ es un espacio de Banach.
+%(Aunque $E$ no lo sea).
+%}
+
+\topologia{
+Demuestre la siguiente caracterizaci\'on de espacios de
+Banach. Sea $E$ un e.v.n.
+\[E\:\text{\rm es un espacio de Banach}\]
+s\'i y s\'olo s\'i
+\[\left( \forall \{\vec{x}_n\}_{n\in \N} \subseteq
+E\quad\sum_{i=1}^{\infty}\norm{x_i}<\infty \right) \Rightarrow
+\sum_{i=1}^{\infty}x_i\:\text{\rm  converge en}\: E\]
+
+\textit{Indicaci\'on}. Para la implicaci\'on $(\Leftarrow)$, dada una sucesi\'on
+de Cauchy $\{\vec{x}_n\}_{n\in \N}$, construya una subsucesi\'on $\{\vec{x}_{n_k}\}_{n\in \N}$ tal
+que $\sum\lim_{k=1}^{\infty}\norm{\vec{x}_{n_{k+1}}-\vec{x}_{n_k}}<\infty$. Luego concluya.
+}
+
+\topologia{Demuestre que el espacio $\mathcal{L}(\R^n,\R^m)$ de todos las aplicaciones lineales $\ell$ de $\R^n$ en $\R^m$ es un e.v.n. en el que toda sucesi\'on de Cauchy
+converge debido a que $\R^n$ es e.v.n. y en $\R^m$ toda sucesi\'on de Cauchy converge.
+
+\textit{Indicaci\'on}. Primero demuestre que una aplicaci\'on lineal acotada es uniformemente continua y que si una aplicaci\'on lineal es continua en un punto, es acotada. 
+}
+
+\subsection*{Compacidad}
+
+\topologia{
+Considere la sucesi\'on $\{p_k\}$ en $E$ definida por
+$p_k(\vec{x})=\vec{x}^k$ y demuestre que
+	\begin{enumerate}
+	\item $\|p_k\|=1$ para todo $k\in\N$.
+	\item $\{p_k\}$ no tiene punto de acumulaci\'on.
+	\item $B(0,1)$ en $E$ no es compacta.
+	\end{enumerate}
+}
+
+\topologia{
+Demuestre que si $A$ es un conjunto compacto y $B\subset A$,
+entonces $\overline B=\adh{B}$ es un conjunto compacto.
+}
+
+\topologia{\textcolor{white}{asdf}
+	\begin{enumerate}
+	\item Si $\{A_i\}_{i\in\N}$ es una familia decreciente
+	de conjuntos compactos no vac\'ios en un e.v.n, demuestre que
+	$$\bigcap\lim_{i\in\N} A_i\ne\varnothing$$
+	\item D\'e un ejemplo en $\R$ de una familia decreciente de conjuntos acotados 	(no vac\'ios) cuya intersecci\'on sea vac\'ia.
+	\item D\'e un ejemplo en $\R$ de una familia decreciente de conjuntos cerrados
+	(no vac\'ios) cuya intersecci\'on sea vac\'ia.
+	\end{enumerate}
+}
+
+\topologia{
+Sea $X$ un espacio vectorial normado, sean $A,B\subset X$ cerrados y sean
+$C,D\subset X$ compactos. Probar que
+	\begin{enumerate}
+	\item Si $d(C,D)=\inf\lim_{\vec{x}\in C,\vec{y}\in D}\|\vec{x}-\vec{y}\|=0$ entonces
+	$C\cap D\neq\varnothing$.
+	\item Si $d(A,B)=\inf\lim_{\vec{x}\in C,\vec{y}\in D}\|\vec{x}-\vec{y}\|=0$ entonces no
+	necesariamente $A\cap B\neq\varnothing$.
+	\end{enumerate}
+}
+	
+\topologia{
+Sean $(X, \|\cdot \|_X)$ y $(Y, \|\cdot \|_Y$ dos espacios
+vectoriales normados. Definimos $(X\times Y, \|\cdot \| )$ como el
+espacio vectorial normado donde $(\vec{x},\vec{y})\in X\times
+Y\Longleftrightarrow \vec{x}\in X\land \vec{y}\in Y$ y la norma en $X\times Y$
+se define como $\|(\vec{x},\vec{y})\|=\|\vec{x}\|_X+\|\vec{y}\|_Y$. Sean  $A\subset X$ y
+$B\subset Y$ compactos. Demuestre que entonces $A\times B$ es
+compacto en $X\times Y$.
+}
+
+\topologia{
+Sea $U=\R^{\N}$, es decir, el espacio de las sucesiones. Considere en $U$
+la norma $$\|\vec{x}\|=\sup \{|x_i| : i\in \N\} $$ Indique
+cual(es) de los siguientes conjuntos son compactos:
+	\begin{enumerate}
+	\item $B_0(0,1)=\{\vec{x}\in U : |x_i|\leq 1,\forall i\in\N\}$
+	\item $B_1(0,1)=\{\vec{x}\in U : |x_i|\leq\frac{1}{i},\forall
+	i\in\N\}$
+	\item $B_2(0,1)=\{\vec{x}\in U : |x_i|=1,\forall
+	i\in\N\}$
+	\end{enumerate}
+}
+
+\topologia{
+Demuestre que las matrices ortogonales de $n\times n$ forman un subconjunto compacto de $\R^n \times \R^n$.
+}
+
+%\topologia{
+%Dado $x\in \R^n$ y $k\in \N$, considere el conjunto 
+%\[c(X,n)=\{y\in \R^n : y=\sum_{i=1}^n \lambda_i x_i , x_i\in X , \lambda_i \geq 0 , \sum_{i=1}^n \lambda_i = 1 \}\]
+%demuestre que para cada $k\in \N$, $c(X,n) \subset c(X,n+1)$ y adem\'as $c(X,n)$ es compacto.
+%}
+
+\subsection*{Conjuntos convexos}
+
+\topologia{
+Dados $\vec{d}\in \R^3\setminus \{\vec{0}\}$ y $\varepsilon > 0$, se llama cono de Bishop-Phelps al conjunto
+$$K(\vec{d},\varepsilon)=\{\vec{x}\in \R^3 : \varepsilon \|\vec{d}\| \|\vec{x}\| \leq \langle \vec{x},\vec{d} \rangle \}$$ 
+Demuestre que $K(\vec{d},\varepsilon)$ es convexo para todo $\vec{d}\in \R^3\setminus \{\vec{0}\}$ y $\varepsilon > 0$.
+}
+
+\topologia{
+Dados $\vec{a},\vec{b} \in \R^2$ y $\gamma \in [0,1]$ se llama p\'etalo de Penot al conjunto 
+$$P_{\gamma} (\vec{a},\vec{b}) = \{\vec{x} \in \R^2 : \gamma \|\vec{a}-\vec{x}\| + \|\vec{x}-\vec{b}\| \leq \|\vec{b}-\vec{a}\| \} $$
+Demuestre que $P_{\gamma}(\vec{d},\varepsilon)$ es convexo para todo $\vec{a},\vec{b}\in \R^2$ y $\gamma \in [0,1]$.
+}

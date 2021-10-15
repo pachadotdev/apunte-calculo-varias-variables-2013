@@ -1,0 +1,84 @@
+\documentclass[letterpaper,10pt,twoside,DIV=calc]{scrbook}
+%para evitar problemas con scrbook
+\usepackage{scrhack}
+\addtokomafont{disposition}{\rmfamily\bfseries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{paquetes}
+\include{entornos}
+\include{atajos}
+\include{macros}
+
+%Con esto evitamos problemas de margen
+\raggedbottom
+
+%Para que cree el indice
+\makeindex
+
+\setlength{\headheight}{14.4521pt}
+
+\begin{document}
+
+%PORTADA
+\include{portada}
+
+%CONSTRUCCION DE INDICES ETC
+\frontmatter
+  
+\pagestyle{plain}
+
+\tableofcontents
+\listoffigures
+
+\include{intro}
+
+\mainmatter 
+
+\pagestyle{fancy}
+\fancyhead[LO,RE]{}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyhead[LE]{\nouppercase{FCFM - Universidad de Chile}}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[RE,LO]{}
+
+%\pagestyle{fancy}
+%\fancyhead[LE,RO]{Universidad de Chile\\Facultad de Ciencias F\'isicas y Matem\'aticas}
+%\fancyhead[LO,RE]{\rightmark}
+%\rhead{\textbf{C\'alculo en Varias Variables}\\Apunte del Curso}
+%\fancyfoot[LE,RO]{P\'agina {\thepage}~de 1000}
+%\cfoot{ }
+
+\include{cap1}
+\include{cap2}
+\include{cap3}
+\include{cap4}
+\include{cap5}
+\include{cap6}
+\include{cap7}
+\include{cap8}
+
+\appendix
+
+\include{ap1}
+\include{ap2}
+
+\include{notacion}
+
+\pagestyle{plain}
+ 
+ \include{bibliografia}
+
+%ACA VA UNA PAGINA EN BLANCO ANTES DEL INDICE
+\cleardoublepage
+\newpage
+
+%INDICE ALFABETICO
+%\addcontentsline{toc}{chapter}{\'Indice Alfab\'etico}
+\printindex
+
+\pagestyle{plain}
+
+\newpage
+
+\end{document}

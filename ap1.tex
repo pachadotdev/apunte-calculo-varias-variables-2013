@@ -1,0 +1,161 @@
+\chapter{Teoremas de C\'alculo en \texorpdfstring{$\R$}{R}}
+
+Muchos teoremas en $\R^n$ tienen una demostraci\'on an\'aloga a las del curso de C\'alculo en una variable. Daremos algunos de estos.
+
+\section{Teorema de Bolzano-Weierstrass}
+
+\begin{teorema}{\rm (Teorema de Bolzano-Weierstrass en $\R$) \index{Teorema!de Bolzano-Weierstrass en $\R$}}\label{bolzanoenr}
+\\Sean $[a,b]$ un intervalo cerrado y acotado y $f: [a,b]\rightarrow \R$ continua tal que $f(a)$ y $f(b)$ tienen signos contrarios, entonces existe $c\in [a,b]$ tal que $f(c)=0$. 
+\end{teorema}
+
+\begin{demostracion}
+Sin p\'erdida de generalidad supongamos que $f(a)<0$ y $f(b)>0$. Escojamos $c\in (a,b)$ y de esto se tienen tres casos:
+\begin{enumerate}
+\item $f(c)<0$ y nos restringimos al intervalo $[a_1,b_1]$ con $a_1=c$ y $b_1=b$.
+\item $f(c)=0$ en este caso concluye la demostraci\'on.
+\item $f(c)>0$ y nos restringimos al intervalo $[a_1,b_1]$ con $a_1=a$ y $b_1=c$.
+\end{enumerate}
+Para los casos 1. y 3. consideremos intervalos $[a_n,b_n]\subset[a_{n-1},b_{n-1}]\subset\ldots \subset [a,b]$ tal que $f(a_n)<0$ y $f(b_n)>0$. Escojamos para cada intervalo un $c$ que es punto medio y as\'i cada intervalo es la mitad del anterior. De esta forma, $b_n - a_n = \frac{b-a}{2^n}$ y para $n\rightarrow \infty$ se tendr\'a que $a_n - b_n \rightarrow 0$ y $\lim_{n\rightarrow \infty} a_n = \lim_{n\rightarrow \infty} b_n$. 
+
+Sea $c=\lim_{n\rightarrow \infty} a_n$, por ser $f$ continua 
+$$f(c)=f\left(\lim_{n\rightarrow \infty} a_n \right)=\lim_{n\rightarrow \infty} f(a_n)$$ 
+como $f(a_n)<0$ tenemos que $\lim_{n\rightarrow \infty} f(a_n)\leq 0$. 
+\\An\'alogamente si tomamos 
+$$f(c)=f\left(\lim_{n\rightarrow \infty} b_n \right)=\lim_{n\rightarrow \infty} f(b_n)$$ 
+como $f(b_n)<0$ tenemos que $\lim_{n\rightarrow \infty} f(a_n)\geq 0$. Se concluye entonces que $f(c)=0$.
+\end{demostracion}
+
+\section{Teorema del Valor intermedio}
+
+\begin{teorema}{\rm (Teorema del valor intermedio en $\R$)\index{Teorema!del valor intermedio en $\R$}}\label{valorintermedioenr}
+\\Sean $[a,b]$ un intervalo cerrado y acotado y $f: [a,b]\rightarrow \R$ continua. Si $f(a)\neq f(b)$, entonces dado $k\in(f(a),f(b))$ existe $c\in(a,b)$ tal que $f(c)=k$.
+\end{teorema}
+
+\begin{demostracion}
+Sin p\'erdida de generalidad supongamos que $f(a)<f(b)$. Definamos $g(x)=f(x)-k$ y entonces $g(a)=f(a)-k<0$ y $g(b)=f(b)-k>0$. De acuerdo al teorema \ref{bolzanoenr} existe $c\in(a,b)$ tal que $f(c)=k$.
+\end{demostracion}
+
+\begin{teorema}\label{maxminenr}
+Sean $[a,b]$ un intervalo cerrado y acotado y $f:[a,b]\rightarrow \R$ continua y diferenciable en $(a,b)$. Entonces, $f$ tiene un m\'aximo (o m\'inimo)\index{M\'inimo!de una funci\'on}\index{M\'aximo!de una funci\'on} en al menos un punto $c\in (a,b)$ tal que $f'(c)=0$. 
+\end{teorema}
+
+\begin{demostracion}
+Haremos la demostraci\'on para el caso de m\'aximos. La demostraci\'on para el caso de un m\'inimo es an\'aloga y queda de \emph{tarea}.
+\\Si $f$ tiene al menos un m\'aximo en $c$ entonces
+$$f(c+h) \leq f(c) \: \forall h \text{ tal que } c+h\in [a,b]$$ 
+De esta forma, $f(c+h)-f(c)\leq 0$. 
+\\Tomando $h>0$ se tiene que 
+\begin{gather}\label{maxminenr1}
+\frac{f(c+h)-f(c)}{h} \leq 0 \Rightarrow f'(c)\leq 0 \tag{*}
+\end{gather}
+Tomando $h<0$ se tiene que 
+\begin{gather}\label{maxminenr2}
+\frac{f(c+h)-f(c)}{h} \geq 0 \Rightarrow f'(c)\geq 0 \tag{**}
+\end{gather}
+De \eqref{maxminenr1} y \eqref{maxminenr2} se concluye que $f'(c)=0$.
+\end{demostracion}
+
+\section{Teoremas de Rolle y del Valor Medio}
+
+\begin{teorema}{\rm (Teorema de Rolle en $\R$)\index{Teorema!de Rolle en $\R$}}\label{teoderolle}
+\\Sean $[a,b]$ cerrado y acotado y $f:[a,b]\rightarrow \R$ continua y diferenciable. Si $f(a)=f(b)$, entonces existe al menos un $c\in (a,b)$ tal que $f'(c)=0$.  
+\end{teorema}
+
+\begin{demostracion}
+Tenemos tres casos posibles:
+\begin{enumerate}
+\item Si $f(c)<f(a)$ para alg\'un $c\in (a,b)$. Entonces, existe $c\in (a,b)$ donde $f$ alcanza su valor m\'inimo. De acuerdo al teorema \ref{maxminenr} $f'(c)=0$.
+\item Si $f(a)=f(c)$ $\forall c\in (a,b)$. Entonces, por ser $f$ constante, su derivada es nula en $(a,b)$ y se cumple el teorema.
+\item Si $f(c)>f(a)$ para alg\'un $c \in (a,b)$. Entonces, existe $c \in (a,b)$ donde $f$ alcanza su valor m\'aximo. De acuerdo al teorema \ref{maxminenr} $f'(c)=0$.
+\end{enumerate}
+\end{demostracion}
+
+La interpretaci\'on geom\'etrica del teorema de Rolle es la siguiente: Si una funci\'on continua y derivable cruza dos veces una recta paralela al eje $x$, entonces
+existe entre los dos cruces consecutivos un punto donde la tangente al gr\'afico de la función es paralela al eje $x$.
+\begin{figure}[H]
+	\centering
+	\input{figuras/rolle.pdf_tex}
+	\caption{Teorema de Rolle.}
+\end{figure}
+
+\begin{teorema}{\rm (Teorema del valor medio en $\R$)\index{Teorema!del valor medio en $\R$}}\label{valormedioenr}
+\\Sean $[a,b]$ un intervalo cerrado y acotado y $f:[a,b]\rightarrow \R$ continua y derivable en $(a,b)$. Entonces, existe un punto $c \in (a,b)$ tal que
+$$f'(c)=\frac{f(b)-f(a)}{b-a}$$
+\end{teorema}
+
+\begin{demostracion}
+Definamos 
+$$g(x)=f(x)-\frac{f(b)-f(a)}{b-a}(x-a)$$
+se tiene que $g$ es continua en $[a,b]$ y derivable en $(a,b)$. 
+\\Observemos que $g(a)=f(a)$ y $g(b)=f(a)$ lo que implica $g(a)=g(b)$, por lo tanto podemos aplicar el teorema \ref{teoderolle}. Entonces, existe $c\in (a,b)$ tal que $g'(x)=0$ y se tendr\'a que 
+$$f'(c)=\frac{f(b)-f(a)}{b-a}$$
+\end{demostracion}
+
+La interpretaci\'on geom\'etrica del teorema del valor medio es la siguiente: Si trazamos una secante que une dos puntos de una funci\'on continua y derivable, entonces
+existe un punto donde la tangente al gr\'afico de la funci\'on y la secante ya definida son paralelas.
+\begin{figure}[H]
+	\centering
+	\input{figuras/valormedio.pdf_tex}
+	\caption{Teorema del valor medio.}
+\end{figure}
+
+\section{Primer y Segundo Teorema Fundamental del C\'alculo}
+
+\begin{teorema}{\rm (Primer teorema fundamental del c\'alculo)}
+\index{Teorema!fundamental del c\'alculo (1$^{er}$)}
+\label{teofundamental1}
+\\Sean $f: [a,b]\to \R$ continua y $x\in [a,b]$,  entonces la funci\'on $F$ definida por
+$$F(x)=\int_{a}^{x} f(x) dx$$
+es derivable en $(a,b)$ y adem\'as $F'(x)=f(x)$ en $(a,b)$.
+\end{teorema}
+
+\begin{demostracion}
+Sea $c\in (a,b)$. Debemos demostrar que el l\'imite
+$$F'(c) = \lim_{h\to 0} \frac{F(c+h)-F(c)}{h}$$
+existe y vale $f(c)$. Notemos que
+$$F(c+h)-F(c)=\int_{a}^{c+h}f(x)dx - \int_{a}^{c} f(x)dx=\int_{c}^{c+h}f(x)dx$$
+Consideremos por separado los casos $h>0$ y $h<0$:
+\begin{enumerate}
+\item Sea $h>0$: Como $f$ es continua en $[c,c+h]$, se tiene que existen valores $a_1$ y $b_1$ en $[c,c+h]$ tales que
+$$f(a_1)\leq f(c) \leq f(b_1) \qquad \forall x\in [c,c+h]$$
+Integrando en $[c,c+h]$
+$$f(a_1)h \leq F(c+h) - F(c) \leq f(b_1)h$$
+$$f(a_1) \leq \frac{F(c+h) - F(c)}{h} \leq f(b_1)$$
+Si $h\to 0^+$ entonces $a_1 \to c$ y $b_1 \to c$. Como $f$ es continua $f(a_1) \to f(c)$ y $f(b_1) \to f(c)$. 
+\\Entonces, 
+\begin{gather}\label{int1}
+\lim_{h\to 0^+} \frac{F(c+h)-F(c)}{h}=f(c) \tag{*}
+\end{gather}
+\item Sea $h<0$: Como f es continua en $[c+h,c]$, se tiene que existen valores $a_2$ y $b_2$ en $[c+h,c]$ tales que  
+$$f(a_2) \leq f(c) \leq f(b_2) \qquad \forall x\in [c+h,c]$$
+Integrando en $[c+h,c]$
+$$f(a_2)(-h) \leq -(F(c+h)-F(c)) \leq f(b_2)(-h)$$
+$$f(a_2) \leq \frac{F(c+h)-F(c)}{h} \leq f(b_2)$$
+Si $h\to 0^-$ entonces $a_2 \to c$ y $b_2 \to c$. Como $f$ es continua, $f(a_2)\to f(c)$ y $f(b_2)\to f(c)$.
+\\Entonces,
+\begin{gather}\label{int2}
+\lim_{h\to 0^-} \frac{F(c+h)-F(c)}{h}=f(c) \tag{**}
+\end{gather}
+\end{enumerate}
+De \eqref{int1} y \eqref{int2} se obtiene
+$$\lim_{h\to 0^-} \frac{F(c+h)-F(c)}{h} = \lim_{h\to 0^+} \frac{F(c+h)-F(c)}{h}$$
+\end{demostracion}
+
+\begin{teorema}{\rm (Segundo teorema fundamental del c\'alculo)\index{Teorema!fundamental del c\'alculo ($2^{do}$)}}\label{teofundamental2}
+\\Sea $f:[a,b]\to \R$ integrable. Si existe una funci\'on $F:[a,b]\to \R$ continua y derivable tal que $F'(x)=f(x)$ en $(a,b)$, entonces
+$$\int_{a}^{b} f(x)dx = F(b) - F(a)$$ 
+\end{teorema}
+
+\begin{demostracion}
+Sea $P=\{x_0,\ldots,x_n\}$ una partici\'on cualquiera del intervalo $[a,b]$, entonces en cada intervalo $[x_{i-1},x_i]$ la funci\'on $F(x)$ cumple las hip\'otesis del teorema del valor medio (teorema \ref{valormedioenr}), es decir
+$$F(x_i) - F(x_{i-1}) = F'(c)(x_i-x_{i-1})$$
+Como $F'(x)=f(x)$ $\forall x\in [a,b]$, entonces $F'(c)=f(c)$ y adem\'as
+$$m_i(f)(x_i-x_{i-1})\leq f(c)(x_i-x_{i-1}) \leq M_i(f)(x_i-x_{i-1})$$
+$$m_i(f)(x_i-x_{i-1})\leq F(x_i)-F(x_{i-1}) \leq M_i(f)(x_i-x_{i-1})$$
+Aplicando $\sum_{i=1}^n (\cdot)$ se obtiene
+$$s(f,P)\leq F(b)-F(a)\leq S(f,P)$$
+Como $f$ es integrable en $[a,b]$
+$$\int_a^b f(x)dx = F(b)-F(a)$$
+\end{demostracion}
+
+%Queda de \emph{tarea} analizar los teoremas de esta secci\'on y cada una de sus hip\'otesis para recordar los contenidos de cursos anteriores.

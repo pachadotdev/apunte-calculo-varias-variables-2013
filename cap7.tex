@@ -1,0 +1,1042 @@
+\chapter{Teorema de los Multiplicadores de Lagrange}\label{sec-lagrange}
+
+\section{Condiciones de primer orden para extremos restringidos}
+\index{Condiciones de $1^\text{er}$ orden!para extremos restringidos}
+
+\subsection{Concepto de superficie}
+
+Por ahora nos restringiremos al caso de un problema de maximizaci\'on o minimizaci\'on que consta \'unicamente de restricciones de igualdad para extendernos de manera gradual a casos m\'as generales. De hecho, rara vez un sistema no tiene restricciones y por esto nos interesa ampliar lo que ya hemos visto sobre extremos restringidos.
+
+La pregunta b\'asica que queremos responder en esta secci\'on es
+{\textquestiondown}Cu\'ando una ecuaci\'on como $g(x,y,z)=0$ define una superficie?
+
+Los dos ejemplos siguientes son muy elocuentes:
+\begin{enumerate}
+\item $x^2+y^2+z^2-1=0$
+\item $x(z-x^2+y^2)=0$
+\end{enumerate}
+$x^2+y^2+z^2-1=0$ ciertamente es una superficie (es la superficie de la esfera de
+radio $1$ y centro en el origen). Sin embargo $x(z-x^2+y^2)=0$ no es una
+superficie.\index{Superficie}
+\\Este ejemplo nos muestra que la respuesta es local. 
+El problema con la superficie 2. ocurre en el punto
+$(0,0,0)$ donde $\nabla g(\vec{0})=\vec{0}$.
+
+\begin{definicion}
+En general, si el
+punto $(x_0,y_0,z_0)$ es tal que $g(x_0,y_0,z_0)=0$ y $\nabla
+g(x_0,y_0,z_0)\neq 0$ entonces la ecuaci\'on $g(x,y,z)=0$ define
+una superficie, al menos en una vecindad de $(x_0,y_0,z_0)$; en
+efecto, si $\nabla g(x_0,y_0,z_0)\neq 0$, entonces alguna derivada
+parcial es no nula, supongamos sin perdida de generalidad que
+\[\frac{\dd g}{\dd y}(x_0,y_0,z_0)\neq 0\]
+entonces, por el teorema de la funci\'on impl\'icita, es posible
+despejar $y$ en funci\'on de $(x,z)$, es decir, podemos escribir
+$y=y(x,z)$, y por lo tanto el conjunto $S=\{(x,y,z)\in \R^3 : g(x,y,z)=0\}$
+es localmente el grafo de una funci\'on, es decir, es una
+superficie.\index{Superficie}
+\end{definicion}
+
+\subsection{Caso particular del Teorema de los Multiplicadores de Lagrange}
+
+\begin{nota}
+Considerando la definici\'on \ref{def-fconcava}, en todo lo que sigue en este cap\'itulo, los teoremas que presentamos para maximizaci\'on (minimizaci\'on) son v\'alidos para la minimizaci\'on (maximizaci\'on), esto se debe a que un criterio de maximizaci\'on sobre una funci\'on $f$ c\'oncava (convexa) es an\'alogo a la minimizaci\'on de $-f$ que es una funci\'on convexa (c\'oncava). 
+%La \'unica salvedad es que cuando aparezcan desigualdades sobre los resultados algunas de estas se invierten (esto se indicar\'a en los casos  que ocurre), esto \'ultimo se ver\'a en el cap\'itulo siguiente.
+\index{Problema!de minimizaci\'on}\index{Problema!de maximizaci\'on}
+\end{nota}
+
+\begin{definicion}{\rm (Espacios normal y tangente, caso particular)}
+\\Sean $g:\R^3\to \R$ una funci\'on diferenciable, ${\p0} \in \R^3$ tal
+que $g{\p0}=0$, y supongamos que $\nabla g{\p0}\neq 0$. Llamemos
+$S$ a la superficie\index{Superficie} que define la ecuaci\'on $g{\pun}=0$ en torno
+a $\p0$. Se define el espacio normal\index{Espacio!normal} a $S$ en el punto $\p0$ como
+el espacio vectorial generado por el gradiente de $g$ en el punto
+$\p0$ y se denota $N_s{\p0}$.
+\[N_s{\p0}=\langle \nabla g{\p0}\rangle\]
+El espacio tangente\index{Espacio!tangente} a $S$ en el punto ${\p0}$ se denota $T_s{\p0}$
+y se define como el ortogonal del espacio normal
+\[T_s{\p0}=N_s{\p0}^{\perp}=\{{\pun}\in\R^3  : {\pun}\cdot\nabla g{\p0}=0\}\]
+\end{definicion}
+
+\begin{nota}
+Los espacios normal y tangente son
+espacios vectoriales. Estos no pasan necesariamente por el punto
+$\p0$.
+\end{nota}
+
+Con la definici\'on anterior, si $\sigma:A\subseteq\R\to \R^3$
+es una funci\'on tal que $\sigma(t)\in S\: \forall t$, y
+$\sigma (0)={\p0}$, entonces $\sigma^{\prime}(0)\in T_s{\p0}$.
+
+{\textquestiondown}Es posible alcanzar cada $\vec{d}\in T_s{\p0}$ de esta forma, con una
+funci\'on $\sigma$ adecuada? \\ Supongamos que $\nabla g{\p0}\neq
+0$. Sea $\vec{d}\in T_s{\p0}$. Elijamos $\vec{b}\neq 0$ de manera tal que
+$$\vec{b}\perp \langle\{v,\nabla g{\p0}\}\rangle$$ 
+Siempre existe tal $\vec{b}$ pues el espacio vectorial $\langle\{\vec{d},\nabla g{\p0}\}\rangle$
+tiene dimensi\'on 2. Consideremos el sistema de ecuaciones
+\begin{eqnarray*}
+g{\pun} &= & 0 \\(x-x_0,y-y_0,z-z_0)\cdot \vec{b} &=& 0
+\end{eqnarray*}
+el Jacobiano del sistema anterior en el punto $\p0$ es
+\[\begin{pmatrix}\dd g/\dd x{\p0} & \dd g/\dd y{\p0} & \dd g/\dd z{\p0}
+\cr b_x & b_y & b_z \cr\end{pmatrix}\] 
+Como $\vec{b}\perp \nabla g{\p0}$, la matriz
+Jacobiana\index{Matriz!Jacobiana} tiene rango 2, y por lo tanto siempre es posible escoger
+dos columnas tales que la matriz resultante sea invertible. El
+teorema de la funci\'on impl\'icita nos asegura entonces que
+podremos siempre despejar dos variables en funci\'on de una.
+Supongamos sin perdida de generalidad que es posible despejar
+$(y,z)$ en funci\'on de $x$, entonces
+\begin{eqnarray*}
+g(x,y(x),z(x)) &=&0 \\ (x-x_0,y(x)-y_0,z(x)-z_0)\cdot \vec{b} &=& 0
+\end{eqnarray*}
+Si se define $\sigma(t)=(t+x_0,y(t+x_0),z(t+z_0))$, entonces
+\[g(\sigma(t))=0\: \wedge \: (\sigma(t)-(x_0,y_0,z_0))\cdot
+\vec{b}=0\] 
+para todo $t$ en una vecindad del cero. La funci\'on
+$\sigma(t)$ es de clase $\cl$ pues las funciones $y(x),z(x)$ lo
+son, por lo tanto, derivando las ecuaciones anteriores con
+respecto a $t$ y evaluando en $t=0$ se obtiene
+\[\nabla g{\p0}\cdot\sigma^{\prime}(0)=0\:\wedge\:
+\sigma^{\prime}(0)\cdot \vec{b}=0\] 
+entonces por la elecci\'on de $\vec{b}$ no
+queda otra posibilidad m\'as que $\sigma^{\prime}(0)\parallel \vec{d}$.
+
+Definiendo $$\bar{\sigma}(t)=\sigma(\norm{\vec{d}}t/\norm{\sigma^{\prime}(0)})$$
+entonces $\bar{\sigma}^{\prime}(0)=\vec{d}$ y $g(\bar{\sigma}(t))=0$
+para todo $t$ en una vecindad del cero. De esta forma concluimos
+que
+\[T_s{\p0}=\{\sigma^{\prime}(0) / \sigma(t)\in S\: \forall
+t \text{ , } \sigma(0)={\p0}\}\]
+
+\begin{teorema}{\rm (Teorema de los multiplicadores de Lagrange, caso particular)
+\index{Teorema!de los multiplicadores de Lagrange!caso particular}}\label{mlagrange-1}
+\\Consideremos el siguiente problema de
+optimizaci\'on\index{Problema!de optimizaci\'on}
+\begin{equation*}
+\begin{array}{lcl}
+P)  & \displaystyle \min_{x,y,z} 	& f(x,y,z) \\
+	& \text{s.a}					& g(x,y,z)=c
+\end{array}
+\end{equation*}
+
+con $f,g$ funciones diferenciables. Si $\p0$ es una soluci\'on del
+problema P), entonces existe $\lambda \in \R$ tal que
+\[\nabla f{\p0}=\lambda\nabla g{\p0}\]
+\end{teorema}
+
+\begin{demostracion}
+Sea $\sigma:A\subseteq\R\to \R^3$ tal que
+$g(\sigma(t))=0$ y $\sigma(0)={\p0}$, es decir, $\sigma(t)\in S$
+para $t$ en una vecindad del origen. Como $\p0$ es un m\'inimo local de $f$ restringido a $S$, entonces
+\[\left.{\frac{d}{dt}f(\sigma(t))}\right|_{t=0}=\nabla f{\p0}\cdot \sigma^{\prime}(0)=0\]
+por lo hecho anteriormente, esto equivale a que $$\nabla
+f{\p0}\cdot \vec{d}=0\:\forall v\in T_s{\p0}\Rightarrow\:\nabla f{\p0}\in
+T_s{\p0}^{\perp}=N_s{\p0}$$ 
+y entonces por definici\'on de
+$N_s{\p0}$ existe $\lambda\in\R$ tal que 
+$$
+\nabla
+f{\p0}=\lambda\nabla g{\p0}
+$$
+\end{demostracion}
+
+\subsection{Caso general del Teorema de los Multiplicadores de Lagrange}
+
+\begin{nota}
+En lo que sigue denotaremos $I=\{1,\ldots,k\}$.
+\end{nota}
+
+\begin{definicion}{\rm (Espacios normal y tangente, caso general)}\label{esp-normal}
+\\Sea $g_i (\vec{x}):\R^n\to \R$ $\forall i\in I$ una funci\'on diferenciable, $\vec{x}_0 \in \R^n$ tal
+que $g_i (\vec{x}_0) = 0 \:\forall i\in I$, y supongamos que $\nabla g_i (\vec{x}_0)\neq 0$. Llamemos $S$ a la superficie\index{Superficie} en $\R^n$ que define la ecuaci\'on $g_i (\vec{x}) = 0$ en torno a $\vec{x}_0$. Por analog\'ia con el caso particular
+definimos el espacio normal\index{Espacio!normal} a $S$ en $\vec{x}_0$ como
+\[N_s(\vec{x}_0)=\langle\{\nabla g_1(\vec{x}_0),\ldots\nabla g_k(\vec{x}_0)\}\rangle\]
+y el espacio tangente\index{Espacio!tangente} a $S$ en $\vec{x}_0$ como
+\[T_s(\vec{x}_0)=N_s(\vec{x}_0)^{\perp}=\{\vec{d}\in \R^n : \vec{d}\cdot \nabla
+g_i(\vec{x}_0)=0\: \forall i\in I\}\] 
+\end{definicion}
+
+\begin{lema}\label{lema-lagrange} 
+$\forall \vec{d}\in T_s(\vec{x}_0)$ existe
+$\sigma:A\subseteq\R\to\R^n$, $0\in A$ con $g_i (\sigma(t))=0\:
+\forall t\in A\:$, $\sigma(t)\in S\: \forall t\in A$ y adem\'as 
+$\sigma(0)=\vec{x}_0$ tal que $\sigma^{\prime}(0)=\vec{d}$. Es decir
+\[T_s(\vec{x}_0)=\{\sigma^{\prime}(0) : \sigma(t)\in S\:\forall
+t \text{ , } \sigma(0)=\vec{x}_0\}\]
+\end{lema}
+
+\begin{demostracion}
+Sean $\vec{d}\in T_s(\vec{x}_0)$ y $\{\vec{b}_1,\ldots,\vec{b}_{n-k-1}\}$ una base
+ortonormal del espacio
+\[\langle\{\vec{d},\nabla g_1(\vec{x}_0),\ldots,\nabla
+g_k(\vec{x}_0)\}\rangle^{\perp}\] Consideremos el sistema de $n-1$ ecuaciones
+\[\begin{matrix}
+g_1(\vec{x}) & = & 0 \cr \: & \vdots & \: \cr (\vec{x}-\vec{x}_0)\cdot \vec{b}_1 & = &
+0 \cr \: & \vdots & \: \cr (\vec{x}-\vec{x}_0)\cdot \vec{b}_{n-k-1} & = & 0
+\end{matrix}\]
+El vector $\vec{x}_0$ satisface las ecuaciones, y la matriz Jacobiana del
+sistema es
+\[\begin{pmatrix}
+\nabla g_1(\vec{x}_0) \cr \vdots \cr 
+\nabla g_k(\vec{x}_0)\cr
+\vec{b}_1\cr \vdots \cr \vec{b}_{n-k-1}
+\end{pmatrix}\] que es una matriz de rango $n-1$,
+por lo que podemos seleccionar $n-1$ columnas tales que la matriz
+resultante sea invertible, y gracias al teorema de la funci\'on
+impl\'icita (teorema \ref{teofuncionimplicita}) podemos despejar $n-1$ variables en funci\'on de la
+restante en una vecindad de $\vec{x}_0$. Entonces existe
+$\sigma:A\to \R^n$, con $A=(-\varepsilon,\varepsilon)$, definido de manera an\'aloga al
+caso particular, tal que $g_i(\sigma(t))=0 \: \forall t\in A$ y
+$(\sigma(t)-\vec{x}_0)\cdot b_i=0 \: \forall t,\:i\in\{1,\ldots,n-k-1\}$.
+
+Derivando las ecuaciones anteriores con respecto a $t$ y evaluando
+en $t=0$ se obtiene que
+\[\nabla g_i(\vec{x}_0)\cdot
+\sigma^{\prime}(0)=0 \: \forall i\in\{1,\ldots,k\} \:\wedge\: \sigma^{\prime}(0)\cdot
+b_j=0 \: \forall j\in\{1,\ldots,n-k-1\}\] 
+lo que implica que $\sigma^{\prime}(0)\parallel \vec{d}$. Definiendo
+$\bar{\sigma}(t)=\sigma(\norm{\vec{d}}t/\norm{\sigma^{\prime}(0)})$
+tenemos que $\bar{\sigma}^{\prime}(0)=\vec{d}$, lo que nos da el lema,
+pues la otra inclusi\'on $\{\sigma^{\prime}(0) : \sigma(t)\in
+S\:\forall t,\:\sigma(0)=\vec{x}_0\}\subseteq T_s(\vec{x}_0)$ es directa
+(an\'aloga a la demostraci\'on en el caso particular).
+\end{demostracion}
+
+\begin{teorema}{\rm (Teorema de los multiplicadores de Lagrange,caso general)
+\index{Teorema!de los multiplicadores de Lagrange!caso general}}\label{mlagrange-2}
+\\Consideremos el siguiente problema de optimizaci\'on\index{Problema!de minimizaci\'on}
+\begin{equation}\label{problema-general-lagrange}
+\begin{array}{lclc}
+P) & \displaystyle \min_{\vec{x}} 	 & f(\vec{x}) & \\
+   & \text{s.a} 			 & g_i(\vec{x})=c & \forall i \in I
+\end{array}
+\end{equation}
+donde $f,g_i:\R^n\to \R$ son funciones diferenciables. Supongamos
+que $f$ alcanza un m\'inimo \index{M\'inimo!local} local en $\vec{x}_0\in S$, donde $S=\{\vec{x}\in
+\R^n : g_i(\vec{x})=0\}$, y que  $Dg(\vec{x}_0)\in M_{k\times n}$ tiene rango
+$k$. Entonces existe un vector $\vec{\lambda} \in \R^k$ tal que
+\[\nabla f(\vec{x}_0)=\sum_{i=1}^k \lambda_i\nabla g_i(\vec{x}_0)\]
+Puesto que $Dg(\vec{x}_0)$ es de rango
+$k$, el espacio $N_s(\vec{x}_0)$ es un espacio vectorial con $\dim
+N_s(\vec{x}_0)=k$, y por lo tanto $\dim T_s(\vec{x}_0)=n-k$.
+\end{teorema}
+
+\begin{demostracion}
+A partir del lema \ref{lema-lagrange} tenemos que
+$\forall\sigma:A\subseteq\R\to\R^n$ tal que
+$g(\sigma(t))=0\:\wedge\:\sigma(0)=\vec{x}_0$
+\[\left.\frac{d}{dt}f(\sigma(t))\right|_{t=0}=\nabla f(\vec{x}_0)\cdot \sigma^{\prime}(0)=0\]
+puesto que $\vec{x}_0$ es un m\'inimo local de $f$ restringido a $S$.
+Lo anterior es equivalente, gracias al lema, a que $\nabla
+f(\vec{x}_0)\cdot \vec{d}=0\:\forall \vec{d}\in T_s(\vec{x}_0)$, o sea, $\nabla f(\vec{x}_0)\in
+N_s(\vec{x}_0)$ lo que implica que
+\[\nabla f(\vec{x}_0)=\sum_{i=1}^k\lambda_i\nabla g_i(\vec{x}_0)\]
+para ciertos $\lambda_1,\ldots,\lambda_k\in \R$, que es lo que se
+quer\'ia demostrar.
+\end{demostracion}
+
+\subsection{Consideraciones adicionales}
+
+Los teoremas \ref{mlagrange-1} y \ref{mlagrange-2} dan una condici\'on necesaria de optimalidad con restricciones de igualdad. Tambi\'en son v\'alidos para un problema de maximizaci\'on, esto porque de acuerdo a la definici\'on de funci\'on convexa (definici\'on \ref{convexidad}) tenemos que minimizar una funci\'on $f$ convexa equivale a maximizar la funci\'on $-f$ que resulta ser c\'oncava.
+
+Sea $\vec{x}_0$ un m\'inimo de $f$ restringida a $S$, se cumple que
+$$\nabla f(\vec{x}_0) = \sum_{i=1}^k \lambda_i \nabla g_i (\vec{x}_0)$$
+Para la maximizaci\'on tendr\'iamos lo siguiente
+$$-\nabla f(\vec{x}_0)= \sum_{i=1}^k \lambda_i \nabla g_i (\vec{x}_0)$$
+
+Esto sugiere que si escribimos el Lagrangeano para el caso de la minimizaci\'on como
+$$L(\vec{x},\vec{\lambda}) = f(\vec{x}) - \sum_{i=1}^k \lambda_i g_i(\vec{x})$$
+Para un problema de maximizaci\'on debe expresarse
+$$L(\vec{x},\vec{\lambda}) = f(\vec{x}) + \sum_{i=1}^k \lambda_i g_i(\vec{x})$$
+En la pr\'actica, la ventaja que genera el cambio de signo es que la interpretaci\'on de los multiplicadores de Lagrange es directa en problemas de maximizaci\'on y minimizaci\'on. Antes de dar la interpretaci\'on presentaremos algunos ejemplos que nos mostrar\'an esto en el camino para formalizar el resultado con el teorema de la envolvente. Al momento de resolver no hay diferencia para el caso en que trabajamos con restricciones de igualdad.
+
+\begin{nota}
+Ninguna de las condiciones del teorema puede relajarse y adem\'as el teorema no nos garantiza que los multiplicadores sean no nulos. Si sucede que, por ejemplo, la matriz que define $Dg(\vec{x}_0)$ no es de rango completo (no es de rango $k$) o los gradientes de la funci\'on objetivo y las restricciones son linealmente dependientes\index{Dependencia!lineal}, el sistema que definen las condiciones de primer orden de la funci\'on Lagrangeano\index{Existencia!de soluciones!de la funci\'on Lagrangeano} no tiene soluci\'on. 
+
+La condici\'on de independencia lineal entre los gradientes de la funci\'on objetivo y las restricciones se tiene particularmente en el caso en que el n\'umero de restricciones es estrictamente menor que la dimensi\'on del espacio sobre el cual trabajamos. De esto es que la hip\'otesis de independencia lineal resulta muy restrictiva.
+\end{nota}
+
+Los dos ejemplos que siguen son ilustrativos de lo que pasa cuando no se cumplen las condiciones del teorema o al menos un multiplicador se anula.
+
+\begin{ejemplo} Consideremos el problema
+\begin{eqnarray*}
+\begin{array}{cc}
+\displaystyle \min_{x,y} & x+y^2   \\
+\text{s.a}  			 & x-y^2=0
+\end{array}
+\end{eqnarray*}
+Observemos que $\nabla f(x,y)|_{(0,0)}= (1,0)$ y $\nabla g(x,y)|_{(0,0)}=(1,0)$, por lo que los gradientes son linealmente dependientes y no se cumple que 
+$$\nabla f(x,y)|_{(0,0)} - \lambda \nabla g(x,y)|_{(0,0)}=(0,0)$$ 
+a menos que $\lambda = 1$. Esto hace que el sistema que definen las condiciones de primer orden del Lagrangeano no tenga soluci\'on (el par $(1,0)$ no cumple la restricci\'on del problema).
+\end{ejemplo}
+
+\begin{ejemplo} Consideremos el problema
+\begin{eqnarray*}
+\begin{array}{cc}
+\displaystyle \min_{x,y} & x^2+y^2  \\
+\text{s.a}  & x=0 
+\end{array}
+\end{eqnarray*}
+Observemos que $\nabla f(x,y)|_{(0,0)}= (0,0)$ y $\nabla g(x,y)|_{(0,0)}=(1,0)$, entonces no se cumple que 
+$$\nabla f(x,y)|_{(0,0)} - \lambda \nabla g(x,y)|_{(0,0)}=(0,0)$$ 
+a menos que $\lambda = 0$. Esto hace que el sistema que definen las condiciones de primer orden del Lagrangeano no tenga soluci\'on.
+\end{ejemplo}
+
+\section{Condiciones de segundo orden para extremos restringidos}\label{seccion-cso-lagrange}
+\index{Condiciones de $2^\text{do}$ orden!para extremos restringidos}
+
+\begin{definicion}
+Para el caso de minimizaci\'on definiremos el conjunto de direcciones cr\'iticas como\index{Conjunto!de direcciones cr\'iticas}
+$$K(\vec{x}_0)=\{\vec{d}\in \R^n : \nabla g_i(\vec{x}_0)\cdot \vec{d} = 0 \: \forall i\in I ,\: \nabla f(\vec{x}_0)\cdot \vec{d} \geq 0\}$$
+\\Mientras que para el caso de maximizaci\'on definiremos el conjunto de direcciones cr\'iticas como
+$$K(\vec{x}_0)=\{\vec{d}\in \R^n : \nabla g_i(\vec{x}_0) \cdot \vec{d} = 0 \: \forall i\in I,\: \nabla f(\vec{x}_0)\cdot \vec{d} \leq 0\}$$
+\end{definicion}
+
+Ya vimos un teorema que nos da las condiciones de 2$^\text{do}$ orden (teorema \ref{cso-lagrange}) el cual lo podemos enunciar, con una hip\'otesis menos estricta, de la siguiente forma
+
+\begin{teorema}\label{cso-lagrange2}
+Sea $\vec{x}_0$ un m\'inimo local\index{M\'inimo!local} del problema (\ref{problema-general-lagrange}) y supongamos que existe $\vec{\lambda} \in \R^k$ tal que
+$$\nabla f(\vec{x}_0) + \sum_{i=1}^k \lambda_i \nabla g_i(\vec{x}_0)=0 \: \forall i\in I$$
+considerando que $\{\nabla g_1(\vec{x}_0),\ldots ,\nabla g_k(\vec{x}_0) \}$ es linealmente independiente. Entonces $\forall \vec{d}\in K(\vec{x}_0)$ se cumple que la forma cuadr\'atica $\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d}$ es semi definida positiva, es decir
+$$\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d} \geq 0$$
+\end{teorema}
+
+\begin{demostracion}
+Sean $f,g_i$ $\forall i\in I$ funciones de clase $\mathcal{C}^2$. Definamos $\sigma : A\subseteq \R \to \R^n$ tal que $\sigma (0) = \vec{x}_0$ y $g(\sigma (t))=0$, es decir $\sigma (t)\in S$. Entonces por la convexidad de $f$
+$$\left.\frac{d^2}{dt^2}f(\sigma (t))\right|_{t=0} \geq 0$$
+y por definici\'on
+\begin{gather}\label{cso-1}
+\left.\frac{d^2}{dt^2}f(\sigma (t))\right|_{t=0} = \vec{d}_1^t (H f(\vec{x}_0)) \vec{d}_1 + \nabla f(\vec{x}_0) \cdot \vec{d}_2 \geq 0 \tag{*}
+\end{gather}
+Como $L(\vec{x}_0,\vec{\lambda})=f(\vec{x}_0)+\sum_{i=1}^k \lambda_i g_i(\vec{x}_0)$ tenemos que 
+$$\nabla f(\vec{x}_0) + \vec{\lambda}^t \nabla g(\vec{x}_0)=0$$
+donde $\vec{\lambda} \in \R^k$ y $g(\vec{x}_0)=(g_1(\vec{x}_0),\ldots , g_k(\vec{x}_0))$. 
+Consideremos que 
+$$\vec{\lambda}^t \nabla g(\vec{x}_0)=\vec{\lambda}^t \nabla g(\sigma (t)) = 0$$
+y diferenciando con respecto a $t$ se obtiene
+\begin{gather}\label{cso-2}
+\vec{d}_1^t (\vec{\lambda}^t H g(\vec{x}_0)) \vec{d}_1 + \vec{\lambda}^t \nabla g(\vec{x}_0) \cdot \vec{d}_2 = 0 \tag{**}
+\end{gather}
+Sumando (\ref{cso-2}) a (\ref{cso-1}) 
+$$\vec{d}_1^t (H f(\vec{x}_0) + \vec{\lambda}^t H g(\vec{x}_0)) \vec{d}_1 + (\underbrace{\nabla f(\vec{x}_0) + \vec{\lambda}^t \nabla g(\vec{x}_0)}_{0}) \cdot \vec{d}_2 \geq 0$$
+$$\vec{d}_1^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d}_1 \geq 0$$
+Como $\vec{d}_1$ es arbitrario en $K(\vec{x}_0)$ se tiene que el resultado es v\'alido para cualquier $\vec{d}\in K(\vec{x}_0)$ y llegamos a
+$$\vec{d} (H_x L(\vec{x}_0,\vec{\lambda}))\vec{d} \geq 0 ,\: \vec{d}\in K(\vec{x})$$ 
+\end{demostracion}
+
+\begin{teorema}\label{cso-lagrange22}
+Sea $\vec{x}_0$ un m\'aximo local\index{M\'aximo!local} de un problema de maximizaci\'on con la estructura del problema (\ref{problema-general-lagrange}) y supongamos que existe $\vec{\lambda} \in \R^k$ tal que
+$$\nabla f(\vec{x}_0) - \sum_{i=1}^k \lambda_i \nabla g_i(\vec{x}_0)=0 \: \forall i\in I$$
+considerando que $\{\nabla g_1(\vec{x}_0),\ldots ,\nabla g_k(\vec{x}_0) \}$ es linealmente independiente. Entonces $\forall \vec{d}\in K(\vec{x}_0)$ se cumple que la forma cuadr\'atica $\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d}$ es semi definida negativa, es decir
+$$\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d} \leq 0 $$
+\end{teorema}
+
+\begin{demostracion}
+Es an\'aloga a la del teorema \ref{cso-lagrange2}. Basta con tomar $f$ c\'oncava y como $-f$ es convexa se concluye.
+\end{demostracion}
+
+Ahora formularemos el teorema \ref{cso-lagrange} tal como se vio en el cap\'itulo \ref{cap4}.
+
+\begin{teorema}\label{cso-lagrange3}
+Sea $\vec{x}_0$ un vector factible del problema (\ref{problema-general-lagrange}) y supongamos que existe $\vec{\lambda} \in \R^k$ tal que
+$$\nabla f(\vec{x}_0) + \sum_{i=1}^k \lambda_i \nabla g_i(\vec{x}_0)=0 \: \forall i\in I$$
+Para todo $\vec{d} \in K(\vec{x}_0)\setminus \{\vec{0}\}$ la forma cuadr\'atica $\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d}$ es definida positiva, es decir
+$$\vec{d}^t (H_x L(\vec{x},\vec{\lambda})) \vec{d} > 0$$
+Entonces $\vec{x}_0$ es un m\'inimo local estricto.\index{M\'inimo!local estricto}
+\end{teorema}
+
+\begin{demostracion}
+Consideremos que $f$ es estrictamente convexa y supongamos que $\vec{x}_0$ no es un m\'inimo estricto de $f$ restringida a $S$. Escogamos $\{\vec{x}_n\}_{n\in \N}$ en $S$ tal que $\vec{x}_n \to \vec{x}_0$ y $f(\vec{x}_n)\leq f(\vec{x}_0)$. Sea $\vec{x}_n = \vec{x}_0 + \gamma_n d_n$ con $\gamma_n > 0$ y
+$$\vec{d}_n=\frac{\vec{x}_n - \vec{x}_0}{\|\vec{x}_n - \vec{x}_0\|} ,\: \|\vec{d}_n\|=1$$
+Se tendr\'a que $\gamma_n = \|\vec{x}_n - \vec{x}_0\|$, $\gamma_n \to 0$ y $\{\vec{d}_n\}$ es acotada por lo que tiene una subsucesi\'on convergente a $\vec{d}_0$. 
+
+Como $\{\vec{x}_n\}\in S$ se tiene que $g_i(\vec{x}_n)=0$ $\forall i\in I$. Definamos $g(\vec{x}_0)=(g_1(\vec{x}_0),\ldots,g_k(\vec{x}_0))$ y de esta forma 
+$$g(\vec{x}_n)-g(\vec{x}_0)= 0 \:\Rightarrow\: g(\vec{x}_0 + \gamma_n \vec{d}_n) -g(\vec{x}_0)= 0$$
+si dividimos esto por $\gamma_n$, tal que $\gamma_n \to 0$, en la medida que $n\to \infty$ se obtiene $\nabla g(\vec{x}_0)\cdot \vec{d}_0 = 0$.
+
+Usando el teorema de Taylor (teorema \ref{taylor1}), para todo $i\in I$ se cumple
+\begin{gather}\label{cso-lagrange4}
+g_i(\vec{x}_n)-g_i(\vec{x}_0)=\gamma_n \nabla g_i(\vec{x}_0)\cdot \vec{d}_n + \frac{\gamma_n^2}{2} \vec{d}_n^t (H g_i (\vec{x}_a)) \vec{d}_n = 0 \tag{*}
+\end{gather}
+y tambi\'en se tiene que
+\begin{gather}\label{cso-lagrange5}
+f(\vec{x}_n)-f(\vec{x}_0)=\gamma_n \nabla f(\vec{x}_0)\cdot \vec{d}_n + \frac{\gamma_n^2}{2} \vec{d}_n^t (H f(\vec{x}_b)) \vec{d}_n \leq 0 \tag{**}
+\end{gather}
+con $\vec{x}_a = \alpha \vec{x}_n + (1-\alpha)\vec{x}_0$, $\alpha \in ]0,1[$ y $\vec{x}_b = \beta \vec{x}_n + (1-\beta)\vec{x}_0$, $\beta \in ]0,1[$, es decir $\vec{x}_a$ y $\vec{x}_b$ son combinaciones convexas de $\vec{x}_0$ y $\vec{x}_n$.
+
+Consideremos $\frac{1}{n}\|\vec{x}_n-\vec{x}_0\|^2 \geq f(\vec{x}_n) - f(\vec{x}_0)$, entonces $\frac{1}{n}\|\vec{x}_n-\vec{x}_0\|^2 \geq 0$. A partir de (\ref{cso-lagrange5})
+$$
+\gamma_n \nabla f(\vec{x}_0)\cdot \vec{d}_n + \frac{\gamma_n^2}{2} \vec{d}_n^t (H f(\vec{x}_b)) \vec{d}_n \leq \frac{1}{n}\|\vec{x}_n-\vec{x}_0\|^2
+$$
+
+Multiplicando (\ref{cso-lagrange4}) por $\lambda_i$ y aplicando la sumatoria $\sum_{i=1}^k (\cdot)$ para agregar las $k$ restricciones formamos lo siguiente
+\begin{gather}\label{cso-lagrange6}
+\vec{\lambda}^t (g(\vec{x}_n)-g(\vec{x}_0))=\gamma_n \vec{\lambda}^t \nabla g(\vec{x}_0)\cdot \vec{d}_n + \frac{\gamma_n^2}{2} \vec{d}_n^t (\vec{\lambda}^t H g(\vec{x}_a)) \vec{d}_n = 0 \tag{***}
+\end{gather}
+Sumando (\ref{cso-lagrange6}) a (\ref{cso-lagrange5}) se obtiene
+$$\gamma_n (\underbrace{\nabla f(\vec{x}_0) + \vec{\lambda}^t \nabla g(\vec{x}_0)}_{0})\cdot \vec{d}_n + \frac{\gamma_n^2}{2} \vec{d}_n^t (H f(\vec{x}_b) + \vec{\lambda}^t H g(\vec{x}_a)) \vec{d}_n \leq \frac{1}{n}\|\vec{x}_n-\vec{x}_0\|^2$$
+$$\frac{\gamma_n^2}{2} \vec{d}_n^t (H f(\vec{x}_b) + \vec{\lambda}^t H g(\vec{x}_a)) \vec{d}_n \leq \frac{1}{n}\|\vec{x}_n-\vec{x}_0\|^2$$
+como $\gamma_n = \|\vec{x}_n - \vec{x}_0\|$
+$$\vec{d}_n^t (H f(\vec{x}_b) + \vec{\lambda}^t H g(\vec{x}_a)) \vec{d}_n \leq \frac{2}{n}$$
+y tomando l\'imite cuando $n\to \infty$
+$$\vec{d}_0^t (H f(\vec{x}_0) + \vec{\lambda}^t H g(\vec{x}_0)) \vec{d}_0 \leq 0$$
+Observemos que en esto \'ultimo aparecen $\vec{x}_a$ y $\vec{x}_b$. Como tomamos l\'imite cuando $n\to \infty$ y se tiene que $\vec{x}_n \to \vec{x}_0$, entonces $\vec{x}_a \to \vec{x}_0$ y $\vec{x}_b \to \vec{x}_0$.
+
+De esta forma hemos llegado a que cuando $\vec{x}_0$ es un m\'inimo local estricto de $f$ restringida a $S$ no es posible que la forma cuadr\'atica $\vec{d}^t(H_x L(\vec{x}_0,\vec{\lambda}))\vec{d}$ sea semi definida negativa y como $\vec{d}$ es arbitrario se concluye la demostraci\'on.
+\end{demostracion}
+
+\begin{teorema}\label{cso-lagrange33}
+Sea $\vec{x}_0$ un vector factible de un problema de maximizaci\'on con la estructura del problema (\ref{problema-general-lagrange}) y supongamos que existe $\vec{\lambda} \in \R^k$ tal que
+$$\nabla f(\vec{x}_0) - \sum_{i=1}^k \lambda_i \nabla g_i(\vec{x}_0)=0 \: \forall i\in I$$
+Para todo $\vec{d} \in K(\vec{x}_0)\setminus \{\vec{0}\}$ la forma cuadr\'atica $\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda})) \vec{d}$ es definida negativa, es decir
+$$\vec{d}^t (H_x L(\vec{x},\vec{\lambda})) \vec{d} < 0$$
+Entonces $\vec{x}_0$ es un m\'aximo local estricto.\index{M\'aximo!local estricto}
+\end{teorema}
+
+\begin{demostracion}
+Es an\'aloga a la del teorema \ref{cso-lagrange3}. Basta con tomar $f$ c\'oncava y alg\'un $\vec{x}_0$ factible suponiendo que no es m\'aximo, como $-f$ es convexa se concluye. 
+\end{demostracion}
+
+\begin{nota}
+Los teoremas \ref{cso-lagrange2} y \ref{cso-lagrange22} nos dan una condici\'on necesaria de segundo orden mientras que los teoremas \ref{cso-lagrange3} y \ref{cso-lagrange33} nos dan una condici\'on suficiente.
+\end{nota}
+
+Los teoremas \ref{cso-lagrange22} y \ref{cso-lagrange33} nos dan una condici\'on suficiente de segundo orden. Podr\'ia creerse que la condici\'on clave para ambos teoremas es que el conjunto $\{\nabla g_i (\vec{x}_0)\}$ sea linealmente independiente $\forall i\in\{1,\ldots, k\}$, sin embargo la condici\'on es que se cumpla que $g_i (\vec{x}_0)=0$ $\forall i\in I$. Basta con que el Hessiano del Lagrangreano solo con respecto a $\vec{x}$ sea definido positivo en el conjunto de direcciones cr\'iticas y no en cualquier direcci\'on arbitraria.
+
+\begin{ejemplo}
+En el ejemplo (\ref{1}), diga si el punto $(x_{0},y_{0})=(-\frac{1}{2}%
+,\frac{1}{2})$ es un m\'aximo o un m\'inimo.
+
+\begin{solucion}
+Para esto, construyamos primeramente el Lagrangeano del problema:%
+$$L(x,y,\lambda) = x^{2}+y^{2}-\lambda(y-x-1)$$
+
+Recordemos que el multiplicador de lagrange era $\lambda=1$, por tanto, el
+Hessiano del Lagrangeano queda:%
+\[
+H_{x}L(x_{0},y_{0},\lambda)=\left(
+\begin{array}
+[c]{ll}%
+2 & 0\\
+0 & 2
+\end{array}
+\right)
+\]
+el cual es definido positivo para todo $d$, en particular para las direcciones
+del conjunto de direcciones cr\'iticas y por tanto el punto $(x_{0}%
+,y_{0})=(-\frac{1}{2},\frac{1}{2})$ es un m\'inimo.
+\end{solucion}
+\end{ejemplo}
+
+\begin{ejemplo}
+Optimice el valor de la funci\'on $f(x,y)=x$ sobre el conjunto de puntos
+$(x,y)$ tales que $x^{2}+2y^{2}=3$.
+
+\begin{solucion}
+El Lagrangeano para este problema queda de la siguiente forma:%
+\[
+L(x,y,\lambda)=x-\lambda(x^{2}+2y^{2}-3)
+\]
+a partir del cual, aplicando el sistema lagrangeano (\ref{*1}) se obtiene
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+1=2\lambda x_0 \\
+4=\lambda y_0 \\
+x_0^{2}+2y_0^{2} = 3
+\end{array}
+\right.
+\end{array}
+\]
+
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+1=2\lambda x_0 \\
+0=4\lambda y_0 \\
+x_0^{2}+2y_0^{2} = 3
+\end{array}
+\right.   & \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+1=2\lambda x_0 \\
+x_0^{2}+2y_0^{2} = 3
+\end{array}
+\end{array}
+\]
+y por tanto, los posibles candidatos a extremos ($\lambda$ no puede ser cero)
+son:%
+\begin{align*}
+(x_{1},y_{1},\lambda_{1})  & =\left(  \sqrt{3},0,\frac{1}{2\sqrt{3}}\right)
+\\
+(x_{2},y_{2},\lambda_{2})  & =\left(  -\sqrt{3},0,-\frac{1}{2\sqrt{3}%
+}\right)
+\end{align*}
+por otro lado se tiene que:
+\[H_{x}L(x,y,\lambda)=
+\begin{pmatrix}
+-2 \lambda & 0 \\
+0 & -4 \lambda
+\end{pmatrix}\]
+es decir, para $$(x_{1},y_{1},\lambda_{1})=\left(\sqrt{3},0,\frac{1}{2\sqrt{3}}\right)$$ $H_{x}L(x_{1},y_{1},\lambda_{1})$ es definida negativa y
+por tanto $(x_{1},y_{1})=(\sqrt{3},0)$ es un m\'aximo local mientras que para $$(x_{2},y_{2},\lambda_{2})=\left(-\sqrt{3},0,-\frac{1}{2\sqrt{3}}\right)$$ $H_{x}L(x_{2},y_{2},\lambda_{2})$ es definida positiva  y por lo
+tanto $(x_{2},y_{2})=(-\sqrt{3},0)$ es un m\'inimo local.
+\end{solucion}
+\end{ejemplo}
+
+\begin{ejemplo}
+Consideremos el siguiente problema
+$$
+\begin{array}{cc}
+\displaystyle \max_{x,y,z}  & xy + yz + xz  \\
+\text{s.a}  		   		& x+y+z = 1 
+\end{array}
+$$
+Nos interesa saber si la soluci\'on (en caso de que exista) efectivamente corresponde a un m\'aximo local estricto.
+\end{ejemplo}
+
+\begin{solucion}
+El Lagrangeano corresponde a
+$$L(x,\lambda)=xy + yz + xz - \lambda(x+y+z-1)$$
+Aplicando el sistema Lagrangeano llegamos a lo siguiente
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+y_0+z_0 - \lambda = 0 \\
+x_0+z_0 - \lambda = 0 \\
+x_0+y_0 - \lambda = 0 \\
+x_0+y_0+z_0 = 1
+\end{array}
+\right.   & \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+x_0=y_0\\
+y_0=z_0 \\
+x_0+y_0+z_0 = 1
+\end{array}
+& \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+x_0= 1/3 \\
+y_0= 1/3 \\
+z_0= 1/3 \\
+\end{array}
+\end{array}
+\]
+Entonces $f(x_0,y_0,z_0)=1/3$ y el valor del multiplicador de Lagrange es $\lambda = 2/3$.
+ 
+Para las condiciones de segundo orden tenemos
+$$
+Hf(x_0)=\begin{pmatrix}
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0
+\end{pmatrix} \qquad
+Hg(x_0)=\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{pmatrix}
+$$
+Entonces,
+$$
+H_xL(x_0,\lambda)=H_x f(x_0) + \lambda^t Hg(x_0) = \begin{pmatrix}
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0
+\end{pmatrix}
+$$
+Podr\'iamos usar el criterio de los menores principales para determinar si la matriz resultante es semi definida positiva o negativa. Usando esto se obtiene $|H_1|=0$, $|H_2|=-1$ y $|H_3|=2$ lo cual bajo tal criterio nos dice que la matriz no es semi definida negativa ni tampoco semi definida positiva.
+
+Los teoremas \ref{cso-lagrange2}, \ref{cso-lagrange22}, \ref{cso-lagrange3} y \ref{cso-lagrange33} establecen una condici\'on de segundo orden que pide que $H_x L(\vec{x}_0,\vec{\lambda})$ sea semi definida positiva (caso minimizaci\'on) o semi definida negativa (caso maximizaci\'on) a lo menos en $K(\vec{x})$.
+
+Definamos $\vec{d}=(x,y,z)$ y entonces 
+\begin{gather}\label{cso-lagrange7}
+\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda}))\vec{d} = x(y+z)+y(x+z)+z(x+y) \tag{*}
+\end{gather}
+Tengamos presente que en $K(x)$ se cumple que $\nabla g(x)\cdot d = 0$, entonces $x+y+z=0$ por lo que podemos reescribir (\ref{cso-lagrange7}) como
+$$d^t (H_x L(x_0,\lambda)) d = -(x^2+y^2+z^2)<0$$
+observemos que $-(x^2+y^2+z^2)\leq 0$ pero restringido a $K(\vec{x})$ se tiene la desigualdad estricta y entonces la soluci\'on encontrada es un m\'aximo local estricto.
+\end{solucion}
+
+\section{Ejemplos de Microeconom\'ia en varias dimensiones}\label{ejemplos-variasdimensiones}
+
+Ahora daremos algunos ejemplos en los que se debe resolver una funci\'on Lagrangeano que consta de $n+1$ variables. Es importante revisar estos problemas con detalle puesto que entregan una formulaci\'on para casos generalizados.
+
+\begin{ejemplo}\label{ejemplo-micro-1}
+En la ciudad de Titirilqu\'en todas las empresas minimizan sus costos de operaci\'on. Supondremos que existen $n$ factores productivos que tienen un costo unitario de $w_i$ por unidad y que en la ciudad existen $m$ empresas que elaboran el mismo producto. La empresa representativa de la ciudad tiene una estructura de producci\'on se puede representar mediante la siguiente funci\'on:
+$$f(\vec{x})= A \prod_{i=1}^n x_i^{\alpha_i}$$
+Donde los par\'ametros $A,\alpha_i$ son positivos y las curvas de nivel de esta funci\'on, en un caso particular, corresponden al siguiente gr\'afico
+\begin{figure}[H]
+	\centering
+	\input{figuras/cobbdouglas.pdf_tex}
+	\caption{Funci\'on Cobb-Douglas $f(x_1,x_2)=x_1^{1/2}x_2^{1/2}$}
+\end{figure}
+
+Debido a la forma de la funci\'on presentada la soluci\'on \'optima del problema conduce a una soluci\'on interior. Es decir, podemos encontrar la soluci\'on directamente mediante Lagrangeano.
+
+Lo que nos interesa obtener es la demanda por factores $x_i(\vec{w},Q)$, donde $x_i$ es la demanda por el insumo i-\'esimo en funci\'on de $\vec{w}$ (vector de $\R^n_+$ que representa los costos de los $n$ insumos) y de $Q$ que representa un nivel de producci\'on fijo. Esta demanda proviene del siguiente problema:
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \min_{\vec{x}} 		& \sum_{i=1}^n w_i x_i 	 \\
+\text{s.a}					& f(\vec{x}) \geq  Q,\:x_i \geq 0
+\end{array}
+\end{equation*}
+el cual se puede reescribir como
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \min_{\vec{x}}		& \sum_{i=1}^n w_i x_i 	 \\
+\text{s.a}					& f(\vec{x}) =  Q
+\end{array}
+\end{equation*}
+
+Para un nivel de producci\'on fijo, digamos que es $Q$, tenemos que
+$$Q= A \prod_{i=1}^n x_i^{\alpha_i}$$
+y el problema de minimizaci\'on es:
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \min_{\vec{x}}		& \sum_{i=1}^n w_i x_i 	 \\
+\text{s.a}					& A \prod_{i=1}^n x_i^{\alpha_i} = Q
+\end{array}
+\end{equation*}
+
+Con esto en mente escribimos la funci\'on Lagrangeano
+$$ L(\vec{x},\lambda) = \sum_{i=1}^n w_i x_i - \lambda \left(A\prod_{i=1}^n x_i^{\alpha_i} - Q\right)$$
+La soluci\'on es interior ($x_i >  0$ $\forall i$) tal que 
+$$\lambda = \frac{w_i}{\partial f / \partial x_i}$$
+y las condiciones de primer orden son las siguientes:
+	\begin{align}
+	\label{cd1} \dpr{L}{x_i} &= w_i - \frac{\lambda  \alpha_i A\prod_{i=1}^n x_i^{\alpha_i}}{x_i} = 0 \tag{*} \\
+	\label{cd2} \dpr{L}{\lambda} &= Q - A\prod_{i=1}^n x_i^{\alpha_i} = 0 \tag{**}
+	\end{align}
+De \eqref{cd1} despejamos $x_i$
+$$x_i = \frac{\lambda \alpha_i A\prod_{i=1}^n x_i^{\alpha_i}}{w_i} = \frac{\lambda \alpha_i Q}{w_i}$$
+
+Para obtener el multiplicador definimos $\sum_{i=1}^n \alpha_i = k$ para simplificar la escritura, de la parte anterior tomamos el \'ultimo resultado, lo reemplazamos en \eqref{cd2} y obtenemos
+$$Q^{1 - k}=A\lambda^{k} \cdot \prod_{i=1}^n \left( \frac{\alpha_i}{w_i}\right)^{\alpha_i}$$
+Reordenando t\'erminos se obtiene el multiplicador
+\begin{eqnarray*}
+\lambda^{k} &=& \frac{Q^{1 - k}}{A} \cdot \frac{1}{\prod_1^n \left( \frac{\alpha_i}{w_i}\right)^{\alpha_i}} \\
+\lambda &=& Q^{(1-k)/k} \left( \frac{\prod_{i=1}^n w_i^{\alpha_i / k}}{A^{1/k} \prod_{i=1}^n \alpha_i^{\alpha_i / k}} \right)
+\end{eqnarray*}
+
+Reemplazando el multiplicador en \eqref{cd1} obtenemos la demanda por el insumo j-\'esimo.
+\begin{eqnarray*}
+x_j &=& Q^{(1-k)/k} \left( \frac{\prod_{i=1}^n w_i^{\alpha_i / \sum_1^n \alpha_i}}{A^{1/k} 	\prod_{i=1}^n \alpha_i^{\alpha_i / k}} \right) \cdot \frac{\alpha_j Q}{w_j} \\
+x_j &=& \left( \frac{Q^{1/k} \alpha_i}{w_i} \right)\cdot \frac{\prod_{i=1}^n w_i^{\alpha_i/k}}				{A^{1/k} \prod_{i=1}^n \alpha_i^{\alpha_i/k}} \\
+x_j &=& \left( \frac{Q}{A}\right)^{1/k} \cdot \frac{\prod_{i=1}^n w_i^{\alpha_i/k}}{\prod_{i=1}^n 		\alpha_i^{\alpha_i/k}}\cdot \frac{\alpha_j}{w_j}
+\end{eqnarray*}
+
+Finalmente para la funci\'on de costos multiplicamos la demanda \'optima por $w_j$ y agregamos los $n$ t\'erminos aplicando la sumatoria $\sum_{j=1}^n (\cdot)$. Se obtiene
+$$ C(Q,\vec{w}) = \sum_{j=1}^n w_j x_j = \left( \frac{Q}{A}\right)^{1/k} \cdot \frac{\prod_{i=1}^n w_i^{\alpha_i/k}}{\prod_{i=1}^n \alpha_i^{\alpha_i/k}} \cdot k $$
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-2}
+Suponga que la vi\~na Don Pach\'a se dedica exclusivamente a la producci\'on de vino Carm\'en\`ere, el cual se elabora con $n$ factores productivos, y la funci\'on de producci\'on es la siguiente:
+$$f(\vec{x})= A\left(\sum_{1}^{n}{\alpha_i x_i^ \rho}\right)^{v / \rho}$$ 
+Donde los par\'ametros $A,\:\alpha_i,\:\rho,\:v$ son positivos y $\rho\in(0,1)$. 
+
+Para simplificar el desarrollo algebraico, la funci\'on de producci\'on dado un nivel de producci\'on fijo se puede expresar como
+$$Q^{\frac{\rho}{v}} = A^{\frac{\rho}{v}} \left(\sum_{i=1}^n \alpha_i x_i^\rho \right)$$
+De esto formamos el Lagrangeano del problema
+$$L(\vec{x},\lambda) = \sum_{1}^n w_i x_i - \lambda \left(A^{\frac{\rho}{v}} \left(\sum_{i=1}^n \alpha_i x_i^\rho\right) - Q^{\frac{\rho}{v}} \right)$$
+La soluci\'on es interior ($x_i >  0$ $\forall i$) tal que 
+$$\lambda = \frac{w_i}{\partial f / \partial x_i}$$
+y las condiciones de primer orden son las siguientes:
+	\begin{align} 
+	\dpr{L}{x_i} &= w_i - \lambda A^{\frac{\rho}{v}} \rho \alpha_i x_i^{\rho - 1} = 0 \nonumber \\
+	\label{ces1} \dpr{L}{\lambda} &= Q^{\frac{\rho}{v}} - A^{\frac{\rho}{v}} \left(\sum_{i=1}^n \alpha_i x_i^\rho \right) = 0 \tag{*}
+	\end{align}
+De \eqref{ces1} despejamos $x_i$
+$$w_i = \lambda A^{\frac{\rho}{v}} \rho \alpha_i x_i^{\rho - 1}$$
+	\begin{gather} \label{equis-i}
+	x_i = \left( \frac{\lambda A^{\frac{\rho}{v}}\rho a_i}{w_i} \right)^{\frac{1}{1-\rho}} \tag{**}
+	\end{gather}
+A partir de este resultado la idea es formar la funci\'on de producci\'on nuevamente. Para esto basta con elevar a $\rho$, luego multiplicar por $\alpha_i$, agregar los $n$ t\'erminos aplicando la sumatoria $\sum_{i=1}^n (\cdot)$ y finalmente multiplicar por $A^\frac{\rho}{v}$ para llegar a una expresi\'on equivalente a $Q^\frac{\rho}{v}$. Despejando $Q$ se obtiene
+$$Q = A^{\frac{1}{1-\rho}} (\lambda \rho )^{\frac{v}{1-\rho}} \left( \sum_{i=1}^n a_i^{\frac{1}{1-\rho}} w_i^{\frac{\rho}{\rho -1}} \right)^{\frac{v}{\rho}}$$
+
+Podemos despejar el multiplicador con la finalidad de reemplazar en \eqref{equis-i}
+$$\lambda^{\frac{1}{1-\rho}} = \frac{Q^{\frac{1}{v}}}{A^{\frac{1}{v(1-\rho)}} \rho^{\frac{1}{1-\rho}} \left(\displaystyle \sum_{i=1}^n a_i^{\frac{1}{1-\rho}} w_i^{\frac{\rho}{\rho-1}} \right)^{\frac{1}{\rho}}}$$
+
+Reemplazando el multiplicador, que intencionadamente dejamos elevado a $\frac{1}{1-\rho}$ para reemplazar directamente en \eqref{equis-i}, se obtiene la demanda condicionada por el factor j-\'esimo
+$$x_j = \left( \frac{Q}{A} \right)^{\frac{1}{v}} \frac{a_j^{\frac{1}{1-\rho}} w_j^{\frac{1}{\rho-1}}}{\left( \displaystyle \sum_{j=1}^n a_j^{\frac{1}{1-\rho}} w_j^{\frac{1}{1-\rho}} \right)^{\frac{1}{\rho}}}$$
+
+Ahora solo nos falta encontrar la funci\'on de costos, para lo cual basta con multiplicar por $w_i$ y finalmente agregar los $n$ t\'erminos aplicando la sumatoria $\sum_{j=1}^n (\cdot)$. Se obtiene 
+$$\sum_{j=1}^n w_j x_j = \left( \frac{Q}{A} \right)^{\frac{1}{v}} \frac{\displaystyle \sum_{j=1}^n a_i^{\frac{1}{1-\rho}} w_i^{\frac{\rho}{\rho-1}}}{\left( \displaystyle \sum_{i=1}^n a_i^{\frac{1}{1-\rho}} w_i^{\frac{1}{1-\rho}} \right)^{\frac{1}{\rho}}}$$
+En esta \'ultima ecuaci\'on hay que arreglar las sumatorias, que son independientes del \'indice, y se obtiene
+$$C(Q,\vec{w}) = \sum_{i=1}^n w_i x_i = \left( \frac{Q}{A} \right)^{\frac{1}{v}} \left( \displaystyle \sum_{i=1}^n a_i^{\frac{1}{1-\rho}} w_i^{\frac{\rho}{\rho -1}} \right)^{\frac{\rho -1}{\rho}}$$
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-3}
+Ahora ilustraremos un caso en que la funci\'on objetivo y la restricci\'on son lineales. Esto es con la finalidad de dar una interpretaci\'on al multiplicador de Lagrange que presentaremos durante el desarrollo del ejercicio y retomaremos m\'as adelante.
+
+Supongamos que los completos de la calle Gorbea son fabricados mediante un proceso que es representable por medio de la siguiente funci\'on:
+$$f(\vec{x})=\sum_{i=1}^n \alpha_i x_i$$
+%Aunque sea poco realista, ya que da lugar a una perfecta sustituci\'on de insumos, tomaremos esta funci\'on para desarrollar un caso en que la soluci\'on \'optima no es interior y la soluci\'on no es directa mediante Lagrangeano.
+
+Debido a la forma de la funci\'on presentada, la soluci\'on \'optima del problema puede conducir a una soluci\'on no interior. Si la soluci\'on es no interior, entonces no se cumple la condici\'on de paralelismo de los gradientes de la funci\'on objetivo y la restricci\'on. En tal caso no podemos encontrar la soluci\'on directamente mediante Lagrangeano.
+
+El problema tiene la misma estructura de los dos ejemplos anteriores. Por lo tanto el Lagrangeano del problema es
+$$L(\vec{x},\lambda)=\sum_{i=1}^n w_i x_i - \lambda \left(\sum_{i=1}^n \alpha_i x_i - Q\right)$$
+y las condiciones de primer orden son las siguientes:
+	\begin{gather}
+	\label{mc1} \dpr{L}{x_i} = w_i - \lambda \alpha_i = 0 \qquad \forall i \in \{1,\ldots , n\} \tag{*}
+	\end{gather}
+	\begin{gather}
+	\label{mc2} \dpr{L}{\lambda} = \sum_{i=1}^n \alpha_i x_i - Q = 0 \tag{**}
+	\end{gather}
+Estas condiciones no tienen soluci\'on directa. 
+
+A partir de \eqref{mc1} tenemos que $\lambda = w_i / \alpha_i$ pero debemos ser criteriosos y considerar
+$$\lambda = \min_i \frac{w_i}{\alpha_i}$$	
+as\'i estamos considerando una \'unica soluci\'on del problema cuando existe un \'unico cociente que minimiza $\lambda$. Si para alg\'un $j$ se tiene que $w_j / \alpha_j > \lambda$ entonces $x_j = 0$.
+
+A partir de \eqref{mc2} tenemos que
+$$x_j = \begin{cases}
+\frac{Q}{\alpha_j}  & \text{ si } i=j \cr
+0			  		& \text{ si } i\neq j
+\end{cases}$$
+%En caso de que la soluci\'on no sea \'unica cualquier combinaci\'on convexa de los distintos $x_j$ es una soluci\'on v\'alida del problema. 
+
+Las soluciones interiores se dan cuando el problema no tiene soluci\'on \'unica. En caso de que la soluci\'on no sea \'unica cualquier combinaci\'on convexa de las demandas es una soluci\'on v\'alida del problema. 
+
+Una situaci\'on en que no hay soluci\'on \'unica es cuando la funci\'on objetivo y la restricci\'on son iguales, con lo cual cualquier soluci\'on interior es \'optima y genera el mismo valor en la funci\'on objetivo pues no habr\'ia un \'unico valor m\'inimo para el multiplicador.
+
+Sea $D$ es el conjunto de demandas factibles que resuelven el problema, definimos este conjunto de la siguiente forma:
+$$D = \left\{\frac{Q}{\alpha_j} e_j : \frac{w_j}{\alpha_j} \leq \frac{w_i}{\alpha_i} \:\forall i=1,\ldots , n \right\}$$
+donde $e_j$ denota la j-\'esima componente de la base can\'onica de $\R^n$. Entonces tendremos que la soluci\'on del problema es cualquier $x_j \in D$.
+
+De esta forma la condici\'on para una soluci\'on \'unica del problema es que exista s\'olo un cociente $w_i / \alpha_i$ compatible con
+$$\lambda = \min_i \frac{w_i}{\alpha_i}$$
+y as\'i garantizamos que la soluci\'on no es interior. 
+
+La funci\'on de costos est\'a dada por
+$$C(Q,\vec{w}) = Q \cdot \min\left\{\frac{w_1}{\alpha_1},\ldots , \frac{w_2}{\alpha_2}\right\}$$
+pues habiendo perfecta sustituci\'on de factores y adem\'as siendo la soluci\'on no interior se elegir\'a producir utilizando nada m\'as que el factor productivo cuya relaci\'on costo-productividad sea menor.
+
+Para fijar ideas es \'util pensar en el caso de $\R^2$. Si la pendiente se determina seg\'un
+$$m_{f(x_1,x_2)} = \frac{\partial f / \partial x_2}{\partial f / \partial x_1}$$
+habr\'ia que comparar si esta pendiente es mayor, menor o igual a la relaci\'on de precios $r_p = p_{x_2}/p_{x_1}$. Se tienen tres casos posibles:
+
+\begin{enumerate}
+\item $m_{f(x_1,x_2)}>r_p$, entonces la soluci\'on \'optima es $x_1^*=0$ y $x_2^* > 0$.
+\item $m_{f(x_1,x_2)}<r_p$, entonces la soluci\'on \'optima es $x_1^*>0$ y $x_2^* = 0$.
+\item $m_{f(x_1,x_2)}=r_p$, entonces la soluci\'on \'optima es cualquier combinaci\'on de valores positivos de $x_1$ y $x_2$ que respeten la restricci\'on. Luego, la soluci\'on no es \'unica y hay infinitas soluciones para este caso.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-4}
+Javiera acaba de estimar computacionalmente una funci\'on que representa su nivel de bienestar o utilidad por el consumo de una canasta de $n$ productos. La estimaci\'on de la funci\'on es la siguiente:
+$$u(\vec{x}) = \prod_{i=1}^n x_i^{\alpha_i}$$
+Donde $\alpha_i > 0$ $\forall i$ y $\sum_{i=1}^n \alpha_i = 1$. Su restricci\'on al consumo viene dada por un ingreso $I$ que se gasta en su totalidad en productos perfectamente divisibles, los cuales se venden a un precio $p_i$ cada uno. Lo que le interesa es maximizar su nivel de utilidad sujeto a su restricci\'on presupuestaria.
+
+El problema a resolver es:
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \max_x 		& \prod_{i=1}^n x_i^{\alpha_i} 	 \\
+\text{s.a}					& \sum_{i=1}^n p_i x_i = I
+\end{array}
+\end{equation*}
+
+Del problema de maximizaci\'on el Lagrangeano corresponde a
+$$L(\vec{x},\lambda) = \prod_{i=1}^n x_i^{\alpha_i} + \lambda\left(I-\sum_{i=1}^n p_i x_i\right)$$
+y las condiciones de primer orden son las siguientes:
+	\begin{align} 
+	\label{cd3} \dpr{L}{x_i} &= \frac{\alpha_i \prod_{i=1}^n x_i^{\alpha_i}}{x_i} - \lambda p_i = 0 \tag{*} \\ 
+	\label{cd4} \dpr{L}{\lambda} &= I - \sum_{i=1}^n p_i x_i = 0 \tag{**}
+	\end{align}
+
+Como $u(\vec{x}) = \prod_{i=1}^n x_i^{\alpha_i}$, vamos a reemplazar en \eqref{cd3} y obtenemos
+	\begin{gather} \label{cd5} 
+	\alpha_i u = \lambda p_i x_i \tag{***}
+	\end{gather}
+De esto obtenemos $\lambda$ en t\'erminos de $(u,\vec{\alpha},\vec{p},\vec{x})$
+$$\lambda = \frac{\alpha_i u}{p_i x_i}$$
+
+Consideremos que $I = \sum_{i=1}^n p_i x_i$ y $\sum_{i=1}^n \alpha_i = 1$ por lo que en \eqref{cd5} vamos a agregar t\'erminos aplicando la sumatoria $\sum_{i=1}^n (\cdot)$
+$$u =  \lambda I$$
+Si reemplazamos esto \'ultimo en \eqref{cd5} obtenemos
+$$ \alpha_i I = p_i x_i$$
+S\'olo falta reordenar y obtenemos la demanda por el insumo j-\'esimo (los \'indices son independientes) en t\'erminos de $(I,\vec{\alpha},\vec{p})$
+$$x_j = \frac{I \alpha_j}{p_j}$$
+
+\item Reemplazamos directamente el \'ultimo resultado en $u(\vec{x}) = \prod_{i=1}^n x_i^{\alpha_i}$ y obtenemos
+$$u(\vec{x}) = I \prod_{i=1}^n \left(\frac{\alpha_i}{p_i}\right)^{\alpha_i}$$
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-5}
+Suponga que Mart\'in alcanza cierto nivel de bienestar o utilidad por el consumo de una canasta de $n$ productos. Un estudio de mercado ha revelado que su funci\'on de utilidad es la siguiente:
+$$u(\vec{x}) = \sum_{i=1}^n \alpha_i x_i$$
+Donde $\alpha_i \geq 0$ $\forall i\in\{1,\ldots , n\}$ y $\sum_{i=1}^n \alpha_i = 1$. Lo que Mart\'in busca es obtener el nivel m\'as alto de utilidad posible sabiendo que su presupuesto es limitado. 
+
+Debido a la forma de la funci\'on presentada en algunos casos la soluci\'on \'optima debe ser trabajada cuidadosamente (ver ejemplo \ref{ejemplo-micro-3}).
+
+El problema tiene la misma estructura del ejemplo anterior por lo que el Lagrangeano corresponde a
+$$L(\vec{x},\lambda) = \sum_{i=1}^n \alpha_i x_i + \lambda \left(I-\sum_{i=1}^n p_i x_i \right)$$
+y las condiciones de primer orden son las siguientes:
+	\begin{gather}
+	\label{mu4} \dpr{L}{x_i} = \alpha_i - \lambda p_i = 0 \qquad \forall i \in \{1,\ldots , n\} \tag{*}
+	\end{gather}
+	\begin{gather}
+	\label{mu5} \dpr{L}{\lambda} = I - \sum_{i=1}^n p_i x_i = 0 \tag{**}
+	\end{gather}
+Estas condiciones no tienen soluci\'on directa. 
+
+A partir de \eqref{mu4} tenemos que $\lambda = \alpha_i / p_i$ pero debemos ser criteriosos y considerar
+$$\lambda = \max_i \frac{\alpha_i}{p_i}$$	
+as\'i estamos considerando una \'unica soluci\'on del problema cuando el cociente que maximiza $\lambda$ es \'unico. Si para alg\'un $j$ se tiene que $\alpha_j / p_j < \lambda$ entonces $x_j = 0$.
+
+A partir de \eqref{mu5} tenemos que
+$$x_j  = \begin{cases}
+\frac{I}{p_j} & \text{ si } i=j \cr
+0			  & \text{ si } i\neq j
+\end{cases}$$
+
+La soluci\'on es \'unica en caso de que no sea interior y debe cumplirse que
+$$\frac{\alpha_i}{p_i} \geq \lambda \qquad \forall i \in \{1,\ldots , n\}$$
+
+Las soluciones interiores se dan cuando el problema no tiene soluci\'on \'unica. En caso de que la soluci\'on no sea \'unica cualquier combinaci\'on convexa de las demandas es una soluci\'on v\'alida del problema. 
+
+Sea $D$ es el conjunto de demandas factibles que resuelven el problema, definimos $D$ de la siguiente forma:
+$$D = \left\{\frac{I}{p_i} e_j : \frac{\alpha_j}{p_j} \geq \frac{\alpha_i}{p_i} \: \forall i=1,\ldots , n \right\}$$
+donde $e_j$ denota la j-\'esima componente de la base can\'onica de $\R^n$. Entonces tendremos que la soluci\'on del problema es cualquier $x_j \in D$.
+
+La condici\'on para que la soluci\'on del problema sea \'unica es que exista solo un cociente $\alpha_i / p_i$ compatible con
+$$\lambda = \max_i \frac{\alpha_i}{x_i}$$
+y as\'i garantizamos que la soluci\'on no es interior.
+
+Para obtener una expresi\'on para el nivel de utilidad reemplazamos directamente el \'ultimo resultado en $u(\vec{x}) = \sum_{i=1}^n \alpha_i x_i$ y obtenemos
+$$u(\vec{x}) = \frac{I\alpha_i}{p_i}$$
+en el caso en que la soluci\'on no es interior. Si la funci\'on objetivo y la restricci\'on son iguales tenemos que
+$$u(\vec{x}) = I \cdot \sum_{i=1}^1 \gamma_i \frac{\alpha_i}{p_i}$$
+donde $\gamma \in [0,1]$ y $\sum_{i=1}^n \gamma_i = 1$.
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-6}
+Suponga que los habitantes de Titirilqu\'en alcanzan cierto nivel de bienestar o utilidad por el consumo de una canasta de $n$ productos y en esta ciudad todos quieren obtener el nivel m\'as alto de utilidad sabiendo que su presupuesto es limitado. Un estudio de mercado ha revelado que su funci\'on de utilidad es la siguiente:
+$$u(\vec{x},y) = \beta_1 \sum_{i=1}^n  \alpha_i \ln (x_i) + \beta_2 y$$
+Donde $(x_1,\ldots,x_{m},y)\in \R^n$, $\beta_i > 0$, $\alpha_i > 0$ $\forall i\in\{1,\ldots , n\}$ y $\sum_{i=1}^n \alpha_i = 1$. Las curvas de nivel de esta funci\'on, en un caso particular, corresponden al siguiente gr\'afico
+
+\begin{figure}[H]
+	\centering
+	\input{figuras/cuasilineal.pdf_tex}
+	\caption{Funci\'on cuasilineal $f(x_1,x_2)=0,1\ln(x_1)+x_2$}
+\end{figure}
+
+Para fijar ideas, intuitivamente a partir del gr\'afico del caso particular, es posible deducir que el problema se puede resolver mediante Lagrangeano pero hay que ser cuidadosos puesto que a partir del mismo gr\'afico se deduce que la soluci\'on puede no ser interior.
+
+Debemos ser cuidadosos al momento de trabajar la funci\'on presentada mediante Lagrangeano. Ahora tenemos la dificultad de que la soluci\'on puede ser interior dependiendo de los par\'ametros del problema. Las demandas, a diferencia de los ejemplos anteriores, las debemos trabajar como funciones por partes.
+
+El problema de maximizar utilidad sigue una estructura an\'aloga a la del ejemplo anterior, entonces el Lagrangeano corresponde a
+$$L(\vec{x},\lambda) = \beta_1 \sum_{i=1}^n  \alpha_i \ln (x_i) + \beta_2 y + \lambda \left(I-\sum_{i=1}^n p_i x_i - p_y y \right)  $$
+Para que exista una soluci\'on interior nos basta con tomar las condiciones de primer orden
+	\begin{align}
+	\label{mu1} \dpr{L}{x_i} & =  \frac{\beta_1 \alpha_i}{x_i} - \lambda p_i = 0 \: \forall i \in \{1,\ldots , n\} \tag{*} \\
+	\label{mu2} \dpr{L}{y} & = \beta_2 - \lambda p_y = 0 \tag{**} 
+	\end{align}
+De las ecuaciones \eqref{mu1} y \eqref{mu2} se obtienen respectivamente
+$$x_i = \frac{\alpha_i \beta_1}{\lambda p_i} \quad \text{y} \quad \lambda = \frac{\beta_2}{p_y}$$
+Juntando ambos resultados
+$$x_i = \frac{\alpha_i \beta_1 p_y}{\beta_2 p_i}$$
+y entonces
+$$p_i x_i = \frac{\alpha_i \beta_1 p_y}{\beta_2}$$
+Aplicando $\sum_{i=1}^n (\cdot)$ a esto \'ultimo
+$$\sum_{i=1}^n p_i x_i  = \frac{\beta_1 p_y}{\beta_2} $$
+Cuando $y>0$ se tiene que $\sum_{i=1}^n p_i x_i \neq I$ y de esto se concluye que
+$$y = I-\frac{\beta_1 p_y}{\beta_2}$$
+Debemos tener presente que la condici\'on para que esto efectivamente sea una soluci\'on interior es 
+$$I > \frac{\beta_1 p_y}{\beta_2} $$
+En caso de que esto \'ultimo se cumpla con signo de mayor o igual se tendr\'a que $y \geq 0$.
+
+En el caso 
+$$I < \frac{\beta_1 p_y}{\beta_2} $$ 
+se tendr\'a que en el \'optimo $y = 0$ y lo \'unico que nos restar\'ia del problema es resolver la ecuaci\'on \eqref{mu1}.
+
+Reordenando \eqref{mu1} obtenemos
+	\begin{gather}
+	\label{mu3} \lambda = \frac{\alpha_i \beta_1}{p_i x_i} \tag{***}
+	\end{gather}
+Aplicando $\sum_{i=1}^n (\cdot)$ obtenemos
+$$\lambda I = \beta_1 $$
+Reemplazando \eqref{mu3} en esto \'ultimo obtenemos
+$$x_i  = \frac{\alpha_i I}{p_i}$$
+Entonces, la soluci\'on del problema en virtud de los par\'ametros corresponde a
+	\begin{align*}
+	x_i =  
+	\begin{cases}
+	\displaystyle \frac{\alpha_i \beta_1 p_y}{\beta_2 p_i} 	 & \text{ si } I \geq \displaystyle \frac{\beta_1 p_y}{\beta_2} \cr
+	\cr
+	\displaystyle \frac{\alpha_i I}{p_i} 		 			 & \text{ si } I < \displaystyle \frac{\beta_1 p_y}{\beta_2}
+	\end{cases} 
+	\qquad \text{y} \qquad
+	y  = 
+	\begin{cases}
+	I - \displaystyle \frac{\beta_1 p_y}{\beta_2} & \text{ si } \: I \geq \displaystyle \frac{\beta_1 p_y}{\beta_2} 
+	\\ \smallskip
+	0 											  & \text{ si } \: I < \displaystyle \frac{\beta_1 p_y}{\beta_2}
+	\end{cases}
+	\end{align*}
+
+Para una soluci\'on interior debe cumplirse que 
+$$I > \frac{\beta_1 p_y}{\beta_2}$$
+Para que la soluci\'on sea v\'alida (valores postivos dada la naturaleza del problema) es que anteriormente separamos por casos en virtud de los par\'ametros. El desarrollo efectuado garantiza la unicidad de la soluci\'on dada por un vector $(\vec{x},y)\in \R^{n+1}$.
+\end{ejemplo}
+
+\begin{ejemplo}\label{ejemplo-micro-7}
+Suponga que los habitantes de Salsacia y Conservia alcanzan cierto nivel de bienestar o utilidad por el consumo de una canasta de $n$ productos y todos quieren obtener el nivel m\'as alto de utilidad sabiendo que su presupuesto es limitado. El gobierno ha hecho un estudio que revela que la funci\'on de utilidad del ciudadano representativo es la siguiente:
+$$u(\vec{x}) = \min_{i}\{\alpha_i x_i\}$$
+Donde $\alpha_i > 0$ $\forall i\in\{1,\ldots , n\}$ y las curvas de nivel de esta funci\'on, en un caso particular, corresponden al siguiente gr\'afico
+
+\begin{figure}[H]
+	\centering
+	\input{figuras/leontief.pdf_tex}
+	\caption{Funci\'on Leontief $f(x_1,x_2)=\min\{x_1,x_2\}$}
+\end{figure}
+
+A partir del gr\'afico del caso particular es posible deducir que el problema no se puede resolver mediante Lagrangeano. Esto es porque para $n\geq 2$ la funci\'on no es diferenciable.
+
+El problema tiene la misma estructura del ejemplo anterior pero no es posible resolver mediante Lagrangeano. Sin embargo, no es muy dif\'icil notar que el vector $\vec{x}$ de demandas \'optimas es tal que
+$$\alpha_1 x_1 = \ldots = \alpha_n x_n$$
+Cada uno de los argumentos es igual a un valor constante $\alpha_i x_i = k$, entonces se tiene que
+$$p_j x_j = \alpha_i x_i \frac{p_j}{\alpha_j}$$
+aplicando la sumatoria $\sum_{j=1}^n (\cdot)$ se llega a 
+$$I= \alpha_i x_i \sum_{j=1}^n \frac{p_j}{\alpha_j} \: \Rightarrow \: x_i = \frac{I}{\alpha_i \sum_{j=1}^n \frac{p_j}{\alpha_j}}$$
+
+Para una soluci\'on interior bastar\'a con el hecho que $k \neq 0$, que es lo mismo a decir $\alpha_i x_i \neq 0 \:\forall i$. En caso de que $k=0$ se tendr\'ia que $u(\vec{x})=0$ si para alg\'un $i$ se tiene que $\alpha_i x_i = 0$ y de esta forma el vector de demandas \'optimas se anular\'ia en todas sus componentes, pero este caso se dar\'ia si $I=0$. En cualquier caso la soluci\'on es \'unica.
+\end{ejemplo}
+
+\begin{nota}
+Los casos en que presentamos en los ejemplos \ref{ejemplo-micro-3} y \ref{ejemplo-micro-5} nos dan la siguiente interpretaci\'on del multiplicador de Lagrange: Expresa cuanto baja (resp. sube) el valor de la soluci\'on \'optima de un problema de minimizaci\'on (resp. maximizaci\'on) ante cambios en los par\'ametros del problema. Esta interpretaci\'on es extensible a los dem\'as ejemplos pero la maximizac\'ion o minimizaci\'on del cociente que equivale al multiplicador lo deja totalmente en claro. La formalizaci\'on de esto viene enseguida.
+\end{nota}
+
+\section{Teorema de la envolvente}
+
+\textbf{Motivaci\'on:} En diversas \'areas de la ingenier\'ia y ciencias nos encontramos con sistemas en los cuales es aplicable un criterio de maximizaci\'on o minimizaci\'on. Ya hemos visto formas de resolver esto pero, muchas veces para facilitar el c\'alculo y ahorrar trabajo cabe preguntarse si existe alguna t\'ecnica que nos permita cuantificar c\'omo cambia la soluci\'on \'optima ante cambios en los par\'ametros del sistema o bien, muchas veces tenemos sistemas similares cuya diferencia s\'olo radica en los par\'ametros que los definen.
+
+\begin{teorema}{\rm (Teorema de la Envolvente)\index{Teorema!de la envolvente}}
+Sean $f: \R^{n+m} \rightarrow \R$, $g_i : \R^{n+m} \rightarrow \R$ funciones c\'oncavas y diferenciables y $(\vec{x},\vec{c})\in \R^n\times \R^m$. Consideremos el problema
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \max_{\vec{x}} 		& f(\vec{x},\vec{c}) 	 \\
+\text{s.a}					& g_i(\vec{x},\vec{c})=0 \:\forall i \in \{1,\ldots k\}
+\end{array}
+\end{equation*}
+y definamos la funci\'on valor $V(\vec{c}) = \max \{ f(\vec{x}(\vec{c}),\vec{c}) : \vec{x}\in S\}$. %Como $f$ est\'a sobre un compacto, sabemos del corolario \ref{corolariocompacidad} que si esta es c\'oncava (resp. convexa) alcanza su m\'aximo (resp. m\'inimo) sobre $K$.
+
+Como el problema consta \'unicamente de funciones diferenciables podemos aplicar la funci\'on Lagrangeano para encontrar un \'optimo. Dado esto el cambio de la funci\'on valor, ante cambios en $\vec{c}$, equivale al cambio de la funci\'on Lagrangeano ante cambios en $\vec{c}$. Es decir,
+\begin{equation*}
+\dpr{V}{c_i}(\vec{c}) = \dpr{L}{c_i}(\vec{x}(\vec{c}),\vec{\lambda}(\vec{c}),\vec{c})
+\end{equation*}
+\end{teorema}
+
+\begin{demostracion}
+Consideremos la funci\'on Lagrangeano
+\begin{equation*}
+L(\vec{x},\vec{\lambda}) = f(\vec{x},\vec{c}) + \sum_{i=1}^k \lambda_i g_i(\vec{x},\vec{c})
+\end{equation*}
+Sea $\vec{x}(\vec{c})$ una soluci\'on \'optima del problema, tenemos que
+\begin{gather}\label{envolvente1}
+\dpr{L}{x_i}(\vec{x}(\vec{c}),\vec{\lambda}(\vec{c}),\vec{c}) = \dpr{f}{x_i}(\vec{x}(\vec{c}),\vec{c}) + \sum_{i=1}^k \lambda_i(\vec{c}) \dpr{g_i}{x_i}(\vec{x}(\vec{c}),\vec{c}) = 0 \tag{*}
+\end{gather}
+Por otra parte,
+\begin{gather} \label{envolvente2}
+\dpr{V}{c_i}(\vec{c}) = \dpr{f}{c_i} (\vec{x}(\vec{c}),\vec{c}) + \sum_{i=1}^n \dpr{f}{x_i}(\vec{x}(\vec{c}),\vec{c}) \dpr{x_i}{c_i}(\vec{c}) \tag{**}
+\end{gather}
+Reemplazando (\ref{envolvente1}) en (\ref{envolvente2}) se obtiene
+\begin{equation*}
+\dpr{V}{c_i}(\vec{c}) = \dpr{f}{c_i}(\vec{x}(\vec{c}),\vec{c}) - \sum_{i=1}^k \lambda_i(\vec{c}) \left(\sum_{i=1}^n \dpr{g_i}{x_i} (\vec{x}(\vec{c}),\vec{c}) \dpr{x_i}{c_i}(\vec{c}) \right)
+\end{equation*}
+Pero $g_i(\vec{x}(\vec{c}),\vec{c})=0$ $\forall i$, entonces 
+\begin{gather}\label{envolvente3}
+\sum_{i=1}^n \dpr{g_i}{x_i} (\vec{x}(\vec{c}),\vec{c}) \dpr{x_i}{c_i}(\vec{c}) + \dpr{g_i}{c_i}(\vec{x}(\vec{c}),\vec{c}) = 0 \tag{***}
+\end{gather}
+Reemplazando (\ref{envolvente3}) en (\ref{envolvente2}) se obtiene
+\begin{equation*}
+\dpr{V}{c_i}(\vec{c}) = \dpr{f}{c_i}(\vec{x}(\vec{c}),\vec{c}) + \sum_{i=1}^k \lambda_i (\vec{c}) \dpr{g_i}{c_i} (\vec{x}(\vec{c}),\vec{c})
+\end{equation*}
+que no es otra cosa sino
+\begin{equation*}
+\dpr{V}{c_i}(\vec{c}) = \dpr{L}{c_i}(\vec{x}(\vec{c}),\vec{\lambda}(\vec{c}),\vec{c})
+\end{equation*}
+\end{demostracion}
+
+\begin{nota}
+El caso de minimizaci\'on es an\'alogo. Basta con tomar $f$ convexa y como $-f$ es c\'oncava se concluye.
+\end{nota}
+
+\begin{ejemplo} Queremos saber c\'omo cambia la soluci\'on \'optima ante un cambio en $c$ para el siguiente problema:
+$$\begin{array}{ccc}
+\displaystyle \max_{\vec{x}}        & \sqrt{x_1 x_2 x_3}  &   \\
+\text{s.a}  & x_1+x_2+x_3     &=c \\ 
+\end{array}$$
+
+La funci\'on Lagrangeano corresponde a
+$$L(\vec{x},\lambda)=\sqrt{x_1 x_2 x_3} - \lambda(x_1+x_2+x_3 - c)$$
+Resolviendo las condiciones de primer orden obtenemos
+\begin{eqnarray*}
+\dpr{L}{x_1}&=&\frac{\sqrt{x_2x_3}}{2\sqrt{x_1}}-\lambda=0 \\
+\dpr{L}{x_2}&=&\frac{\sqrt{x_1x_3}}{2\sqrt{x_2}}-\lambda=0 \\
+\dpr{L}{x_3}&=&\frac{\sqrt{x_1x_2}}{2\sqrt{x_3}}-\lambda=0 \\
+\dpr{L}{\lambda}&=&c-x_1-x_2-x_3=0
+\end{eqnarray*}
+Reordenando para despejar $x_1,x_2,x_3$ en cada ecuaci\'on respectivamente obtenemos
+$$
+x_1=\frac{x_2x_3}{4\lambda^2} \qquad 
+x_2=\frac{x_1x_3}{4\lambda^2} \qquad
+x_3=\frac{x_1x_2}{4\lambda^2}
+$$
+Luego de dividir la primera de estas ecuaciones por la segunda y la segunda con la tercera en forma separada obtenemos
+$$x_1=x_2=x_3$$
+Reemplazamos esto en $\dpr{L}{\lambda}$ y obtenemos $c=3x_1$. Despejando $x_1,x_2,x_3$ en t\'erminos de $c$ obtenemos
+$$x_1(c)=x_2(c)=x_3(c)=\frac{c}{3} $$
+Con esto formamos la funci\'on valor y derivamos respecto de $c$ para cuantificar el cambio
+$$V(c)=\frac{\sqrt{c^3}}{3\sqrt{3}} \qquad \Rightarrow \qquad \dpr{V(c)}{c}=\frac{\sqrt{c}}{2\sqrt{3}}$$
+Como 
+$$3x_1=3\frac{x_2x_3}{4\lambda^2}=c$$ 
+y $x_1=x_2=x_3=c/3$ obtenemos $c=12\lambda^2$ y se concluye que $\lambda (c)=\frac{\sqrt{c}}{2\sqrt{3}}$. Con esto \'ultimo evaluamos 
+$$\dpr{L}{c_i}(\vec{x}(c),\lambda(c),c)=\lambda (c) = \frac{\sqrt{c}}{2\sqrt{3}}$$
+Lo que permite concluir que
+$$\dpr{V(c)}{c} = \dpr{L}{c_i}(\vec{x}(c),\lambda(c),c)$$ 
+\end{ejemplo}
+
+Dejaremos de \emph{tarea} verificar que el teorema se cumple con los ejemplos de la secci\'on \ref{ejemplos-variasdimensiones}. Para los ejemplos de minimizaci\'on de costos la forma de proceder es la siguiente:
+\begin{enumerate}
+\item Se define la funci\'on valor como la funci\'on de costo $C(Q,w)$ y debemos analizar con respecto a $Q$ por ser la constante de la \'unica restricci\'on del los problemas.
+\item Se tendr\'a que $\dpr{C(Q,w)}{Q}=\lambda$ exceptuando el ejemplo \ref{ejemplo-micro-2}, pues en tal caso se debe derivar con respecto a $Q^{\frac{\rho}{v}}$ o de lo contrario llegamos a la conclusi\'on err\'onea de que el teorema falla. Verifique y explique esto \'ultimo.
+\end{enumerate}
+El desarrollo para los ejemplos de maximizaci\'on de utilidad es an\'alogo.
+
+ 
+
+\section{Ejercicios}
+
+\lagrange{
+Demuestre la siguiente versi\'on del Teorema de los Multiplicadores de Lagrange: 
+
+Sea $n \geq 2$ y $D \subseteq \R^n$ abierto. Sean $f,g:D\to \R$ funciones $\mathcal{C}^1$ en $D$. Supongamos que la restricci\'on de $f$ al conjunto $\Gamma=\{\vec{x}\in \R^n : g(\vec{x})=0\}$ tiene un punto cr\'itico en $\vec{a}\in \Gamma$. Entonces $\exists (\lambda,\mu)$ con componentes no nulas tales que 
+\begin{gather}\label{mult-lagrange}
+\lambda \nabla f(\vec{a}) + \mu\nabla g(\vec{a}) = 0 \tag{*}
+\end{gather}
+
+Sugerimos los siguientes pasos:
+\begin{enumerate}
+\item Explique por qu\'e si $\nabla g(\vec{a}) = 0$ se cumple el teorema.
+\item Suponga que $\nabla g(\vec{a}) \neq 0$. Sin p\'erdida de generalidad, podemos suponer entonces que $\dpr{g(\vec{a})}{x_n} \neq 0$. Explique la validez de este supuesto.
+\item Pruebe que $\exists U\subseteq \R^{n-1}$ que contiene a $\vec{c}=(a_1,\ldots,a_{n-1})$ y una funci\'on $\phi:U\to \R$ tal que $\phi(\vec{c})=a_n$ e $(\vec{y},\phi(\vec{y}))\in \Gamma \:\forall \vec{y}\in U$.
+\item Defina $\psi: U\to \R$ por $\psi(\vec{y})=f(\vec{y},\phi(\vec{y}))$. Muestre que para $k\in \{1,\ldots,n-1\}$ se cumple que
+$$\dpr{f(\vec{a})}{x_k} + \dpr{f(\vec{a})}{x_n}\cdot \dpr{\phi(\vec{c})}{x_k} = 0$$
+\item Encuentre una expresi\'on para $\nabla \phi(\vec{c})$ en funci\'on de $g$ o sus derivadas y concluya.
+\end{enumerate}
+
+\textit{Indicaci\'on.} Encuentre $(\lambda,\mu)$ tal que la ecuaci\'on \eqref{mult-lagrange} se cumpla para las primeras  $n-1$ coordenadas y verifique y verifique que con esos mismos valores la ecuaci\'on tambi\'en se cumple para la $n$-\'esima coordenada.
+}

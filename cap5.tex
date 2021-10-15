@@ -1,0 +1,778 @@
+\chapter{Teoremas de la Funci\'on Inversa e Impl\'icita}\label{cap5}
+
+Estudiaremos algunos teoremas que nos permiten resolver sistemas de ecuaciones no lineales, conocer las condiciones para que exista la inversa de una funci\'on de varias variables y bajo qu\'e condiciones podemos expresar una o varias variables de una funci\'on en t\'erminos de las dem\'as (o en t\'erminos de una variable conocida).
+
+\section{Teorema del punto fijo de Banach}
+
+\textbf{Motivaci\'on:} Los teoremas de punto fijo nos sirven para demostrar la existencia de soluciones de una ecuaci\'on, la existencia de equilibrio en un sistema, encontrar ra\'ices de funciones o resolver sistemas de ecuaciones no lineales.
+
+\begin{problema}\label{problema 3.1}
+Encontrar una soluci\'on a: 
+$$\begin{cases}u'&= f(x,u)\\ 
+u(x_0) &= u_0
+\end{cases}$$ 
+donde $x,u\in \R$.
+Este problema es equivalente a
+$$u(x)=u_0+\int_{x_0}^x{f(s,u(s))ds}$$ 
+Supongamos que
+$f:{\R}\times{\R}\to \R$ es continua, entonces
+\begin{eqnarray*}
+T:C([x_0-a,x_0+a],\R) & \to & C([x_0-a,x_0+a],\R) \\ u & \mapsto
+& u_0+\int_{x_0}^x{f(s,u(s))ds}
+\end{eqnarray*} 
+est\'a bien definida y el problema original es equivalente a encontrar $u$ tal que $$u=T(u)$$ que recibe el nombre de problema de punto fijo.\index{Problema!de punto fijo}
+\end{problema}
+
+\begin{problema}
+Dado $F:{\R}^n\to {\R}^n$ encontrar soluci\'on a: 
+$$F(\vec{x})=0$$ 
+Este es un problema de punto fijo\index{Problema!de punto fijo}, pues se puede escribir 
+$$\vec{x}=\vec{x}+F(\vec{x})$$ 
+$$
+\begin{matrix}
+T:&{\R}^n&\to&{\R}^n\cr 
+&\vec{x}&\mapsto& \vec{x}+F(\vec{x})
+\end{matrix}$$
+Definiendo $T(\vec{x})=\vec{x}+F(\vec{x})$ el problema original consiste en encontrar un punto fijo de $T$, es decir en encontrar un $\vec{x}$ tal que $T(\vec{x})=\vec{x}$.
+\end{problema}
+
+En diversas \'areas de la ingenier\'ia es com\'un encontrarse con problemas donde se quiere resolver
+$$u=T(u),\text{ con } T:E\to E$$ 
+o bien $T:K\to K$ en que $K\subseteq E$ es un subconjunto cerrado y $E$ es un espacio de Banach.\index{Espacio!de Banach}
+
+\begin{definicion}
+$T:K\to K$ se dice contracci\'on\index{Contracci\'on} si existe una constante $c$ , $0<c<1$ tal que 
+$$\|T(\vec{u})-T(\vec{v})\|\leq c\|\vec{u}-\vec{v}\|\:\forall \vec{u},\vec{v}\in K$$
+\end{definicion}
+
+\begin{teorema}{\rm (Teorema del punto fijo de Banach)\index{Punto!fijo de Banach}\index{Teorema!del punto fijo de Banach}}\label{puntofijodebanach}
+\\Sea $E$ espacio de Banach, $K\subseteq E$ cerrado. Si $T:K\to K$ es una contracci\'on entonces existe un y solo un punto fijo de $T$ en $K$
+$$\exists ! \vec{x}\in K,\: T(\vec{x})=\vec{x}$$
+\end{teorema}
+
+\begin{demostracion}
+Veamos primero la existencia. El m\'etodo de demostraci\'on es constructivo.
+\\Sea $\vec{x}_0\in K$ cualquiera. Consideremos la sucesi\'on $\{\vec{x}_n\}_{n\in \N}$ definida por la recurrencia $$\vec{x}_{k+1}=T(\vec{x}_k),\: k\in \N$$ Demostremos que $\{\vec{x}_n\}_{n \in \N}$ es de Cauchy.
+\begin{eqnarray*}
+\|\vec{x}_k-\vec{x}_m\| & =   & \|T(\vec{x}_{k-1})-T(\vec{x}_{m-1})\|     \\ 
+            &\leq & c\|\vec{x}_{k-1}-\vec{x}_{m-1}\|          \\ 
+            &\leq & c\norm{T(\vec{x}_{k-2})-T(\vec{x}_{m-2})} \\
+            &\leq & c^2\|\vec{x}_{k-2}-\vec{x}_{m-2}\|
+\end{eqnarray*}
+supongamos, sin perdida de generalidad que $k \geq m$. Si repetimos el procedimiento anterior, obtenemos 
+$$\|\vec{x}_k-\vec{x}_m\|\leq c^m\|\vec{x}_{k-m}-\vec{x}_0\|$$ 
+en particular 
+$$\|\vec{x}_{l+1}-\vec{x}_{m}\|\leq c^m\|\vec{x}_{1}-\vec{x}_{0}\|$$ 
+Entonces podemos escribir
+\begin{eqnarray*}
+\|\vec{x}_{k}-\vec{x}_{m}\| &\leq& \|\vec{x}_{k}-\vec{x}_{k-1}\|+\|\vec{x}_{k-1}-\vec{x}_{k-2}\|+\dots+\|\vec{x}_{m+1}-\vec{x}_{m}\| \\ 
+                &\leq &(c^{k-1}+c^{k-2}+\dots+c^{m})\|\vec{x}_{1}-\vec{x}_{0}\| 
+\end{eqnarray*} 
+es decir,
+\begin{eqnarray*}
+\|\vec{x}_{k}-\vec{x}_{m}\| &\leq & \sum_{i=m}^{\infty}c^i\|\vec{x}_{1}-\vec{x}_{0}\|       \\
+                &  =  & c^m\left(\sum_{i=0}^{\infty}c^i\right)\|\vec{x}_{1}-\vec{x}_{0}\|  \\
+                &  =  & c^m\frac{1}{1-c}\|\vec{x}_{1}-\vec{x}_{0}\|\stackrel{k,m\to \infty}{\to} 0 \\ 
+\end{eqnarray*} 
+Por lo tanto $\{\vec{x}_n\}_{n\in\N}$ es una sucesi\'on de Cauchy en $E$, luego tiene un l\'imite $\vec{x}^* \in E$ y como  $K$ es cerrado entonces $\vec{x}^* \in K$. Por otra parte, si $T$ es contracci\'on, es continua (\emph{tarea}), por lo que tomando l\'imite en la ecuaci\'on $\vec{x}_{k+1}=T(\vec{x}_k)$ obtenemos que \[\vec{x}^*=T(\vec{x}^*)\] es
+decir, $\vec{x}^*$ es un punto fijo de $T$. \\ Veamos que es \'unico. Supongamos que $T$ tiene dos puntos fijos, $\vec{x}=T(\vec{x})$ e $\vec{y}=T(\vec{y})$, entonces
+\[\norm{\vec{x}-\vec{y}}=\norm{T(\vec{x})-T(\vec{y})}\leq c\norm{\vec{x}-\vec{y}}\] 
+y como $0\leq c<1$, no queda otra posibilidad m\'as que $\vec{x}=\vec{y}$.
+\end{demostracion}
+
+\begin{nota}
+El teorema del punto fijo de Banach provee una condici\'on suficiente (y no necesaria) para la existencia de puntos fijos. No es necesario que una funci\'on sea contractante para que tenga punto fijo, un claro ejemplo es la funci\'on $f:[0,1]\to [0,1]$ definida por $f(x)=x$ la cual es continua, no contractante y cumple que cualquier $x\in [0,1]$ es un punto fijo de la funci\'on.
+\end{nota}
+
+\begin{ejemplo}{\rm (Existencia de soluciones para EDO)\index{Existencia!de soluciones!para EDO}}
+\\Volvamos al problema \ref{problema 3.1}. Si $f:\R\times \R\to \R$ es continua y satisface
+\[|f(s,u)-f(s,v)|\leq K|u-v|\]
+entonces si $x>x_0$
+\begin{eqnarray*}
+|T(u)-T(v)| &  =  & \left|\int_{x_0}^x f(s,u(s))-f(s,v(s))ds \right| \\ 
+			&\leq & \int_{x_0}^x |f(s,u(s))-f(s,v(s))|ds \\ 
+			&\leq & K\int_{x_0}^x |u(s)-v(s)|ds \\ 
+			&\leq & K\norm{u-v}_{\infty}a 
+\end{eqnarray*} 
+si $x<x_0$ se obtiene el mismo resultado, luego $\norm{T(u)-T(v)}_{\infty}\leq Ka\norm{u-v}_{\infty}$ para toda $u,v\in C([x_0-a,x_0+a])$. Si $Ka<1$ entonces, gracias al teorema del punto fijo de Banach, existe $u\in C([x_0-a,x_0+a])$ tal que
+\[u=T(u)\] 
+y este $u$ es \'unico.
+\\Para encontrar una soluci\'on se puede iterar, reproduciendo la demostraci\'on del teorema de punto fijo de Banach. 
+\begin{eqnarray*}
+u_{n+1}   &=& Tu_n \\
+u_{n+1}(x)&=& u_0+\int_{x_0}^x f(s,u_n(s))ds 
+\end{eqnarray*}
+este m\'etodo para encontrar la soluci\'on recibe el nombre de
+m\'etodo de Picard.\index{M\'etodo!de Picard}
+\end{ejemplo}
+
+\begin{ejemplo}{\rm (Existencia de soluciones de una ecuaci\'on) \index{Existencia!de soluciones de una ecuaci\'on}}
+\\Consideremos el sistema de ecuaciones
+\begin{eqnarray*}
+x&=& \frac{1}{2}\cos(x+y) \\ 
+y&=& \frac{1}{3}\ln (1+x^2+y^2) +5
+\end{eqnarray*}
+este es un problema de punto fijo: $(x,y)=T(x,y)$ con $T:\R^2\to \R$ definida por 
+\[T(x,y)=\left(\frac{1}{2}\cos(x+y),\frac{1}{3}\ln (1+x^2+y^2)+5\right)\] 
+Vamos a demostrar que $T$ es contractante. Como consecuencia, gracias al teorema del punto fijo de Banach, tendremos que el sistema de ecuaciones tiene una y solo una soluci\'on en $\R^2$. Para ello recordemos el teorema del valor medio: Sea $f:\R^n\to \R$ diferenciable, entonces
+\[f(x)-f(y)=\int_0^1\nabla f(tx+(1-t)y)\cdot (x-y)dt\]
+lo que implica que
+\begin{eqnarray*}
+|f(x)-f(y)| & \leq & \int_0^1\norm{\nabla f(tx+(1-t))y}\norm{x-y}dt \\ 
+			& \leq & \max_{0\leq t\leq 1}\{\norm{\nabla f(tx+(1-t)y)}\}\norm{x-y}
+\end{eqnarray*}
+Supongamos que $\norm{\nabla f(z)}\leq K$ para todo $z\in \R^n$. Entonces $|f(x)-f(y)|\leq K\norm{x-y}$.
+\\Apliquemos esto a nuestro problema. Si $T_1(x,y)=(1/2)\cos(x+y)$ entonces
+\[\|\nabla T_1(x,y) \| = \left\|\left(-\frac{1}{2}\sen(x+y),-\frac{1}{2}\sen(x+y)\right)\right\| \leq \frac{1}{\sqrt{2}}\]
+\[\Rightarrow\:|T_1(x,y)-T_1(\bar x,\bar y)|\leq\frac{1}{\sqrt{2}}\cdot \norm{(x,y)-(\bar x,\bar y)}\]
+Para $T_2(x,y)=(1/3)\ln (1+x^2+y^2) +5$ hacemos lo mismo:
+\[\|\nabla T_2(x,y)\| = \frac{1}{3}\left\|\left(\frac{2x}{1+x^2+y^2},\frac{2y}{1+x^2+y^2}\right)\right\| \leq \frac{2}{3}\sqrt{\left(\frac{x}{1+x^2}\right)^2+\left(\frac{y}{1+y^2}\right)^2}\] 
+la funci\'on $f(z)=z/(1+z^2)$ alcanza su m\'aximo en $z=1$ (\emph{tarea}) y su m\'aximo es $1/2$. Por lo tanto $\norm{\nabla T_2(x,y)}\leq \sqrt{2}/3$ lo que implica 
+\[|T_2(x,y)-T_2(\bar x,\bar y)|\leq\frac{\sqrt{2}}{3}\cdot \norm{(x,y)-(\bar x,\bar y)}\]
+Concluimos entonces que 
+\begin{eqnarray*}
+\norm{T(x,y)-T(\bar x,\bar y)}& =   & \sqrt{(T_1(x,y)-T_1(\bar x,\bar y))^2+(T_2(x,y)-T_2(\bar x,\bar y))^2} \\
+							  &\leq & \sqrt{\frac{13}{18}}\cdot \norm{(x,y)-(\bar x,\bar y)}
+\end{eqnarray*}
+es decir, $T$ es contractante pues $\sqrt{13/18}<1$. 
+\end{ejemplo}
+
+\section{Teorema de la funci\'on inversa} 
+
+\textbf{Motivaci\'on}: Sea $L:\R^n\to \R^n$ una funci\'on lineal. Para que $L$ sea biyectiva\index{Funci\'on!biyectiva} es necesario y suficiente que la matriz asociada (matriz representante) sea invertible, y en este caso la matriz representante\index{Matriz!representante} de la funci\'on inversa ser\'a la inversa de la matriz representante de $L$.\\ Si $L(\vec{x}_0)=\vec{b}_0$ y queremos resolver la ecuaci\'on $L(\vec{x})=\vec{b}_0+\Delta \vec{b}$, la soluci\'on ser\'a $$\vec{x}=\vec{x}_0+\Delta \vec{x}=L^{-1}(\vec{b}_0)+L^{-1}(\Delta \vec{b})$$ Cuando $F:\Omega\to \R^n$ es diferenciable, $F$ es localmente ``como'' una funci\'on lineal (af\'in)\index{Funci\'on!lineal af\'in}, y por lo tanto es razonable pensar que la biyectividad local de $F$ est\'e relacionada con la biyectividad de su aproximaci\'on lineal.\index{Biyectividad!de la aproximaci\'on lineal}\index{Biyectividad!de una funci\'on}
+
+\begin{teorema}{\rm (Teorema de la funci\'on inversa) \index{Teorema!de la funci\'on inversa}}\label{teofuncioninversa}
+\\Sea $F:\Omega\subseteq\R^n \to \R^n$ una funci\'on de clase $\cl$. Supongamos que para $\vec{a}\in \Omega$, $DF(\vec{a})$ (Jacobiano) es invertible y que $F(\vec{a})=\vec{b}$. Entonces
+\begin{enumerate}
+\item Existen abiertos $U$ y $V$ de $\R^n$ tales que $\vec{a}\in U$, $\vec{b}\in V$ y $F:U\to V$ es biyectiva.
+\item Si $G:V\to U$ es la inversa\index{Funci\'on!inversa} de $F$, es decir, $G=F^{-1}$, entonces $G$ es tambi\'en de clase $\cl$ y $DG(\vec{b})=[DF(\vec{a})]^{-1}$.
+\end{enumerate}
+\end{teorema}
+
+Antes de dar la demostraci\'on veremos algunos ejemplos.
+
+\begin{ejemplo}
+Sea $F(x,y)=(x^2+\ln{y},y^2+xy^3)$, entonces $F(1,1)=(1,2)$ \\
+Consideremos la ecuaci\'on $F(x,y)=(b_1,b_2)$
+\begin{eqnarray*}
+  x^2+\ln{y} & = & b_1 \\
+  y^2+xy^3 & = & b_2
+\end{eqnarray*}
+ con $(b_1,b_2)$ ``cerca'' de $(1,2)$. $$ DF(x,y)=\begin{pmatrix}
+  2x & 1/y \cr
+  y^3 & 2y+3xy^2 \cr
+\end{pmatrix} $$
+ evaluando el Jacobiano en  $(x,y)=(1,1)$ obtenemos
+ \begin{equation*}
+ DF(1,1)=
+ \begin{bmatrix}
+ 2&1 \\ 
+ 1&5 
+ \end{bmatrix}
+ \end{equation*}
+ que es una matriz invertible.
+ \\Concluimos entonces, gracias al teorema de la funci\'on inversa
+ que la ecuaci\'on tiene una y solo una soluci\'on
+ $$(x(b_1,b_2),y(b_1,b_2))$$ para cualquier $(b_1,b_2)$ cercano al
+ punto $(1,2)$. M\'as a\'un $(x(b_1,b_2),y(b_1,b_2))$ est\'a
+ cerca de $(1,1)$ y depende de $(b_1,b_2)$ de manera
+ diferenciable.
+\end{ejemplo}
+
+\begin{ejemplo}
+Cambio de coordenadas esf\'ericas\index{Coordenadas!esf\'ericas}:
+\begin{center}
+\begin{tabular}{ccl}
+        $x$ &$=$& $r\sen\phi\cos\theta$ \\
+        $y$ &$=$& $r\sen\phi\sen\theta$ \\
+        $z$ &$=$& $r\cos\phi$ \\
+\end{tabular}
+\end{center}
+ Llamaremos $\Phi$ al cambio de variables. El Jacobiano de la
+transformaci\'on en el punto $r=1,\phi=\pi/4,\theta=\pi/4$ es
+$$D\Phi(1,\pi/4,\pi/4)=
+\left(
+\begin{array}{ccc}
+1/2        -&1/2   &1/2        \\
+1/2         &1/2   &1/2        \\
+\sqrt{2}/2  &0    -&\sqrt{2}/2 \\
+\end{array} \right)$$ 
+Esta matriz es invertible pues su
+determinante es igual a $\sqrt{2}/2$. En general se tiene que
+$|D\Phi(r,\theta,\phi)|$
+$=r^2\sen\phi$ que es distinto de cero
+excepto si $r=0$ o si $\sen\phi=0$. Por lo tanto, salvo en el eje
+$z$ la transformaci\'on $\Phi$ es localmente biyectiva.
+\end{ejemplo}
+
+%Aqui falta otro ejemplo (hay que mejorar el que est\'a.)\\
+Previo
+a la demostraci\'on del teorema, consideremos tres resultados que
+ser\'an de utilidad.
+\begin{enumerate}
+\item A partir de la norma descrita en \eqref{frobenius}, consideremos en $M_{n\times n}(\R)$ la norma
+$$\norm{A}_F=\sqrt{\sum_{i=1}^n\sum_{j=1}^n a_{ij}^2}$$
+Entonces, $\norm{A\vec{x}}_2\leq \norm{A}_F\norm{\vec{x}}_2$ si $\vec{x}\in\R^n$, $A\in M_{n\times n}$ y adem\'as $\norm{AB}_F\leq \norm{A}_F\norm{B}_F$, si $A,B\in M_{n\times n}$.
+\item A partir del teorema del punto fijo de Banach (teorema \ref{puntofijodebanach}) consideremos el siguiente corolario\index{Corolario!del teorema!del punto fijo de Banach}: Si $(E,\norm{\cdot})$ es un espacio de Banach,$C\subseteq E$ es un conjunto cerrado y $F:C\to C$ es una funci\'on contractante, entonces existe un \'unico $\vec{x}\in C$ tal que $F(\vec{x})=\vec{x}$.
+\item A partir del teorema del valor medio (teorema \ref{valormedio})\index{Corolario!del teorema!del valor medio} y de la caracterizaci\'on de convexidad (definici\'on \ref{conjuntoconvexo}): Sean $F:U\to \R^n$ de clase $\cl$ y $U$ un conjunto convexo. Si $\norm{DF_i(\vec{x})}\leq A_i\: \forall \vec{x}\in U$, entonces $\norm{F(\vec{x})-F(\vec{y})}\leq \sqrt{A_1^2+\ldots+A_n^2}\norm{\vec{x}-\vec{y}}\: \forall \vec{x},\vec{y}\in U$.\\
+Si $\norm{DF(\vec{x})}\leq C\:\forall \vec{x}\in
+U$ entonces $\norm{F(\vec{x})-F(\vec{y})}\leq C\norm{\vec{x}-\vec{y}}$, pues
+\begin{eqnarray*} \norm{F(\vec{x})-F(\vec{y})} & = &
+\left\|\int_0^1DF(t\vec{x}+(1-t)\vec{y}) \cdot (\vec{x}-\vec{y})dt \right\| \\
+ & \leq & \int_0^1\norm{DF(t\vec{x}+(1-t)\vec{y})\cdot (\vec{x}-\vec{y})}dt \\
+ & \leq & \int_0^1\norm{DF(t\vec{x}+(1-t)\vec{y})}\norm{\vec{x}-\vec{y}}dt \\
+ & \leq & C\norm{\vec{x}-\vec{y}}
+\end{eqnarray*}
+\end{enumerate}
+
+\begin{demostracion}{\hspace{2mm} (Teorema de la funci\'on inversa)}\\
+Observemos que si $F$ es de clase $\cl$ entonces la funci\'on
+\begin{eqnarray*}
+DF:\Omega & \to     & M_{n\times n} \\
+       \vec{x}      & \mapsto & DF(\vec{x})
+\end{eqnarray*}
+es continua pues
+$$\norm{DF(\vec{x})-DF(\vec{x}_0)}_F=\sqrt{\sum_{i=1}^n\sum_{j=1}^n \left|\frac{\dd
+f_i}{\dd x_j}(\vec{x})-\frac{\dd f_i}{\dd x_j}(\vec{x}_0)\right|^2}$$ y como todas
+las derivadas parciales son continuas, dado $\varepsilon >0$, existen
+$\delta_{ij}>0$ tales que
+$\norm{\vec{x}-\vec{x}_0}<\delta_{ij}\Rightarrow\:|\frac{\dd f_i}{\dd
+x_j}(\vec{x})-\frac{\dd f_i}{\dd x_j}(\vec{x}_0)|<\frac{\varepsilon}{n}$, entonces
+escogiendo $\delta=\min_{i,j}\delta_{ij}>0$ tenemos que
+$\norm{\vec{x}-\vec{x}_0}<\delta\Rightarrow\:\norm{DF(\vec{x})-DF(\vec{x}_0)}_F<\sqrt{n^2(\frac{\varepsilon}{n})^2}=\varepsilon$.\\
+Queremos demostrar que existen abiertos $U$ y $V$ tales que
+$F:U\to V$ es biyectiva, lo que se puede expresar en otras
+palabras como: Dado $\vec{y}\in V$ existe un \'unico $\vec{x}\in U$ que es
+soluci\'on de la ecuaci\'on $F(\vec{x})=\vec{y}$. Adem\'as
+$$\begin{tabular}{cclccc} $F(\vec{x})=\vec{y}$ & $\Leftrightarrow$ & $\vec{y}-F(\vec{x})$ &=& $0$ &
+\\
+     & $\Leftrightarrow$ & $DF(\vec{a})^{-1}(\vec{y}-F(\vec{x}))$ &=& $0$   & $\text{ pues }\: DF(\vec{a})\text{ es invertible}$\\
+     & $\Leftrightarrow$ & $\vec{x}+DF(\vec{a})^{-1}(\vec{y}-F(\vec{x}))$ &=& $\vec{x}$ & \\
+\end{tabular}
+$$
+Entonces dado $\vec{y}\in V$, resolver la ecuaci\'on $F(\vec{x})=\vec{y}$ es equivalente a encontrar un punto fijo a la funci\'on $\varphi_y(\vec{x})=\vec{x}+DF(\vec{a})^{-1}(\vec{y}-F(\vec{x}))$
+Como $DF$ es continua en $\vec{a}$, existe $\varepsilon >0$ tal que
+$$\vec{x}\in B(\vec{a},\varepsilon)\Rightarrow\: \norm{DF(\vec{x})-DF(\vec{a})}_F<\frac{1}{2\sqrt{n}\norm{DF(\vec{a})^{-1}}_F}$$
+Para probar que $F:B(\vec{a},\varepsilon)\to \R^n$ es inyectiva, basta probar que $\varphi_y$ es contractante, en efecto $F(\vec{x}_1)=\vec{y}\:\wedge\: F(\vec{x}_2)=\vec{y}\Rightarrow\:\varphi_y(\vec{x}_1)=\vec{x}_1\:\wedge\: \varphi_y(\vec{x}_2)=\vec{x}_2$ y si $\varphi_y$ es contractante entonces $\norm{\varphi_y(\vec{x}_1)
+-\varphi_y(\vec{x}_2)}\leq C\norm{\vec{x}_1-\vec{x}_2}\Rightarrow \norm{\vec{x}_1-\vec{x}_2}\leq C\norm{\vec{x}_1-\vec{x}_2}$  y como $C<1$, $\vec{x}_1=\vec{x}_2$.\\
+Observemos que $\varphi_y$ es de clase $\cl$. Para probar que es contractante acotamos la norma de su derivada:
+$$D\varphi_y(\vec{x})=I-DF(\vec{a})^{-1}DF(\vec{x})=DF(\vec{a})^{-1}(DF(\vec{a})-DF(\vec{x}))$$
+donde $I$ es la matriz identidad de $n\times n$.
+$$\norm{D\varphi_y(\vec{x})}_F\leq \norm{DF(\vec{a})^{-1}}_F\norm{DF(\vec{a})-DF(\vec{x})}_F\leq \frac{1}{2\sqrt{n}}$$
+la \'ultima desigualdad es v\'alida si $\vec{x}\in B(\vec{a},\varepsilon)$.\\
+Entonces como $B(\vec{a},\varepsilon)$ es convexa y $\norm{D(\varphi_y)_i(\vec{x})}\leq\frac{1}{2\sqrt{n}}$ para $i=1,\ldots,n$, obtenemos
+$$\norm{\varphi_y(\vec{x})-\varphi_y(\vec{z})}\leq \norm{\vec{x}-\vec{z}}\sqrt{\sum_{i=1}^n (\frac{1}{2\sqrt{n}})^2}=\frac{1}{2}\norm{\vec{x}-\vec{z}}\: \forall \vec{x},\vec{z}\in B(\vec{a},\varepsilon)$$
+
+Si definimos $U=B(\vec{a},\varepsilon)$ y $V=F(U)$, entonces $F:U\to V$ es biyectiva. Veamos que $V$ es abierto.\\
+Sea $\vec{y}^*\in V$ y $\vec{x}^*\in B(\vec{a},\varepsilon)$  tal que $F(\vec{x}^*)=\vec{y}^*$. Hay que demostrar que existe $\rho >0$ tal que si $\vec{y}\in B(\vec{y}^*,\rho)$ entonces existe $\vec{x}\in U$ tal que $F(\vec{x})=\vec{y}\Leftrightarrow \vec{x}=\varphi_y(\vec{x})$, es decir, $B(\vec{y}^*,\rho)\subseteq F(U)=V$.\\
+Sea $r>0$ tal que $B(\vec{x}^*,2r)\subseteq U$, y $\vec{x}\in \bar B(\vec{x}^*,r)$
+
+\begin{eqnarray*}
+\varphi_y(\vec{x})-\vec{x}^* & = & \varphi_y(\vec{x})-(\vec{x}^*+DF(\vec{a})^{-1})\vec{y}-F(\vec{x}^*)))+DF(\vec{a})^{-1}(\vec{y}-\vec{y}^*)\\
+                      & = & \varphi_y(\vec{x})-\varphi_y(\vec{x}^*)+DF(\vec{a})^{-1}(\vec{y}-\vec{y}^*)
+\end{eqnarray*}
+y por lo tanto
+\begin{eqnarray*}
+\norm{\varphi_y(\vec{x})-\vec{x}^*} & \leq &
+\norm{\varphi_y(\vec{x})-\varphi_y(\vec{x}^*)}+\norm{DF(\vec{a})^{-1}(\vec{y}-\vec{y}^*})\\
+& \leq & \frac{1}{2}\norm{\vec{x}-\vec{x}^*}+\norm{DF(\vec{a})^{-1}}\norm{\vec{y}-\vec{y}^*}
+\end{eqnarray*}
+Si escogemos $\rho=r/(2\norm{DF(\vec{a})^{-1}}_F)$ tendremos que
+$\forall \vec{y}\in B(\vec{y}^*,\rho)$ la funci\'on 
+$$\varphi_y:\bar{B}(\vec{x}^*,r)\to \bar{B}(\vec{x}^*,r)$$
+ es una contracci\'on y por lo tanto
+tiene un \'unico punto fijo $\vec{x}\in \bar{B}(\vec{x}^*,r)\subseteq U$ tal
+que
+\[\varphi_y(\vec{x})=\vec{x}\Rightarrow\: F(\vec{x})=\vec{y}\]
+Concluimos as\'i que $B(\vec{y}^*,\rho)\subseteq V$, es decir, $V$
+es abierto. \\ Resta estudiar la diferenciabilidad de la funci\'on
+inversa. Sean $\vec{y},\vec{y}+\vec{k}\in V$ entonces existen \'unicos $\vec{x},\vec{x}+\vec{h}\in U$
+tales que $ \vec{y}=F(\vec{x})$ e $\vec{y}+\vec{k}=F(\vec{x}+\vec{h})$ entonces
+\begin{eqnarray*}
+F^{-1}(\vec{y}+\vec{k})-F^{-1}(\vec{y})-DF(\vec{x})^{-1}\vec{k} &=& \vec{h}-DF(\vec{x})^{-1}\vec{k} \\
+                                  &=& DF(\vec{x})^{-1}(F(\vec{x}+\vec{h})-F(\vec{x})-DF(\vec{x})\vec{h})
+\end{eqnarray*}
+Por lo tanto
+\begin{eqnarray*}
+\frac{1}{\norm{\vec{k}}}\norm{F^{-1}(\vec{y}+\vec{k})-F^{-1}(\vec{y})-DF(\vec{x})^{-1}\vec{k}} \leq \norm{DF(\vec{x})^{-1}}\frac{\norm{F(\vec{x}+\vec{h})-F(\vec{x})-DF(\vec{x})\vec{h}}}{\norm{\vec{h}}}
+\frac{\norm{\vec{h}}}{\norm{\vec{k}}}
+\end{eqnarray*}
+Probaremos ahora que $\norm{\vec{h}}/\norm{\vec{k}}\leq C <\infty$ lo que
+implica que $\vec{h}\rightarrow 0$ cuando $\vec{k}\rightarrow 0$ y como $F$ es
+diferenciable en el punto $\vec{x}$, el lado derecho de la desigualdad
+anterior tiende a cero cuando $\vec{k}\rightarrow 0$, obligando asi a que el
+lado izquierdo tienda a cero tambi\'en, lo que por definici\'on
+significa que $F^{-1}$ es diferenciable en $\vec{y}$ y
+\[DF^{-1}(\vec{y})=[DF(\vec{x})]^{-1}\]
+Se sabe que
+\begin{eqnarray*}
+\norm{\vec{h}-DF(\vec{a})^{-1}\vec{k}} & = & \norm{\vec{h}-DF(\vec{a})^{-1}(F(\vec{x}+\vec{h})-F(\vec{x}))} \\
+                       &=
+                       & \norm{\vec{h}+\vec{x}-DF(\vec{a})^{-1}(F(\vec{x}+\vec{h})-\vec{y})-\vec{x}+\\
+& &DF(\vec{a})^{-1}(F(\vec{x})-\vec{y})}\\
+                       &=&
+                       \norm{\varphi_y(\vec{x}+\vec{h})-\varphi_y(\vec{x})}\\
+                       &\leq & \frac{1}{2}\norm{\vec{h}}
+\end{eqnarray*}
+ por lo tanto
+\[\norm{\vec{h}}-\norm{DF(\vec{a})^{-1}}\leq\norm{\vec{h}-DF(\vec{a})^{-1}}\leq
+1/2\norm{\vec{h}}\] lo que implica que
+\[1/2\norm{\vec{h}}\leq\norm{DF(\vec{a})^{-1}\vec{k}}\leq\norm{DF(\vec{a})^{-1}}\norm{\vec{k}}\]
+es decir,
+\[\frac{\norm{\vec{h}}}{\norm{\vec{k}}}\leq2\norm{DF(\vec{a})^{-1}} <\infty\]
+que es lo que se quer\'ia probar.\\ La continuidad de
+$DF^{-1}(\vec{y})=[DF(F^{-1}(\vec{y}))]^{-1}$ se obtiene de la regla de Cramer\index{Regla!de Cramer}
+para obtener la inversa de una matriz. Para una matriz invertible
+$A$ se tiene que
+\[A^{-1}=\frac{1}{\det(A)}[\text{cofactores} (A)]^t\]
+y donde ``cofactores$(A)$''\index{Matriz!de cofactores} es una matriz formada por los distintos
+subdeterminantes de $A$ que se obtienen al sacarle una fila y una
+columna a $A$. Entonces como $F$ es continuamente diferenciable,
+sus derivadas parciales son continuas\index{Continuidad!de las derivadas parciales}, y gracias a la formula de
+Cramer las derivadas parciales de $F^{-1}$ ser\'an continuas
+tambi\'en pues son productos y sumas de las derivadas parciales de
+$F$ y cuociente con el determinante de $DF(F^{-1}(\vec{y}))$ que es
+distinto de cero y continuo por la misma raz\'on.
+\end{demostracion}
+
+\section{Teorema de la funci\'on impl\'icita}
+
+\textbf{Motivaci\'on}: Supongamos que se tiene una funci\'on $f:\R^2\to\R$, y
+consideremos una ecuaci\'on de la forma
+\[f(x,y)=0\]
+Es entonces natural hacer la siguiente pregunta: {\textquestiondown}Es posible
+despejar $y$ en funci\'on de $x$?
+\\Supongamos que s\'i, es
+decir, existe una funci\'on $y(x)$ que satisface
+\[f(x,y(x))=0\]
+supongamos adem\'as que $f$ e $y(x)$ son diferenciables, entonces
+podemos derivar la ecuaci\'on anterior con respecto a $x$:
+\[\frac{\dd f}{\dd x}+\frac{\dd f}{\dd y}\frac{dy}{dx}=0\]
+o sea
+\[\frac{dy}{dx}=-\frac{\dd f/\dd x}{\dd f /\dd y}\quad\text{(Derivaci\'on impl\'icita)}\]
+Notemos que para poder realizar este c\'alculo es necesario que
+$\dd f/\dd y$ sea distinto de cero.\index{Derivaci\'on!impl\'icita}
+
+\begin{ejemplo}
+Consideremos la siguiente ecuaci\'on
+\[x^2+y^2=1\]
+{\textquestiondown}Es posible despejar $y$ en funci\'on de $x$? Evidentemente la
+respuesta a esta pregunta es que no es posible despejar
+globalmente una variable en funci\'on de la otra, pero si
+$(x_0,y_0)$ es un punto que satisface la ecuaci\'on, es decir,
+$x_0^2+y_0^2=1$ y adem\'as $y_0\neq 0$, entonces es posible
+despejar localmente $y$ en funci\'on de $x$ (es decir, en una
+vecindad de $(x_0,y_0)$). Adem\'as derivando la ecuaci\'on se
+tiene que
+\[2x+2y\frac{dy}{dx}=0\:\Rightarrow\:\frac{dy}{dx}=-\frac{x}{y}\]
+Sin embargo si $y_0=0$ es imposible despejar $y$ en funci\'on de
+$x$ en torno al punto $(x_0,y_0)$.
+\end{ejemplo}
+
+\begin{ejemplo}
+Consideremos ahora un caso m\'as general que
+el anterior. Suponga que se tienen las variables $x_1,\ldots,x_m$ e
+$y_1,\ldots,y_n$ relacionadas por $n$ ecuaciones (sistema de
+ecuaciones),\\
+$F_i(x_1,\ldots, x_m,y_1,\ldots,y_n)=0,\: i:1,\ldots,n$.Esto
+se puede escribir como
+\begin{eqnarray*}
+F:\R^m\times\R^n &\to& \R^n \\ 
+(x_1,..,x_m,y_1,\ldots,y_n) &\mapsto& F(\vec{x},\vec{y})=
+\begin{pmatrix}
+F_1(x_1,\ldots,x_m,y_1,\ldots,y_n) \cr \vdots \cr 
+F_n(x_1,\ldots,x_m,y_1,\ldots,y_n)
+\end{pmatrix}
+\end{eqnarray*}
+Entonces, $F(x_1,\ldots,x_m,y_1,\ldots,y_n)=0$.
+\\{\textquestiondown}Es posible despejar las
+variables $\vec{y}$, en funci\'on de las variables $\vec{x}$? Es decir,
+existen funciones $y_j(x_1,\ldots,x_m)$, $j=1,\ldots,n$ tales que
+$$F(x_1,\ldots,x_m,y_1(x_1,\ldots,x_x),\ldots,y_n(x_1,\ldots,x_m))=0$$ 
+Veamos
+el caso particular de un sistema lineal. Sea $L$ una matriz
+$L=[A\: B]\in M_{n\times(n+m)}$, y consideremos el sistema
+\[A\vec{x}+B\vec{y}=\vec{b}\] En este caso es posible despejar $\vec{y}$ en funci\'on de
+$\vec{x}$ cuando $B$ es invertible: \[\vec{y}(\vec{x})=B^{-1}\vec{b}-B^{-1}A\vec{x}\] 
+\end{ejemplo}
+
+\begin{teorema}{\rm (Teorema de la funci\'on impl\'icita)\index{Teorema!de la funci\'on impl\'icita}}\label{teofuncionimplicita}
+\\Sea $F:\Omega\subseteq \R^{m+n}\to \R^n$ una funci\'on de clase
+${\cl}$, y sea $(\vec{a},\vec{b})\in \R^m\times\R^n$ un punto tal que
+$F(\vec{a},\vec{b})=0$. Escribimos entonces $DF(\vec{a},\vec{b})=[D_x F(\vec{a},\vec{b})\: D_y F(\vec{a},\vec{b})]$
+y supongamos que $D_y F(\vec{a},\vec{b})$ es invertible. Entonces existen
+conjuntos abiertos $U\subseteq \R^{m+n}, W\subseteq\R^m$ con
+$(\vec{a},\vec{b})\in U$ y $\vec{a}\in W$ tales que para cada $\vec{x}\in W$  existe un
+\'unico $\vec{y}$ tal que $(\vec{x},\vec{y})\in U$ y
+\[F(\vec{x},\vec{y})=0\]
+esto define una funci\'on $G:W\to \R^n$ que es de clase ${\cl}$ y
+que satisface
+\[F(\vec{x},G(\vec{x}))=0,\: \forall \vec{x}\in W\]
+adem\'as $DG(\vec{x})=-[D_y F(\vec{x},G(\vec{x}))]^{-1}D_x F(\vec{x},G(\vec{x}))$ para todo $\vec{x}\in
+W$ y $G(\vec{a})=\vec{b}$.
+\end{teorema}
+Al igual que en el teorema de la funci\'on inversa veamos un
+ejemplo antes de dar la demostraci\'on del teorema.
+
+\begin{ejemplo}
+Considere el sistema de ecuaciones
+\[x^2+\sen (y)+\cos(yz)-w^3-1=0\]
+\[x^3+\cos(yx)+\sen(z)-w^2-1=0\]
+\begin{enumerate}
+\item Muestre que es posible despejar $(y,z)$ en funci\'on de $(x,w)$
+en una vecindad del punto $$(x_0,y_0,z_0,w_0)=(0,0,0,0)$$
+Calcular $\frac{\dd y}{\dd x}(0,0)$.
+\item {\textquestiondown}Es posible despejar $(x,y)$ en
+funci\'on de las variables $(z,w)$ en una vecindad de
+$(0,\pi,0,0)$? {\textquestiondown}Qu\'e se puede decir de despejar $(x,w)$ en funci\'on
+de $(y,z)$?
+\end{enumerate}
+
+\begin{solucion}
+\begin{enumerate}
+\item Para este problema se tiene que
+la funci\'on $F$ es:
+\\$F(x,y,z,w)=(x^2+\sen (y)+\cos(yz)-w^3-1,
+x^3+\cos(yx)+\sen(z)-w^2-1)$.
+\\Entonces $F$ es de clase $\cl$ y
+$F(0,0,0,0)=(0,0)$. Adem\'as
+\[D_{(y,z)}F(x,y,z,w)=\begin{pmatrix}\dd F_1/\dd y & \dd
+F_1/\dd z \cr \dd F_2/\dd y & \dd F_2/\dd z \cr\end{pmatrix}=\begin{pmatrix}\cos
+y-\sen (yz)z & -\sen(yz)y \cr -\sen(yx)x & \cos(z) \cr\end{pmatrix}\] 
+luego
+\[D_{(y,z)}F(0,0,0,0)=\begin{pmatrix}1 & 0\cr 0 & 1\cr\end{pmatrix}\]
+que es invertible. Luego, gracias al teorema, es posible despejar
+$(y,z)$ en funci\'on de $(x,w)$ de manera diferenciable en una
+vecindad del punto $(0,0)$. Si derivamos las ecuaciones con
+respecto a $x$ obtenemos
+\[2x+\cos(y)\frac{\dd y}{\dd x}-\cos(yz)(y\frac{\dd z}{\dd
+x}+z\frac{\dd y}{\dd x})=0\]
+\[3x^2-\sen(yx)(\frac{\dd y}{\dd x}x+y)+\cos(z)\frac{\dd z}{\dd
+x}=0\]
+evaluando en el punto $(0,0,0,0)$ se tiene que $\dd y/\dd
+x(0,0)=0$.
+
+\item En este caso se tiene que $F(0,\pi,0,0)=(0,0)$ y
+\[D_{(x,y)}F(x,y,w,z)=\begin{pmatrix}2x & \cos(y)-\sen(yz)z \cr 3x^2 &
+-\sen(yx)x \cr\end{pmatrix}
+\]
+por lo tanto
+\[D_{(x,y)}F(0,\pi,0,0)=\begin{pmatrix}0 & -1 \cr 0 & 0\cr\end{pmatrix}
+\]
+esta \'ultima no es una matriz invertible por lo que el teorema no
+es aplicable. Si se quisiera despejar $(x,w)$ en funci\'on de
+$(y,z)$ debemos observar la matriz
+\[D_{(x,w)}F(x,y,z,w)=\begin{pmatrix}2x & -3w^2 \cr 3x^2 & -2w \cr\end{pmatrix}
+\]
+que tampoco es invertible en los puntos $(0,0,0,0)$ y
+$(0,\pi,0,0)$, por lo que nuevamente el teorema no es
+aplicable.
+\end{enumerate}
+\end{solucion}
+\end{ejemplo}
+
+\begin{demostracion}{\hspace{2mm} (Teorema de la funci\'on impl\'icita)}\\
+Definamos la funci\'on
+\begin{eqnarray*}
+  f:\Omega\subseteq\R^{n+m} & \to & \R^{n+m} \\
+  (\vec{x},\vec{y}) & \mapsto & f(\vec{x},\vec{y})=(\vec{x},F(\vec{x},\vec{y}))
+\end{eqnarray*}
+que es evidentemente una funci\'on de clase $\cl$ gracias a que
+$F$ lo es. Su Jacobiano en el punto $(\vec{a},\vec{b})$ es
+\[Df(\vec{a},\vec{b})=
+\begin{pmatrix}
+I_{m\times m} & 0 \cr 
+D_x F(\vec{a},\vec{b}) & D_y F(\vec{a},\vec{b})
+\end{pmatrix}\] que es invertible ya que por hip\'otesis $D_y F(\vec{a},\vec{b})$ lo es.
+Adem\'as $f(\vec{a},\vec{b})=(\vec{a},0)$. Podemos entonces aplicar el teorema de la
+funci\'on inversa (teorema \ref{teofuncioninversa}) a la funci\'on $f$. Existen abiertos
+$U,V\subseteq \R^{n+m}$ tales que $(\vec{a},\vec{b})\in U$, $(\vec{a},\vec{0})\in V$ y
+$f:U\to V$ es biyectiva con inversa de clase $\cl$. Definamos
+ahora el conjunto $W=\{\vec{z}\in\R^m / (\vec{z},\vec{0})\in V\}$, entonces $\vec{a}\in
+W$ y $W$ es un conjunto abierto de $\R^m$ pues $V$ es abierto (demostrar que $W$ es abierto 
+queda de \emph{tarea}). Luego, para cada $\vec{z}\in
+W$ la ecuaci\'on $f(\vec{x},\vec{y})=(\vec{z},\vec{0})$ tiene un \'unico par $(\vec{x}_z,\vec{y}_z)$
+como soluci\'on, es decir,
+\[(\vec{x}_z,F(\vec{x}_z,\vec{x}_z))=(\vec{z},\vec{0})\]
+esto \'ultimo implica que $\vec{x}_z=\vec{z}$ y por lo tanto $F(\vec{z},\vec{y})=\vec{0}$. Como
+$\vec{y}_z$ es \'unico dado $\vec{z}$, esto define una funci\'on $G(\vec{z})=\vec{y}_z$.
+Evidentemente $G(\vec{a})=\vec{b}$, y
+\[(\vec{z},\vec{y}_z)=f^{-1}(\vec{z},\vec{0})=(\vec{z},G(\vec{z}))\]
+De esta forma, $G$ es la funci\'on que estamos buscando y como
+$f^{-1}$ es de clase $\cl$, entonces la ecuaci\'on anterior dice
+que $G$ es de clase $\cl$ tambi\'en. Se tiene que $G$ satisface la
+ecuaci\'on $F(\vec{z},G(\vec{z}))=0$, y como $F$ y $G$ son de clase $\cl$
+podemos calular al Jacobiano de $G$ usando esta ecuaci\'on y la
+regla de la cadena
+\[D_x F(\vec{z},G(\vec{z}))I_{m\times m}+D_y F(\vec{z},G(\vec{z}))DG(\vec{z})=0\]
+de donde se obtiene el resultado
+\[DG(\vec{z})=-[D_y F(\vec{z},G(\vec{z}))]^{-1}D_x F(\vec{z},G(\vec{z}))\]
+para todo $\vec{z}\in W$.
+\end{demostracion}
+
+ 
+
+\section{Ejercicios}
+
+\subsection*{Contracciones y teorema del punto fijo}
+
+\teoremas{
+
+Sea $T$ una funci\'on tal que $T^k$ es contractante.
+Demuestre que $T$ tiene un \'unico punto fijo.
+}
+
+\teoremas{
+
+Sea $f:\R^2 \to \R^2$ una funci\'on contractante en $B(\vec{0},\delta)$, con constante $L$ conocida. Demuestre que si $\|f(\vec{0})\|<\delta(1-L)$ entonces existe un \'unico punto fijo de $f$ en dicha vecindad. 
+}
+
+\teoremas{
+
+Muestre que la ecuaci\'on integral
+\[u(x)=\frac{1}{2}\int_0^1e^{-x-y}\cos(u(y))dy\]
+tiene una y s\'olo una soluci\'on en el espacio $C([0,1],\R)$.
+Para ello defina el operador
+\[F(u)(x)=\frac{1}{2}\int_0^1e^{-x-y}\cos(u(y))dy\]
+y demuestre que es contractante. En $C([0,1],\R)$ use la norma
+del supremo.
+}
+
+\teoremas{
+
+Considere la ecuaci\'on integral
+\[u(x)=5+\int_0^x\sen(u(s)+x)ds\]
+Muestre que la ecuaci\'on posse una y solo una soluci\'on en
+$C([0,1/2],\R)$
+}
+
+\teoremas{
+
+Determinar para qu\'e valores de $a$ y $b$
+la funci\'on \[T(x,y)=(a\cos(x+y),b\ln (1+x^2+y^2))\] es una
+contraci\'on.
+}
+
+\teoremas{
+
+Programe en su calculadora o en Matlab un algoritmo que encuentre la
+soluci\'on del sistema del ejemplo anterior. Para ello defina
+$x_0=0,y_0=0$, y genere una sucesi\'on dada por la siguiente
+recurrencia:
+\begin{eqnarray*}
+x_{n+1} &= & (1/2)\cos (x_n+y_n) \\y_{n+1}&=&  (1/3)\ln
+(1+x^2+y^2)+5
+\end{eqnarray*}
+}
+
+\teoremas{
+Sean $g_i : \mathbb{R}^n \rightarrow \mathbb{R}$ funciones de clase $\mathcal{C}^1(\R)$, $\forall i \in \{1,2, \ldots n\}$. Suponga adem\'as que
+$$\max \left\{{ \left\|{\nabla g_i(\vec{x})}\right\|_\infty} \right\} < \dfrac{1}{2n} \qquad \forall i \in \{1,2, \ldots n\}$$
+Pruebe que el sistema $x_1=g_1(\vec{x}),x_2=g_2(\vec{x}), \ldots x_n=g_n(\vec{x})$
+tiene una \'unica soluci\'on en $\R^n$, donde $\vec{x}=\{x_1,x_2, \ldots x_n\}$.
+
+\textit{Indicaci\'on}. Recuerde que el espacio $(\mathbb{R}^n, \left\|\cdot \right\|_1)$ es de Banach.
+}
+
+\subsection*{Teorema de la funci\'on inversa}
+
+\teoremas{
+Sea $f:U\to\R^n$ una funci\'on de clase $\mathcal{C}^1$ en el abierto
+$U\subset \R^n$. Sea $\vec{a}\in U$ tal que $f'(\vec{a})$ es invertible.
+Muestre que $$ \lim_{r\to 0} \frac{\text{vol}(f(B(\vec{a},r))}{\text{vol}(B(\vec{a},r)}=|{\rm det}f'(\vec{a})|$$
+}
+
+\teoremas{
+Como en el ejercicio anterior muestre que si $f'(\vec{a})$ no es invertible
+entonces $$ \lim_{r\to 0} \frac{\text{vol}(f(B(\vec{a},r))}{\text{vol}(B(\vec{a},r)}=0$$
+}
+
+\teoremas{
+Para
+$$ f(u,v) = (u+[\log (v)]^2, uw, w^2) $$
+	\begin{enumerate}
+	\item Muestre que $f$ no es inyectiva
+	\item Encuentre un dominio $\Omega$ de manera que la funci\'on
+	sea inyectiva en $\Omega$
+	\item Calcule $D(f^{-1})(1,0,1)$ cuando $f$ se considera
+	en $\Omega$.
+	\end{enumerate}
+}
+
+\teoremas{
+Sea $f(x,y)= (x^2- y^2, 2xy)$
+	\begin{enumerate}
+	\item Demuestre que para todo $(a,b)\not =  (0,0),f$ es
+	invertible localmente en $(a,b)$.
+	\item Demostrar que $f$ no es inyectiva.
+	\item Calcular aproximadamente $f^{-1}(-3.01; 3.98).$ Use la f\'ormula de Taylor. Note que
+	$f(1,2)= (-3,4)$
+	\end{enumerate}
+}
+
+\teoremas{
+Sean $f(u,v)= (u^2+u^2v+ 10v,u+v^3)$
+	\begin{enumerate}
+	\item Encuentre el conjunto de puntos en los cuales
+	$f$ es invertible localmente.
+	\item Compruebe que $(1,1)$ pertenece al conjunto obtenido en la parte 1). 
+	\item Encuentre (aproximadamente) el valor de $f^{-1}(11.8,2.2)$.
+	\end{enumerate}
+}
+
+
+\subsection*{Teorema de la funci\'on impl\'icita}
+
+\teoremas{
+Si $f(\frac{x}{z},\frac{y}{z})=0$, Calcular
+\[x\frac{\partial z}{\partial x}+y\frac{\partial z}{\partial y}\]
+}
+
+\teoremas{
+Sea $f:\R^2 \to \R$ tal que
+\begin{gather}\label{complementos1}
+f(xy,z-2x)=0 \tag{*}
+\end{gather}
+Suponga que existe $z(x_0,y_0)=z_0$ tal que $f(x_0 y_0,z_0-2x_0)=0$ y que para todo $(x,y)$ en una vecindad de $(x_0,y_0)$, los puntos $(x,y,z(x,y))$ cumplen la ecuaci\'on (\ref{complementos1}). Encuentre que condiciones debe satisfacer $f$ para que se cumpla lo anterior y demuestre que dad la condici\'on anterior la funci\'on $z(x,y)$ cumple la igualdad
+$$x_0 \dpr{z}{x}(x_0,y_0)-y_0 \dpr{z}{y}(x_0,y_0)=2x_0$$
+}
+
+\teoremas{
+La funci\'on $z$ est\'a definida por la siguiente ecuaci\'on
+\[f(x-az,y-bz)=0\]
+donde $F$ es una funci\'on diferenciable. %cualquiera de dos %argumentos,
+Encuentre $a$ que es igual la expresi\'on % satisface la ecuaci\'on
+\[a\frac{\partial z}{\partial x}+b\frac{\partial z}{\partial y}\]
+}
+
+\teoremas{
+Sea $z=f(x,y)$ definida impl\'icitamente por la ecuaci\'on 
+$$x^2 ze^y+y^2 e^x+y=1$$
+Si $g(u,v)=(u^2+v+1,v^2)$, calcule $\dpr{^2 f\circ{g}}{u \partial v}(0,0)$. Justifique.
+}
+
+\teoremas{
+Considere el siguiente sistema no-lineal:
+\begin{eqnarray*}
+x_1^2x_2 + x_2^2x_1 + y_2^2y_1 + y_2 & = & 0\\ x_1x_2y_1 +
+x_2y_1y_2 + y_2y_1x_1 + y_2x_1x_2 & = & 0
+\end{eqnarray*}
+	\begin{enumerate}
+	\item Demuestre que es posible despejar $(y_1, y_2)$ en funci\'on de $(x_1, x_2)$ en
+	torno a alg\'un punto.
+	\item Encuentre los valores de :
+	\begin{displaymath}
+	\frac{\partial y_1}{\partial x_2}(1, -1) \:;\: \frac{\partial
+	y_2}{\partial x_2}(1, -1)
+	\end{displaymath}
+	\end{enumerate}
+}
+
+\teoremas{
+Sea $z(x,y)$ una funcion diferenciable definida implicitamente por la
+ecuacion:
+\begin{displaymath}
+z=x\cdot f(\frac{y}{z})
+\end{displaymath}
+donde $f:\R\to\R$ es ua funcion derivable. Demuestre que
+\[2(x,y)\cdot \nabla z(x,y)=z(x,y)\]
+
+\textit{Indicaci\'on}. Considere $F:\R^3\rightarrow\R$ definida como
+$F(x,y,z)=z-x\cdot f(\frac{y}{z})$
+}
+
+\teoremas{
+Considere el siguiente sistema no lineal:
+\begin{eqnarray*}
+\sen(x_1\cdot y_1)+x_3\cos(y_2) & = & 0\\ y_2 + x_1^2 +
+(\senh(x_2))^2 & = & 0
+\end{eqnarray*}
+Encuentre los valores de $\frac{\partial y_1}{\partial
+x_2}(1,0,0)$ y $\frac{\partial y_2}{\partial x_3}(1,0,0)$.
+
+\textit{Indicaci\'on}. Considere la funci\'on
+\begin{eqnarray*}
+g:\R^3\times\R^2 &\rightarrow &\R^2\\ (x,y) &
+\mapsto& (u(x,y),v(x,y))
+\end{eqnarray*}
+con $x=(x_1,x_2,x_3),y=(y_1,y_2)$,
+$u,v:\R^3\times\R^2\rightarrow\R$ son tales que
+\[u(x,y)=\sen(x_1\cdot y_1)+x_3\cos(y_2)\]
+\[v(x,y)=y_2 + x_1^2 + (\senh(x_2))^2\]
+}
+
+\teoremas{
+Mostrar que  cerca del punto $(x,y,u,v)=(1,1,1,1)$ podemos resolver el
+sistema
+\begin{eqnarray*}
+xu+yvu^2 & = & 2\\ xu^3+y^2v^4 & = & 2
+\end{eqnarray*}
+de manera \'unica para $u$ y $v$ como funciones de $x$ e $y$.
+Calcular $\frac{\partial u}{\partial x}$
+}
+
+\teoremas{
+Considere el sistema
+\begin{eqnarray*}
+\frac{x^4+y^4}{x} & = & u\\ \sen (x)+\cos (y) & = & v
+\end{eqnarray*}
+Determine cerca de cuales puntos $(x,y)$ podemos resolver $x$ e
+$y$ en t\'erminos de $u$ y $v$
+}
+
+\teoremas{
+Analizar la solubilidad del sistema
+\begin{eqnarray*}
+3x+2y+z^2+u+v^2 & = & 0\\ 4x+3y+zu^2+v+w+2 & = & 0\\ x+z+w+u^2+2 &
+= & 0
+\end{eqnarray*}
+para $u,v,w$ en t\'erminos de $x,y,z$ cerca de $x=y=z=0$, $u=v=0$
+y $w=-2$.
+}
+
+\teoremas{\textcolor{white}{linea en blanco}
+	\begin{enumerate}
+	\item Hallar $\frac{dy}{dx}|_{x=1}$ y $\frac{d^2y}{dx^2}|_{x=1}$ si
+	\[x^2-2xy+y^2+x+y-2=0\]
+	\item Hallar $\frac{dy}{dx}$ y $\frac{d^2y}{dx^2}$ si
+	\[\ln(\sqrt{x^2+y^2})=a\cdot \arctan\left(\frac{y}{x}\right)\quad(a\neq 0)\]
+	\item Hallar $\frac{\partial z}{\partial x}$ y
+	$\frac{\partial z}{\partial y}$
+	si \[x\cos(y)+y\cos(z)+z\cos(x)=1\]
+	\item Las funciones $y$ y $z$ de la variable independiente $x$ se dan por el
+	sistema de ecuaciones $xyz=a$ y $x+y+z=b$; Hallar $\frac{dy}{dx},
+	\frac{dz}{dx}, \frac{d^2y}{dx^2}, \frac{d^2z}{dx^2}$.
+	\end{enumerate}
+}
+
+\teoremas{
+Sea la funcion $z$ dada por la ecuaci\'on
+\[x^2+y^2+z^2=\phi(ax+by+cz)\]
+donde $\phi$ es una funci\'on cualquiera diferenciable y $a,b,c$
+son constantes; demostrar que:
+\[(cy-bz)\frac{\partial z}{\partial x}+(az-cx)\frac{\partial z}{\partial y}=bx-ay\]
+}
+
+\teoremas{
+Demostrar que la funci\'on $z$, determinada por la ecuaci\'on
+\[y=x\phi(z)+\chi(z)\]
+Satisface la ecuaci\'on
+\[\frac{\partial^2 z}{\partial x^2}\left(\frac{\partial z}{\partial y}\right)^2-2\frac{\partial z}{\partial x}\frac{\partial z}{\partial y}\frac{\partial^2 z}{\partial x\partial y}+\frac{\partial^2 z}{\partial y^2}\left(\frac{\partial z}{\partial x}\right)^2=0\]
+}
+
+\teoremas{
+Sea $f(x,y,z)=0$ tal que sus derivadas parciales son distintas de cero. Por lo
+tanto es posible escribir: $x=x(y,z),\:y=y(x,z),\:z=z(x,y)$, donde
+estas funciones son diferenciables. Muestre que
+\[\frac{\dd x}{\dd y}\frac{\dd y}{\dd z}\frac{\dd z}{\dd x}=-1\]
+}
+
+\teoremas{
+Muestre que las ecuaciones
+\begin{eqnarray*}
+x^2-y^2-u^3+v^2+4 &=& 0\\ 2xy+y^2-2u^2+3v^4+8 &=& 0
+\end{eqnarray*}
+determinan funciones $u(x,y)$ y $v(x,y)$ en torno al punto
+$x=2,y=-1$ tales que $u(2,-1)=2$ y $v(2,-1)=1$. Calcular
+$\frac{\dd u}{\dd x}$ y $\frac{\dd v}{\dd y}$
+}

@@ -1,0 +1,1086 @@
+
+%Veremos en forma general el teorema de Karush-Kuhn-Tucker el cual, bajo determinadas condiciones, nos da condiciones necesarias para la existencia de m\'aximos o m\'inimos de una funci\'on sujeta a varias restricciones. 
+
+\section{Teorema de separaci\'on de convexos y lema de Farkas}
+
+Los resultados de esta secci\'on nos servir\'an para demostrar un teorema importante, conocido como Karush-Kuhn-Tucker, que nos permitir\'a caracterizar las soluciones \'optimas cuando tenemos restricciones de igualdad y desigualdad combinadas en un problema.
+
+\begin{teorema}{\rm (Teorema de separaci\'on de convexos)\index{Teorema!de separaci\'on de convexos}}\label{teo-separacion}
+Sean $A$ y $B$ dos conjuntos convexos, disjuntos y diferentes de vac\'io en $\R^n$. Si $A$ es cerrado y $B$ es compacto existe $\vec{p}\in \R^n\setminus \{\vec{0}\}$ tal que $\vec{p}\cdot \vec{a} < \vec{p}\cdot \vec{b} \, \, \forall (\vec{a},\vec{b})\in A\times B$.
+\end{teorema}
+
+\begin{demostracion}
+Si $A$ es cerrado definamos la funci\'on
+\begin{align*}
+f:  B &\to \R \cr
+	\vec{b} &\mapsto \min_{\vec{a}\in A} \|\vec{b}-\vec{a}\|
+\end{align*}
+la cual nos da la distancia de $\vec{b}\in B$ a $\vec{a} \in A$ y adem\'as es una funci\'on continua. Supongamos que $B$ es compacto, entonces existe $\vec{b}_0 \in B$ tal que $f(\vec{b}_0)\leq f(\vec{b}) \:\forall \vec{b}\in B$. Sea $\vec{y}\in A$ tal que $f(\vec{b}_0)=\|\vec{b}_0-\vec{y}\|$ y como $A \cap B = \varnothing$ son disjuntos entonces el vector
+$$\vec{p}=\frac{\vec{b}_0-\vec{y}}{\|\vec{b}_0-\vec{y}\|}$$   
+est\'a bien definido y es tal que $\|\vec{p}\|=1$.
+\\Como $\vec{p}\cdot \vec{p} > 0$ se tiene que
+$$\vec{p}\cdot \frac{\vec{b}_0-\vec{y}}{\|\vec{b}_0-\vec{y}\|} > 0$$ 
+a partir de lo cual se concluye que
+\begin{gather}\label{separacion-1}
+\vec{p}\cdot \vec{y} < \vec{p}\cdot \vec{b}_0 \tag{*}
+\end{gather}
+En base a esto \'ultimo debemos demostrar que $\vec{p}\cdot \vec{b}_0 \leq \vec{p}\cdot \vec{b}$ y $\vec{p}\cdot \vec{a} < \vec{p}\cdot \vec{y}$.
+
+Fijando $\vec{a}\in A$ definamos la funci\'on
+\begin{align*}
+g:  [0,1]   &\to \R \cr
+	\lambda &\mapsto \|\vec{b}_0+\vec{y} - \lambda(\vec{a}-\vec{y})\|^2
+\end{align*}
+como $A$ es convexo $g$ tiene un m\'inimo en $\lambda=0$, entonces
+\begin{align*}
+g(\lambda) 		 &= (\langle \vec{b}_0-\vec{y} - \lambda(\vec{a}-\vec{y}) , \vec{b}_0-\vec{y} - \lambda(\vec{a}-\vec{y}) \rangle)^2 \cr
+				 &= (\langle \vec{b}_0-\vec{y} , \vec{b}_0-\vec{y} \rangle - 2\lambda \langle \vec{b}_0-\vec{y} , \vec{a}-\vec{y}\rangle + \lambda^2 \langle \vec{a}-\vec{y} , \vec{a}-\vec{y} \rangle)^2 \cr
+\dpr{g}{\lambda} &= -2\langle \vec{b}_0-\vec{y} , \vec{a}-\vec{y}\rangle + 2\lambda \langle \vec{a}-\vec{y} , \vec{a}-\vec{y} \rangle
+\end{align*}
+luego
+$$\left.\dpr{g}{\lambda}\right|_{\lambda=0} 
+				 = (\vec{b}_0-\vec{y})\cdot (\vec{y}-\vec{a}) \geq 0$$
+dividiendo por $\|\vec{b}_0-\vec{y}\|$ se concluye que
+\begin{gather}\label{separacion-2}
+\vec{p}\cdot \vec{a} \leq \vec{p}\cdot \vec{y} \tag{**}
+\end{gather}
+
+Fijando $\vec{b}\in B$ definamos la funci\'on
+\begin{align*}
+h:  & [0,1] \to \R \cr
+	& \lambda \mapsto \|\vec{b}_0-\vec{y} - \lambda(\vec{b}-\vec{y})\|^2
+\end{align*}
+y procediendo de la misma forma con la que se lleg\'o a \eqref{separacion-2} se concluye que
+\begin{gather}\label{separacion-3}
+\vec{p}\cdot \vec{b}_0 \leq \vec{p}\cdot \vec{b} \tag{***}
+\end{gather}
+
+Finalmente \eqref{separacion-1}, \eqref{separacion-2} y \eqref{separacion-3} permiten concluir que $\vec{p}\cdot \vec{a} < \vec{p}\cdot \vec{b}$.
+\end{demostracion}
+
+\begin{lema}
+Sea $A \subset \R^n$ un conjunto convexo tal que $\inte{A}\neq \varnothing$. Entonces $\overline{A} = \overline{\inte{A}}$. \emph{(Para simplificar notaci\'on $\overline{A} = \adh{A}$)} 
+\end{lema}
+
+\begin{demostracion}
+Sea $\vec{x} \in \inte{C}$. Demostremos que el segmento que une $\vec{x}$ con cualquier $\vec{y}\in A$ est\'a contenido en $\inte{A}$. Sea $\vec{y}\in A$, como $\inte{A} \subset A$ y $A$ es convexo entonces $t\vec{x} + (1-t)\vec{y} \in A$ $\forall t \in (0,1)$. Sea $r> 0$ tal que $B(\vec{x},r) \subset A$ entonces $B(t\vec{x} + (1-t)\vec{y} , tr) \subset A \Rightarrow t\vec{x} + (1-t)\vec{y} \in \inte{A} \: \forall t$. En efecto, cualquier $\vec{z} \in B(t\vec{x} + (1-t)\vec{y} , tr) $ puede escribirse $\vec{z} = t\vec{x} + (1-t)\vec{y} + t\vec{h}$, $\|\vec{h}\| < r$. Como $\vec{x} + \vec{h} \in B(\vec{x},r) \subset A$, el segmento entre $\vec{y}$ y $\vec{x} + \vec{h}$ est\'a en $A$, es decir $\vec{z} = t(\vec{x}+\vec{h}) + (1-t)\vec{y} \in A$. 
+Por otra parte, como $\vec{y} = \lim_{n \to \infty} \left(1-\frac{1}{n}\right) \vec{y} + \frac{1}{n}\vec{x}$ se concluye que $\vec{y} \in \overline{\inte{A}}$ $\forall \vec{y} \in A$. Finalmente, como $A \subset \overline{\inte{A}} \Rightarrow \overline{A} \subset \overline{\inte{A}}$  e $\inte{A} \subset A \Rightarrow \overline{\inte{A}} \subset \overline{A}$ tenemos que $\overline{A} = \overline{\inte{A}}$.
+\end{demostracion}
+
+Si el conjunto no es convexo el lema anterior no aplica. Como contraejemplo tenemos lo siguiente: Sea $C=(0,1)$ entonces $\adh{C}=[0,1]$ e $\inte{\overline{C}}=(0,1)$ pero si $C=(0,\frac{1}{2})\cup (\frac{1}{2},1)$ entonces $\adh{C}=[0,1]$ e $\inte{\overline{C}} = (0,1)$ por lo que $\inte{\overline{C}} \nsubseteq C$.
+
+
+\begin{corolario}\label{cor-separacion}
+Si $A$ y $B$ son dos conjuntos convexos, disjuntos y diferentes de vac\'io, entonces el conjunto $C=A\setminus B$ es convexo y no vac\'io tal que $\vec{0}\notin C$. Sobre este resultado pueden darse dos casos:
+\begin{enumerate}
+\item $\vec{0} \in \adh{C}$ y entonces existe $\vec{p}\in \R^n\setminus \{\vec{0}\}$ tal que $\vec{p}\cdot \vec{a} \leq \vec{p}\cdot \vec{b} \:\forall (\vec{a},\vec{b})\in A\times B$.
+\item $\vec{0} \notin \adh{C}$ y entonces existe $\vec{p}\in \R^n\setminus \{\vec{0}\}$ tal que $\vec{p}\cdot \vec{a} < \vec{p}\cdot \vec{b} 
+\:\forall (\vec{a},\vec{b})\in A\times B$.
+\end{enumerate} 
+\end{corolario}
+
+\begin{demostracion}\textcolor{white}{linea en blanco}
+\\ $\vec{0} \in \adh{C}$: Aplicando el lema tenemos que $\vec{0}\notin \inte{C}$. Por lo tanto existe una sucesi\'on $\{\vec{x}_n\}_{n\in \N}$ tal que $\{\vec{x}_n\}\in \adh{C}$ y $\{\vec{x}_n\}\to \vec{0}$ en la medida que $n\to \infty$. Entonces para cada $n\in \N$ existe un vector $\vec{p}_n$ tal que $\|\vec{p}_n\|=1$ y $\vec{p}_n\cdot \vec{a} < \vec{p}_n\cdot \vec{b} \:\forall (\vec{a},\vec{b})\in A\times B$. Como $\{\vec{p}_n\}_{n\in \N}$ est\'a definida en un compacto tiene al menos una subsucesi\'on convergente, es decir existe $\vec{p}\in \R^n\setminus \{\vec{0}\}$ tal que $\|\vec{p}\|=1$ y $\vec{p}\cdot \vec{a} \leq \vec{p}\cdot \vec{b} \:\forall (\vec{a},\vec{b})\in A\times B$.
+
+\medskip
+
+$\vec{0} \notin \adh{C}$: Aplicando el teorema teorema \ref{teo-separacion}, se concluye que existe $\vec{p}\in \R^n\setminus \{\vec{0}\}$ tal que $\vec{p}\cdot \vec{c} < 0 \:\forall \vec{c}\in \adh{C}$ y en particular si definimos $\vec{c}=\vec{a}-\vec{b}$ con $\vec{a}\in A$ y $\vec{b}\in B$ se tiene que $\vec{p}\cdot \vec{a} < \vec{p}\cdot \vec{b} \:\forall (\vec{a},\vec{b})\in A\times B$.
+\end{demostracion}
+
+%\begin{nota}
+%En la \'ultima demostraci\'on afirmamos que si $\overline{C}=\adh{C}$ entonces $\inte{\overline{C}}\subseteq C$. Esta propiedad es intuitivamente clara, sin embargo solo es v\'alida cuando $C$ es convexo. Como contraejemplo tenemos lo siguiente: Sea $C=(0,1)$ entonces $\adh{C}=[0,1]$ e $\inte{\overline{C}}=(0,1)$ pero si $C=(0,\frac{1}{2})\cup (\frac{1}{2},1)$ entonces $\adh{C}=[0,1]$ e $\inte{\overline{C}} = (0,1)$ por lo que $\inte{\overline{C}} \nsubseteq C$.
+%\end{nota}
+
+%Geom\'etricamente el teorema de separaci\'on de convexos da la noci\'on de m\'inima distancia entre dos conjuntos y la existencia de al menos un hiperplano que separa ambos conjuntos. Cuando los conjuntos tienen intersecci\'on vac\'ia sabemos que existe un vector $\vec{p}\neq \vec{0}$ que separa ambos conjuntos.
+
+%Una consecuencia del teorema es que cualquier conjunto cerrado y convexo $C$ puede ser separado de cualquier vector $\vec{v}\notin C$. Entre un conjunto cerrado $C$ y un vector $\vec{v}\notin C$ existe un hiperplano separador $H=\{\vec{x}\in \R^n : \vec{p}\cdot \vec{x} = \alpha\}$.
+
+%\begin{figure}[H]
+%\begin{minipage}[t]{.45\textwidth}
+%	\centering
+%	\input{figuras/sep-de-convexos.pdf_tex}
+%	\caption{Separaci\'on estricta.}
+%\end{minipage}
+%\hfill
+%\begin{minipage}[t]{.45\textwidth}
+%	\centering
+%	\input{figuras/sep-de-convexos-2.pdf_tex}
+%	\caption{Hiperplano separador.}
+%\end{minipage}
+%\end{figure}
+
+%En el caso de conjuntos no convexos estos no necesariamente pueden ser separados. Este caso, el de los no convexos, requiere un an\'alisis aparte.
+%\begin{figure}[H]
+%	\centering
+%	\input{figuras/sep-de-convexos-3.pdf_tex}
+%	\caption{Casos no convexos en $\R^2$.}
+%\end{figure}
+
+%Cuando el hiperplano separador y las adherencias de los conjuntos a separar tienen intersecci\'on no vac\'ia tenemos el primer caso del corolario.
+%Esta distancia queda caracterizada por la existencia de un hiperplano separador definido por $H=\{\vec{x}\in \R^n : \vec{p}\cdot \vec{x} = \alpha\}$ dados $\vec{p} \in \R^n$ y $\alpha \in \R$ fijos. 
+%Cuando la separaci\'on es estricta, es decir que la intersecci\'on de los conjuntos a separar y el hiperplano separador es vac\'ia, en $\R^2$ se tiene algo como en la siguiente figura: 
+
+% 
+
+\begin{lema}{\rm (Lema de Farkas)\index{Lema!de Farkas}}\label{lema-farkas}
+Sean $\vec{b}\in \R^n$ y $A \in \mathcal{M}_{m\times n}(\R)$. Entonces la desigualdad $\vec{b}\cdot \vec{d} \geq 0$ se cumple para todo vector $\vec{d}\in \R^n$ tal que $A\vec{d} \geq \vec{0}$ si y s\'olo si existe $\vec{p}\in \R^m_+$ tal que $A^t \vec{p} = \vec{b}$. 
+\end{lema}
+
+\begin{demostracion}
+El enunciado equivale a decir que el sistema $A\vec{d}\geq \vec{0},\:\vec{b}\cdot \vec{d} < 0$ tiene soluci\'on si y s\'olo si el sistema $A^t \vec{p} = \vec{b},\:\vec{p}\geq \vec{0}$ no tiene soluci\'on. 
+
+El sistema $A^t \vec{p} = \vec{b},\:\vec{p}\geq \vec{0}$ no tiene soluci\'on si los conjuntos $C_1=\{\vec{x}\in \R^n : A^t \vec{p} = \vec{x},\:\vec{p}\geq \vec{0}\}$ y $C_2=\{\vec{b}\}$ son disjuntos. 
+
+Notemos que $C_1$ y $C_2$ son cerrados, convexos y diferentes de vac\'io y adem\'as $C_2$ es compacto. Esto \'ultimo nos permite aplicar el teorema \ref{teo-separacion} y se concluye que existen $\vec{c}\in \R^n\setminus \{\vec{0}\}$ y $\alpha \in \R$ tales que $\vec{c}\cdot \vec{b} < \alpha,\:\vec{c}\cdot \vec{x} > \alpha\:\forall \vec{x}\in C_1$ y  $\vec{c}\cdot (A^t \vec{p}) > \alpha \:\forall \vec{p}\geq \vec{0}$.
+
+De esta forma si $\vec{p}=\vec{0}$ entonces $\alpha < 0$. Si escogemos $\vec{p}=(0,\ldots,p_i,\ldots,0)$ con $i=1,\ldots,m$ tal que $p_i > 0$, entonces $\vec{c} A^t \geq \vec{0}$ y en consecuencia $A\vec{c} \geq \vec{0}$. Se concluye que $\vec{d}=\vec{c}$ es una soluci\'on del sistema $A\vec{d} \geq \vec{0},\:\vec{b}\cdot \vec{d} < 0$. 
+
+Si $A^t \vec{p} = \vec{b},\:\vec{p}\geq \vec{0}$ tiene soluci\'on y $A\vec{d} \geq \vec{0}$, entonces $\vec{b}\cdot \vec{d} = \vec{p}\cdot (A\vec{d})\geq 0$ por lo que $A\vec{d} \geq \vec{0},\:\vec{b}\cdot \vec{d} < 0$ no tiene soluci\'on.
+\end{demostracion}
+
+%\begin{ejemplo}{\rm (Precios de no arbitraje)}
+%Consideremos un conjunto formado por $n$ activos financieros, cuyos precios al inicio de un periodo de inversi\'on son $p_1,\ldots,p_n$ respectivamente. Al final del periodo de inversi\'on cada activo tendr\'a un valor $v_1,\ldots,v_n$. Si $x_1,\ldots,x_n$ representa la inversi\'on inicial en cada activo tenemos que:
+%\begin{enumerate}
+%\item $x_i<0$ significa que se vendieron $x_i$ unidades del activo $i$ al inicio del periodo.
+%\item $x_i>0$ significa que se compraron $x_i$ unidades del activo $i$ al inicio del periodo.
+%\end{enumerate}
+%El costo de la inversi\'on inicial es $\vec{p}\cdot \vec{x}$ y el valor final de la inversi\'on ser\'a de $\vec{d}\cdot \vec{x}$ en su totalidad.
+
+%Supondremos que el valor final de los activos es incierto al inicio del periodo y que existen $m$ posibles estados de la naturaleza que resultan en distintos valores futuros de la inversi\'on inicial. 
+
+%En el estado $k\in \{1,\ldots,m\}$ el activo $i\in \{1,\ldots,n\}$ tendr\'a un valor que se estima en un monto $v^k_i$ por cada unidad adquirida al inicio del periodo. De esta forma, si se adquiere un portafolio $\vec{x}\in \R^n$ se espera obtener un valor del portafolio igual a $\vec{d}^{k}\cdot \vec{x}$ en el estado $k$.
+
+%La existencia de posibilidades de arbitraje significa que se obtendr\'a riqueza futura sin comprometer riqueza en el presente. Se dice que existe una posibilidad de arbitraje cuando existe un vector de inversi\'on $\vec{x}$ con $\vec{p}\cdot \vec{x} < 0$ y, en cada estado de la naturaleza, el valor del portafolio es no negativo, es decir, $\vec{d}^{k} \cdot \vec{x} \geq 0$ para cada $k$.
+
+%Adem\'as para que no existan oportunidades de arbitraje es necesario que el precio de cada activo tenga relaci\'on entre su valor actual y el valor futuro.
+
+%Definiendo
+%$$
+%V = \begin{pmatrix} 
+%v^1_1 & \ldots & v^1_i \\
+ %& \ddots & \\
+%v^k_1 & \ldots & v^k_i
+%\end{pmatrix} 
+%$$
+%Sin que exista la opci\'on de obtener riqueza futura sin comprometer riqueza en el presente tenemos que $V\vec{x} \geq \vec{0},\: \vec{p}\cdot \vec{x} < 0$ es infactible o corresponde a un sistema sin soluci\'on.
+
+%Si el precio de cada activo es es igual al pago de sus pagos futuros, entonces existe $\vec{y} \in \R^n_{++}$ que cumple $\vec{p} = V^t \vec{y}$. Esto \'ultimo nos dice que no existe posibilidad de arbitraje si $V^t \vec{y} = \vec{p},\: \vec{y}\geq 0$ corresponde a un sistema que tiene soluci\'on.
+
+%De acuerdo al lema de Farkas esta \'ultima posibilidad, en caso de que se cumpla, de inmediato elimina cualquier oportunidad de arbitraje al inicio del periodo.
+%\end{ejemplo}
+
+\section{Problema general de optimizaci\'on}\label{repaso}
+
+Recordemos algunos conceptos ya vistos. Si tenemos un problema\index{Problema!de minimizaci\'on} de la forma
+\begin{equation}\label{problema-kkt1}
+\begin{array}{lcc}
+P)  & \displaystyle \min_{\vec{x}} 	& f(\vec{x})    \cr
+	&							& \vec{x}\in U  	
+\end{array}
+\end{equation}
+Donde $f:\R^n \to \R$ y $U\subset \R^n$. Si $U=\R^n$ tenemos el caso de optimizaci\'on sin restricciones y en tal caso si $\vec{x}_0$ es un m\'inimo local se tiene que $f(\vec{x}_0)\leq f(\vec{x}) \:\forall \vec{x}\in B(\vec{x}_0,\delta)$. Por lo tanto para cada $\vec{d}\in \R^n$ y $t\approx 0$ se tiene que $f(\vec{x}_0+t\vec{d})-f(\vec{x}_0)\geq 0$. Si $f$ es diferenciable, tras dividir por $t$ y aplicar l\'imite cuando $t\to 0^+$ se obtiene $\nabla f(\vec{x}_0) \cdot \vec{d} \geq 0$ y como $\vec{d}$ es arbitrario la condici\'on de primer orden para el caso irrestricto es $\nabla f(\vec{x}_0) = 0$.
+
+En el caso en que $U$ sea una parte de $\R^n$ no necesariamente $\vec{x}_0 + t\vec{d} \in U$, por ejemplo si $U=\R^n_+$ y $\vec{x}_0$ se encuentra en la frontera de $U$ se tiene un caso en que no necesariamente $\vec{x}_0 + t\vec{d} \in U$ y cualquier $\vec{d}$ arbitrario no nos sirve para concluir la condici\'on de primer orden.
+
+\begin{definicion}{\rm (Espacio tangente)}\index{Espacio!tangente}
+\\El espacio tangente a $U$ en $\vec{x}_0$ corresponde al conjunto
+$$T_U(\vec{x}_0) = \{\vec{d}\in \R^n : \exists t_n \to 0^+,\: \vec{d}_n \to \vec{d} \text{ tal que } \vec{x}_0 + t_n \vec{d}_n \in U\}$$
+Se tiene que $\vec{0}\in T_U (\vec{x}_0)$ y en caso de que $\vec{x}_0 \in \inte{U}$ entonces $T_U (\vec{x}_0) = \R^n$.
+\end{definicion}
+
+\begin{teorema}\index{Condici\'on necesaria!de primer orden!para extremos sin restricciones}
+Si $\vec{x}_0$ es un m\'inimo local de $f$ en $U$, entonces se cumple la condici\'on necesaria $\nabla f(\vec{x}_0)\cdot \vec{d} \geq 0$ para todo $\vec{d}\in T_U(\vec{x}_0)$.
+\end{teorema}
+
+\begin{demostracion}
+Sean $\{\vec{x}_n\}_{n\in \N} \in U$  y $\{t_n\}_{n\in \N} \in \R$ tales que $\vec{x}_n \to \vec{x}_0$ y $t_n \to 0^+$ en la medida que $n\to \infty$, por lo que $\vec{x}_0 + t_n \vec{d}_n \in U$. Si $\vec{x}_0$ es un m\'inimo local de $f$ en $U$ entonces
+$f(\vec{x}_0 + t_n \vec{d}_n) - f(\vec{x}_0) \geq 0$. Dividiendo por $t_n$ y aplicando l\'imite cuando $n\to \infty$ se tiene
+$\nabla f(\vec{x}_0)\cdot \vec{d} \geq 0$.
+\end{demostracion}
+
+\begin{teorema}\index{Condici\'on suficiente!de primer orden!para extremos sin restricciones}\label{cso-sin-restricciones}
+Si $\vec{x}_0 \in U$ y se tiene la condici\'on suficiente $\nabla f(\vec{x}_0)\cdot \vec{d} > 0 \:\forall \vec{d}\in T_U(\vec{x}_0)\setminus \{\vec{0}\}$ entonces $\vec{x}_0$ es un m\'inimo local estricto de $f$ en $U$.
+\end{teorema}
+
+\begin{demostracion}
+Se har\'a por contradicci\'on: Si $\vec{x}_0$ no es m\'inimo local de $f$ en $K$ entonces existe $\vec{x}_n \in K$ tal que $\vec{x}_n \to \vec{x}_0$ y $\vec{x}_n \neq \vec{x}_0$ de manera que $f(\vec{x}_n) \leq f(\vec{x}_0)$. Sea $\vec{d}_n = \frac{\vec{x}_n-\vec{x}_0}{\|\vec{x}_n-\vec{x}_0\|}$, tal que $\|\vec{d}_n\|=1$, entonces $\{\vec{d}_n\}_{n\in \N}$ es acotada por lo que tiene una subsucesi\'on convergente. Como $\{\vec{d}_n\}_{n\in \N}$ es acotada podemos suponer que converge a $\vec{d}_0 \in T_K(\vec{x}_0)\setminus \{\vec{0}\}$.
+La expansi\'on de Taylor de $f(\vec{x}_n)$ est\'a dada por $f(\vec{x}_0) +  \nabla f(\vec{x}_0)\cdot (\vec{x}_n-\vec{x}_0) + \|\vec{x}_n - \vec{x}_0\| R_1(\|\vec{x}_n - \vec{x}_0\|)$. Esto \'ultimo junto con la condici\'on $f(\vec{x}_n) \leq f(\vec{x}_0)$ conducen a que $ \nabla f(\vec{x}_0)\cdot (\vec{x}_n-\vec{x}_0) + \|\vec{x}_n - \vec{x}_0\| R_1(\|\vec{x}_n - \vec{x}_0\|) \leq 0$.
+Diviendo por $\|\vec{x}_n - \vec{x}_0\|$ y tomando l\'imite cuando $n\to \infty$ se obtiene $ \nabla f(\vec{x}_0)\cdot \vec{d}_0 \leq 0$ lo cual contradice la hip\'otesis.
+\end{demostracion}
+
+\begin{nota}
+La condici\'on necesaria no es suficiente y la condici\'on suficiente no es necesaria.
+\end{nota}
+
+\begin{ejemplo} Consideremos los casos:
+\begin{enumerate}
+\item $f(x)=x^3$ y $U=[-1,1]$. La condici\'on necesaria nos dice que el m\'inimo local es $x_0=0$, entonces $f'(x_0)=0$ y $T_U(x_0)=\R$. Se tiene que $x_0$ no es m\'inimo local y la condici\'on necesaria se cumple pero no asegura la minimalidad local.
+\item $f(x)=x^2$ y $U=[-1,1]$. La condici\'on necesaria nos dice que el m\'inimo local es $x_0=0$, entonces $f'(x_0)=0$ y $T_U(x_0)=\R$. Se tiene que $x_0$ es m\'inimo local y la condici\'on suficiente no se cumple pese a que $x_0=0$ cumple con ser un m\'inimo local del problema.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{definicion}{\rm (Espacio normal)}\index{Espacio!normal}
+\\El espacio normal a $U$ en $\vec{x}_0$ corresponde al conjunto
+$$N_U(\vec{x}_0) = \{\vec{u}\in \R^n : \vec{u}\cdot \vec{d} \leq 0 \:\forall \vec{d}\in T_U(\vec{x}_0)\}$$
+y a partir de esta definici\'on la condici\'on necesaria corresponde a
+$$-\nabla f(\vec{x}_0) \in N_U(\vec{x}_0)$$
+\end{definicion}
+
+\begin{teorema}
+Sea $f: D \subset \R^n \to \R$ una funci\'on convexa y diferenciable en un convexo $K$ tal que $K\subset D$. Entonces $f$ tiene un m\'inimo global en $\vec{x}_0$ en $K$ si y s\'olo si $ \nabla f(\vec{x}_0)\cdot \vec{d} \geq 0 \:\forall \vec{d}\in T_K(\vec{x}_0)$
+\end{teorema}
+
+\begin{demostracion}
+Una forma de demostrar esta propiedad es mediante la condici\'on necesaria la cual implica que $f$ tiene un m\'inimo global en $\vec{x}_0$. Sea $\vec{x}\in K$, entonces si definimos $\vec{x}_\lambda = (1-t_n)\vec{x}_0 + t_n \vec{x}$ con $t_n \to 0$ se tiene que $\vec{x}_\lambda \in K$ que implica $\vec{x}_\lambda \to \vec{x}_0$ y obtenemos que $(\vec{x}-\vec{x}_0) \:\in T_K(\vec{x}_0)$. A partir de la convexidad de $f$ tenemos que $f(\vec{x})\geq f(\vec{x}_0) + \nabla f(\vec{x}_0) \cdot (\vec{x}-\vec{x}_0)$ lo cual junto a la condici\'on necesaria implican que $f(\vec{x})\geq f(\vec{x}_0)$ y se concluye que $\vec{x}_0$ es m\'inimo global de $f$ en $K$.
+\end{demostracion}
+
+Los teoremas de esta secci\'on corresponden a un tratamiento muy abstracto que provee condiciones generales, las cuales no son facilmente aplicables. Dicho esto, conviene dar m\'as estructura al conjunto $U$ y para aquello se puede plantear el problema \eqref{problema-kkt1} de la siguiente forma:
+\begin{equation}\label{problema-kkt2}
+\begin{array}{lccl}
+P)  & \displaystyle \min_{\vec{x}} 	& f(\vec{x})      			& \\
+	& \text{s.a}				& g_i(\vec{x})    =  	 0  	& \forall i\in\{1,\ldots,k\} \\
+	&							& h_j(\vec{x})	\leq 0  	& \forall j\in\{1,\ldots,m\}
+\end{array}
+\end{equation}
+Resulta conveniente suponer que el n\'umero de restricciones es finito y en este caso el conjunto de restricciones es
+$$U=\{\vec{x}\in \R^n : g_i(\vec{x})=0 \:\forall i\in I,\: h_j(\vec{x})\leq 0 \:\forall j\in J \}$$
+donde $I =\{1,\ldots , k\}$, $J=\{1,\ldots, m\}$ y $g_i,\:h_j : \R^n \rightarrow \R$ son funciones diferenciables.
+
+\begin{definicion}
+Un vector $\vec{x}_0 \in \R^n$ es factible si $\forall i\in\{1,\ldots , k\}$, $j\in\{1,\ldots , m\}$ se cumple que $g_i (\vec{x}_0) = 0$ y $h_j (\vec{x}_0)\leq 0$.
+\end{definicion}
+
+%\begin{definicion}
+%En el contexto de un problema de minimizaci\'on diremos que un vector $(\vec{\lambda},\vec{\mu})\in \R^{k}\times \R^m_+$ corresponde a una familia de multiplicadores de Karush-Kuhn-Tucker asociados con $\vec{x}_0 \in S$ si
+%\begin{align*}
+%\mu_j &\geq 0 \: \forall j\in J \\
+%\mu_j h_j(\vec{x}_0) &= 0 \: \forall j\in J \\
+%L(\vec{x}_0,\vec{\lambda},\vec{\mu}) &\leq L(\vec{x},\vec{\lambda},\vec{\mu}) \: \forall \vec{x} \in S
+%\end{align*}
+%donde 
+%$$L(\vec{x},\vec{\lambda},\vec{\mu}) = f(\vec{x}) + \sum_{i\in I} \lambda_i g_i(\vec{x}) + \sum_{j\in J} \mu_j h_j(\vec{x})$$
+%es la funci\'on lagrangeano y es casi id\'entica a la que presentamos en el cap\'itulo \ref{cap4}.
+
+%Cuando aparezcan solo restricciones de igualdad diremos que $\vec{\lambda}\in \R^{k}$ corresponde a una familia de multiplicadores de Lagrange asociados con $\vec{x}_0 \in S$ si
+%\begin{align*}
+%L(\vec{x}_0,\vec{\lambda}) \leq L(\vec{x},\vec{\lambda}) \: \forall \vec{x} \in S
+%\end{align*}
+%donde las componentes de $\vec{\lambda}$ no tienen restricci\'on de signo.
+%\end{definicion}
+
+%\begin{definicion}
+%Sea $J(\vec{x}_0)= \{j : 1\leq j \leq m \text{ , } h_j (\vec{x}_0) = 0 \}$ diremos que $J(\vec{x}_0)$ contiene $p$ elementos $\{1,\ldots , p\}$ con $p\leq m$.
+
+%A partir de $J(\vec{x}_0)$ diremos que $\vec{x}_0 \in \R^n$ es regular si el conjunto
+%$$L=\{\nabla g_i (\vec{x}_0) , \nabla h_j (\vec{x}_0) : i\in I , j\in J(\vec{x}_0)\}$$
+%es linealmente independiente.
+%\end{definicion}
+
+\section{Teorema de Karush-Kuhn-Tucker}
+
+\textbf{Motivaci\'on:} Ahora nos extenderemos a un caso m\'as general de un problema de optimizaci\'on que se da cuando aparecen restricciones de igualdades y desigualdades en forma combinada. El teorema de los multiplicadores de Lagrange exige independencia lineal entre los gradientes de la funci\'on objetivo y las restricciones en el \'optimo lo cual resulta en una condici\'on demasiado fuerte y restrictiva. Ahora presentaremos un teorema que no requiere dicha hip\'otesis y que no tiene el inconveniente que surge al no poder trabajar con un n\'umero de restricciones mayor a la dimensi\'on del espacio debido a la condici\'on de independencia lineal.
+
+%Daremos dos demostraciones del teorema de Karush-Kuhn-Tucker: Mediante el teorema de la funci\'on impl\'icita, como ya se hizo para el teorema de los multiplicadores de Lagrange, y mediante el Lema de Farkas la cual nos da una interpretaci\'on mucho m\'as clara del signo de los multiplicadores.
+
+\subsection{Condiciones de primer orden para extremos restringidos}
+\index{Condiciones de $1^\text{er}$ orden!para extremos restringidos}
+
+\begin{definicion}{\rm (Espacios normal y tangente)}\label{superficie-kkt}
+\\Por analog\'ia con la definici\'on \ref{esp-normal} definiremos la superficie\index{Superficie}
+$$S= \{g_i (\vec{x}) = 0\text{, } h_j (\vec{x}) = 0 \: \forall i\in I ,\: j\in J(\vec{x}_0)\}$$
+en torno a $\vec{x}_0$ y as\'i tenemos que los espacios normal\index{Espacio!normal} y tangente\index{Espacio!tangente} corresponden a
+$$N_S (\vec{x}_0) = \langle \{ \nabla g_i (\vec{x}_0)\text{, } \nabla h_j (\vec{x}_0) \} \rangle \: \forall i\in I ,\: j\in J$$
+$$T_S (\vec{x}_0) = N_S (\vec{x}_0)^{\perp} = \{\vec{v}\in \R^n : \vec{v}\cdot \nabla g_i (\vec{x}_0) = 0 \:\wedge\: \vec{v}\cdot \nabla h_j (\vec{x}_0) \leq 0 \: \forall i\in I ,\: j \in J \}$$
+\end{definicion}
+
+En caso de que alguna restricci\'on del problema \eqref{problema-kkt2} sea de la forma $h_j(\vec{x}_0) < 0$ para alg\'un $j$, se tiene que esta no participa en la estructura de $S$. Este hecho motiva la siguiente definici\'on:
+
+\begin{definicion}{\rm (Espacio linealizante)}\index{Espacio!linealizante}
+\\El espacio linealizante de $S$ en $\vec{x}_0$ corresponde al conjunto
+$$L_S(\vec{x}_0) = \{\vec{x}\in \R^n : \nabla g_i(\vec{x}_0) \cdot \vec{d} = 0 \:\forall i\in I,\: \nabla h_j(\vec{x}_0) \cdot \vec{d} = 0 \:\forall j\in J(\vec{x}_0)\}$$
+donde $J(\vec{x}_0)=\{j\in J : h_j(\vec{x}_0)=0\}$ corresponde a las restricciones de menor o igual que efectivamente participan en la estructura de $S$.
+\end{definicion}
+
+%El siguiente lema es un primer acercamiento a la demostraci\'on del teorema:
+
+%\begin{lema}{\rm (An\'alogo a lema \ref{lema-lagrange})}\label{lema-kkt}
+%\\Consideremos el siguiente problema de optimizaci\'on
+%\begin{equation}\label{problema-kkt3}
+%\begin{array}{lccl}
+%P') & \displaystyle \min_{\vec{x}} 	& f(\vec{x})      & \\
+%	& \text{s.a}				& g_i(\vec{x})    =  0  & \forall i\in I \\
+%	&							& h_j(\vec{x})    =  0  & \forall j\in J(\vec{x}_0)
+%\end{array}
+%\end{equation}
+%Este problema se obtiene de (\ref{problema-kkt2}) cuando consideramos s\'olo restricciones que se cumplen con igualdad en $\vec{x}_0$. Entonces, $\forall v \in T_S (\vec{x}_0)$ existe $\sigma : A \subseteq \R \to \R^n$, $0\in A$ con $g_i (\sigma (t))=0, h_j (\sigma (t))=0$ $\forall t\in A$, $\sigma (t) \in S$ $\forall t\in A$ y adem\'as $\sigma (0)=\vec{x}_0$ tal que $\sigma ' (0)=\vec{d}$. Es decir,
+%$$T_S (\vec{x}_0) = \{\sigma '(0) : \sigma (t) \in S \: \forall t , \sigma (0)=\vec{x}_0\}$$
+%\end{lema}
+
+%\begin{demostracion}
+%Definamos $q=k+p$. Sean $\vec{d}\in T_S (\vec{x}_0)$ y $\{\vec{b}_1 , \ldots , \vec{b}_{n-q-1}\}$ una base ortonormal del espacio
+%$$\langle \{\vec{d},\nabla g_i (\vec{x}_0) ,\nabla h_j (\vec{x}_0) \} \rangle^{\perp} \: \forall i\in I ,\: j\in J(\vec{x}_0)$$
+% y consideremos el sistema de $n-1$ ecuaciones
+%\[\begin{matrix}g_1(\vec{x}) & = & 0 \cr \: & \vdots & \: \cr h_p (\vec{x}) & = & 0 \cr \: (\vec{x}-\vec{x}_0)\cdot \vec{b}_1 & = &
+%0 \cr \: & \vdots & \: \cr (\vec{x}-\vec{x}_0)\cdot \vec{b}_{n-q-1} & = & 0 \cr\end{matrix}\]
+%El vector $\vec{x}_0$ satisface las ecuaciones, y la matriz jacobiana del sistema est\'a dada por
+%$$
+%\begin{bmatrix}
+%\nabla g_1 (\vec{x}_0) \\
+%\vdots \\
+%\nabla g_k (\vec{x}_0) \\
+%\nabla h_1 (\vec{x}_0) \\
+%\vdots \\
+%\nabla h_p (\vec{x}_0) \\
+%\vec{b}_1 \\
+%\vdots \\
+%\vec{b}_{n-q-1}
+%\end{bmatrix}
+%$$
+%que es una matriz de rango $n-1$ por lo que podemos seleccionar $n-1$ columnas tales que la matriz resultante sea invertible y gracias al teorema de la funci\'on impl\'icita (teorema \ref{teofuncionimplicita}) podemos despejar $n-1$ variables en funci\'on de la restante en una vecindad de $\vec{x}_0$. Entonces existe $\sigma: A \to \R^n$, con $A=(-\varepsilon,\varepsilon)$, tal que $g_i (\sigma (t))=0,\:h_j (\sigma (t))=0 \:\forall t \in A$ y $(\sigma (t)-\vec{x}_0)\cdot \vec{b}_h = 0$ $\forall t\text{, } h\in\{1,\ldots , n-q-1\} $.
+%\\Derivando las ecuaciones anteriores con respecto a $t$ y evaluando en $t=0$ se obtiene que
+%\begin{equation*}
+%\begin{array}{lll}
+%\sigma '(0)\cdot \vec{b}_h		  		&= 0  & \forall h\in\{1,\ldots , n-q-1\} \\
+%\nabla g_i(\vec{x}_0) \cdot \sigma '(0) &= 0  & \forall i\in I \\
+%\nabla h_j(\vec{x}_0) \cdot \sigma '(0) &= 0  & \forall j \in J(x_0)
+%\end{array}
+%\end{equation*}
+%lo cual implica que $\sigma ' (0) \parallel \vec{d}$. Definiendo $\bar{\sigma}(t)=\sigma(\norm{\vec{d}}t/\norm{\sigma^{\prime}(0)})$ tenemos que $\bar{\sigma}^{\prime}(0)=\vec{d}$, lo que nos da el lema.
+%\end{demostracion}
+
+%\begin{teorema}{\rm (Teorema de Karush-Kuhn-Tucker, primera versi\'on)\index{Teorema!de Karush-Kuhn-Tucker}}\label{teo-kkt}
+%\\Supongamos que $\vec{x}_0 \in S$ es regular. Una condici\'on necesaria para que $\vec{x}_0 \in S$ sea soluci\'on del problema \ref{problema-kkt2} es que exista un vector $(\vec{\lambda},\vec{\mu})\in \R^{k}\times \R^m_+$ tal que
+%\begin{align}
+%\label{kkt1}  &\nabla_x L (\vec{x}_0,\vec{\lambda},\vec{\mu}) = \vec{0} \\
+%\label{kkt2} &\mu_j h_j (\vec{x}_0) = 0 \: \forall j\in J \\
+%&g_i(\vec{x}_0) = 0 \: \forall i\in I \\
+%&h_j(\vec{x}_0) \leq 0 \: \forall j\in J  \\
+%&\mu_j \geq 0 \: \forall j\in J
+%\end{align}
+%Cuando $f,g_i,h_i$ son convexas las condiciones descritas son suficientes para que $\vec{x}_0$ sea un m\'inimo de $f$ en $S$.
+%\end{teorema}
+
+%\begin{demostracion} (Utilizando el teorema de la funci\'on impl\'icita)
+%\\La condici\'on (\ref{kkt1}) se demuestra mediante el lema \ref{lema-kkt}. Consideremos la superficie $S$ de la definici\'on \ref{superficie-kkt} y as\'i $\forall \vec{d}\in T_S (\vec{x}_0)$ existe $\sigma : A \subseteq \R \to \R^n$, $0 \in A$ con $g_i (\sigma (t)) =0$, $h_j(\sigma (t))\leq 0$ $\forall (t \in A)$ y adem\'as $\sigma (0) = \vec{x}_0$ tal que $\sigma ' (0)=\vec{d}$.
+
+%Si $\vec{x}_0$ es soluci\'on del problema \ref{problema-kkt2} entonces existe $r>0$ tal que $f(\vec{x}_0) \leq f(\vec{x})$ $\forall \vec{x}\in B(\vec{x}_0 , r)\cap S$. Juntando esto con lo anterior tenemos que
+%$$f(\vec{x}_0) = f(\sigma (0)) \leq f(\sigma (t)) \: \forall t \in (-\varepsilon_1 , \varepsilon_1 )$$
+%Dado esto, $t_0 =0$ minimiza $f(\sigma (t))$ entonces 
+%$$\left.\frac{d}{dt} f(\sigma (t))\right|_{t=0} = \nabla f(\vec{x}_0) \cdot \sigma ' (0) = 0$$
+%y dado que $\vec{x}_0$ es un vector regular de \ref{problema-kkt2} tambi\'en lo es de $S$ por como definimos $J(\vec{x}_0)$.
+
+%En consecuencia, todo vector $\vec{d}$ en el espacio tangente $T_S (\vec{x}_0)$ a $S$ en $\vec{x}_0$ est\'a dado por $\vec{d}=\sigma ' (0)$ para alguna funci\'on $\sigma ' (t)$ y de esta forma $\nabla f(\vec{x}_0)$ es una combinaci\'on lineal de $\{\nabla g_i (\vec{x}_0)\text{, } \nabla h_j (\vec{x}_0)\} \:\forall i\in I,\:j\in J(\vec{x}_0)$. 
+
+%El lema \ref{lema-kkt} nos dice que si $\vec{x}_0$ es un m\'inimo local de $f$ restringido a $S$, lo anterior es equivalente a que $\nabla f(\vec{x}_0)\cdot \vec{d} = 0$ para $\vec{d} \in T_S (\vec{x}_0)$, es decir $\nabla f(\vec{x}_0) \in N_S (\vec{x}_0)$ lo que implica que   
+%$$\nabla f(\vec{x}_0) + \sum_{i\in I} \lambda_i \nabla g_i (\vec{x}_0) + \sum_{j\in J(\vec{x}_0)} \mu_j \nabla h_j (\vec{x}_0) = 0$$
+%De esto \'ultimo tenemos que $\nabla f(\vec{x}_0) \in T_S (\vec{x}_0)^{\perp}$ ya que por definici\'on de $T_S (\vec{x}_0)$ y $N_S (\vec{x}_0)$ tenemos que $T_S (\vec{x}_0) = N_S (\vec{x}_0)^{\perp}$ lo que nos lleva a $T_S (\vec{x}_0)^{\perp} = N_S (\vec{x}_0)$ y as\'i $\mu_j = 0$ $\forall j \notin J(\vec{x}_0)$, entonces
+%$$\nabla f(\vec{x}_0) + \sum_{i\in I} \lambda_i \nabla g_i (\vec{x}_0) + \sum_{j\in J} \mu_j \nabla h_j (\vec{x}_0) = 0$$
+
+%La condici\'on (\ref{kkt2}) se demuestra directamente a partir de lo siguiente: Dado cualquier $j$ tal que $1\leq j \leq m$ puede ocurrir uno de los siguientes casos:
+%\begin{enumerate}
+%\item $j\in J(\vec{x}_0)$ y en tal caso $h_j (\vec{x}_0) = 0$
+%\item $j\notin J(\vec{x}_0)$ y en tal caso $\mu_j = 0$
+%\end{enumerate}
+%La no negatividad de los multiplicadores se demuestra por contradicci\'on. Supongamos que $\mu_j < 0$ y $h_j (\vec{x}_0) < 0$ para alg\'un $j$ tal que $1 \leq j \leq m$ y $j \notin J(\vec{x}_0)$, como el multiplicador no se anula deber\'ia cumplirse que $j \in J$ ya que $j \notin J(\vec{x}_0)$ en caso de que $\mu_j = 0$. De acuerdo al lema \ref{lema-kkt} existe $\vec{d} \in T_S (\vec{x}_0)$ tal que $\vec{d}\cdot \nabla h_j (\vec{x}_0)< 0$ y as\'i
+%$$\nabla f(\vec{x}_0)\cdot \vec{d} = \sum_{i\in I} \lambda_i (\nabla g_i (\vec{x}_0)\cdot \vec{d}) + \sum_{j\in J} \mu_j (\nabla h_j (\vec{x}_0)\cdot \vec{d})$$
+%Se obtiene
+%\begin{align*}
+%\left.\frac{d}{dt}f(\sigma(t))\right|_{t=0} &= \nabla f(\vec{x}_0) \cdot \vec{d} \\ 
+%											&= -\sum_{i\in I} \lambda_i (\nabla g_i(\vec{x}_0)\cdot \vec{d}) - \sum_{j\in J} \mu_j (\nabla h_j (\vec{x}_0)\cdot \vec{d}) \\
+%											&= -\mu_j (\nabla h_j(\vec{x}_0)\cdot \vec{d}) \\										
+%											&< 0
+%\end{align*}
+%y se contradice el hecho de que $t_0 = 0$ minimiza $\sigma (t)$ y que $\vec{x}_0$ es soluci\'on de \ref{problema-kkt2} por lo que existir\'ia $t \in (-\varepsilon_2 , \varepsilon_2)$ tal que $\sigma (t) \leq \sigma (0)$. 
+%\end{demostracion}
+
+Bajo ciertas condiciones se tiene que $T_S(\vec{x}_0) = L_S(\vec{x}_0)$, una de estas condiciones es la siguiente:
+ 
+\begin{definicion}{\rm (Condiciones de Mangasarian-Fromovitz)\index{Condiciones!de Mangasarian-Fromovitz}} \label{Condiciones!de Mangazarian-Fromovitz}
+\\Diremos que $\vec{x}_0 \in S$ es regular si se cumplen
+\begin{enumerate}
+\item $\{\nabla g_i(\vec{x}_0) : i\in I\}$ es linealmente independiente.
+\item $\exists \vec{d} \in \R^n$ tal que $\nabla g_i(\vec{x}_0)\cdot \vec{d} = 0 \:\forall  i \in I$ y adem\'as $\nabla h_j(\vec{x}_0)\cdot \vec{d} < 0 \:\forall j \in J(\vec{x}_0)$.
+\end{enumerate}
+Para lo cual una condici\'on suficiente (y no necesaria) es que
+$$\{\nabla g_i(\vec{x}_0)\}_{i \in I} \cup \{\nabla h_j(\vec{x}_0)\}_{j\in J(\vec{x}_0)}$$
+sea linealmente independiente.
+\end{definicion}
+
+Antes de presentar el teorema nos ser\'a de enorme utilidad el siguiente resultado:
+
+\begin{teorema}\label{teo-MF}
+Bajo condiciones de regularidad de Mangasarian-Fromovitz se tiene que $T_S(\vec{x}_0)=L_S(\vec{x}_0)$
+\end{teorema}
+
+\begin{demostracion}\textcolor{white}{linea en blanco}
+\\$T_S(\vec{x}_0)\subset L_S(\vec{x}_0)$: Si $\vec{d}\in T_S(\vec{x}_0)$ entonces existen $\vec{x}_n \in S$ y $t_n \to 0$ tales que $\vec{d} = \lim_{n\to \infty} (\vec{x}_n-\vec{x}_0)/t_n$. Luego para todo $j\in J(\vec{x}_0)$ se cumple que $h_j(\vec{x}_k)-h_j(\vec{x}_0) \leq 0$ y la expansi\'on de Taylor sobre $h_j$ da el siguiente resultado:
+$$h_j(\vec{x}_0) + \nabla h_j(\vec{x}_0)\cdot (\vec{x}_n-\vec{x}_0) + \|\vec{x}_n - \vec{x}_0\| R_1(\|\vec{x}_n - \vec{x}_0\|) \leq 0$$
+Diviendo por $t_n$ y tomando l\'imite cuando $n\to \infty$ se tendr\'a que $R_1 \to 0$ y como $h_j(\vec{x}_0)=0$ para el caso $j\in J(\vec{x}_0)$ se concluye que $\nabla h_j(\vec{x}_0)\cdot \vec{d} \leq 0$.
+
+Es an\'alogo para verificar que $\nabla g_i(\vec{x}_0)\cdot \vec{d} = 0$.
+
+\medskip
+
+$L_S(\vec{x}_0)\subset T_S(\vec{x}_0)$: Sea $\vec{d}\in L_S(\vec{x}_0)$ y consideremos el sistema $g_i(\vec{x}+t\vec{d}+A\vec{u})=0, \:i\in I$ que resulta ser no lineal en las variables $(t,\vec{u})$ y $A$ es la matriz cuyas columnas son $\nabla g_i(\vec{x}_0)$. El punto $(t,\vec{u})=\vec{0}$ es soluci\'on del sistema y la matriz Jacobiana respecto de $\vec{u}$ en $\vec{0}$ es $A^t A$ la cual es invertible de acuerdo a las condiciones de regularidad establecidas. Por medio del teorema de la funci\'on impl\'icita es posible concluir que existe una soluci\'on $\vec{u}(t)$ diferenciable en torno a $t=0$ con $\vec{u}(t)=\vec{0}$. Se tiene que
+$\vec{x}_0(t)=\vec{x}_0+t\vec{d}+A\vec{u}(t)$ satisface la igualdad $g_i(\vec{x}_0(t))=0 \:\forall i \in I,\:t \:B(\vec{0},r)$. De esto es posible concluir que
+$$\frac{d}{dt}g_i(\vec{x}_0(t))(\vec{0})=\nabla g_i(\vec{x}_0)\cdot \left.\left(\vec{d}+A\frac{d\vec{u}(t)}{dt}\right)\right|_{t=0}$$ 
+A partir de $\nabla g_i(\vec{x}_0)\cdot \vec{d} = 0$ y la invertibilidad $A^t A$ se concluye que 
+$$\left.\frac{d\vec{u}(t)}{dt}\right|_{t=0} = \vec{0} \text{ y por lo tanto } \left.\frac{d\vec{x}(t)}{dt}\right|_{t=0} = \vec{d}$$
+La trayectoria $\vec{x}_0(t)$ satisface las igualdades $g_i(\vec{x}_0(t))=0$. 
+
+Para las desigualdades tenemos dos alternativas:
+
+$\vec{d}\in L_S(\vec{x}_0)$ suponiendo desigualdades estrictas: Tenemos que $\nabla h_j(\vec{x}_0) \cdot \vec{d} < 0 \:\forall j\in J(\vec{x}_0)$. En tal caso, dado que 
+$$h_j (\vec{x}_0(t))=h_j(\vec{x}_0)+t\nabla h_j(\vec{x}_0)\cdot \vec{d} + tr(t)$$
+con $r(t)\to 0$ en la medida que $t\to 0$, se tiene que $h_j(\vec{x}_0(t))<0 \:\forall j\in J$ con $t\approx 0$.
+\\Lo anterior demuestra que $\vec{x}_0(t)\in S$ cuando $t\approx 0$ y dado que $\vec{d} = \lim_{n\to \infty} (\vec{x}_n-\vec{x}_0)/t_n$ para cualquier sucesi\'on $\{t_n\}_{n\in \N} \to 0^+$  y se concluye que $\vec{d}\in T_S(\vec{x}_0)$.  
+
+$\vec{d}\in L_S(\vec{x}_0)$ sin suponer desigualdades estrictas: Para cada $\varepsilon > 0$, el vector $\vec{d}_\varepsilon = \vec{d} + \varepsilon \vec{d}_0 \:\in L_S(x_0)$ y satisface las desigualdades estrictas $\nabla h_j(\vec{x}_0)\cdot \vec{d}_\varepsilon < 0 \:\forall j\in J(\vec{x}_0)$. De la segunda parte de la demostraci\'on se concluye que $\vec{d}_\varepsilon \in T_S(\vec{x}_0)$. Como $T_S(\vec{x}_0)$ es cerrado, en la medida que $\varepsilon \to 0$ se concluye que $\vec{d} \in T_S(\vec{x}_0)$.
+\end{demostracion}
+
+\begin{teorema}{\rm (Teorema de Karush-Kuhn-Tucker)\index{Teorema!de Karush-Kuhn-Tucker}}\label{teo-kkt-2}
+\\Supongamos que $\vec{x}_0 \in S$ verifica las condiciones de Mangasarian-Fromovitz. Una condici\'on necesaria para que $\vec{x}_0 \in S$ sea soluci\'on del problema \ref{problema-kkt2} es que exista un vector $(\vec{\lambda},\vec{\mu})\in \R^{k}\times \R^m_+$ tal que
+\begin{align}
+&\nabla_x L (\vec{x}_0,\vec{\lambda},\vec{\mu}) = \vec{0} \\
+&\mu_j h_j (\vec{x}_0) = 0 \: \forall j\in J \\
+&g_i(\vec{x}_0) = 0 \: \forall i\in I \\
+&h_j(\vec{x}_0) \leq 0 \: \forall j\in J  \\
+&\mu_j \geq 0 \: \forall j\in J
+\end{align}
+Cuando $f,g_i,h_i$ son convexas las condiciones descritas son suficientes para que $\vec{x}_0$ sea un m\'inimo de $f$ en $S$.
+\end{teorema}
+
+\begin{demostracion} De la condici\'on necesaria se tiene que $\vec{x}_0$ es un m\'inimo local de $f$ en $S$ si
+$$\nabla f(\vec{x}_0)\cdot \vec{d} \geq 0 \:\forall \vec{d}\in T_S(\vec{x}_0)$$
+
+Cumpl\'iendose las condiciones de Mangasarian-Fromovitz se tiene que $T_S(\vec{x}_0)=L_S(\vec{x}_0)$ y ser\'a posible aplicar el lema de Farkas (lema \ref{lema-farkas}).
+
+El lema nos dice que dado $A\vec{d} \geq 0$ se cumple que $\vec{b}\cdot \vec{d} \geq 0$. La condici\'on $\nabla g_i(\vec{x}_0) \cdot \vec{d} = 0 \:\forall i\in I$ se puede expresar convenientemente como
+$$(\nabla g_i(\vec{x}_0) \cdot \vec{d} \geq 0) \wedge (-\nabla g_i(\vec{x}_0) \cdot \vec{d} \geq 0) \, \forall i\in I $$
+y dado que $-\nabla h_j(\vec{x}_0)\cdot \vec{d} \geq 0\:\forall j\in J(\vec{x}_0)$ podemos definir
+$$A =
+\begin{bmatrix}
+\nabla g_i(\vec{x}_0)^t \cr
+-\nabla g_i(\vec{x}_0)^t \cr
+-\nabla h_j(\vec{x}_0)^t 
+\end{bmatrix}_{\substack{i\in I\\j\in J(\vec{x}_0)}}  \:,\: \vec{b}=\nabla f(\vec{x}_0)$$ 
+
+Tambi\'en el lema nos dice que lo anterior es v\'alido si dado $\vec{b} \in \R^n$  existe $\vec{p}\in \R^m_+$ tal que
+$A^t \vec{p} \geq \vec{b},\: \vec{p}\geq \vec{0}$.
+
+De acuerdo al teorema \ref{teo-separacion} el vector $\vec{p}\neq \vec{0}$ puede ser escogido con componentes $(p^1_i,p^2_i,p_j)_{i\in I,\:j\in J(\vec{x}_0)}$ donde no todas las componentes son nulas, entonces
+%$$\nabla f(\vec{x}_0) = \sum_{i\in I} (p^1_i-p^2_i) \nabla g_i(\vec{x}_0) - \sum_{j\in J(\vec{x}_0)} p_j \nabla h_j(\vec{x}_0) $$
+$$\nabla f(\vec{x}_0) = -\sum_{i\in I} (p^2_i-p^1_i) \nabla g_i(\vec{x}_0) - \sum_{j\in J(\vec{x}_0)} p_j \nabla h_j(\vec{x}_0) $$
+Definiendo $\lambda_i = p^2_i-p^1_i$ y $\mu_j = p_j$ se tiene
+$$\nabla f(\vec{x}_0) = -\sum_{i\in I} \lambda_i \nabla g_i(\vec{x}_0) - \sum_{j\in J(\vec{x}_0)} \mu_j \nabla h_j(\vec{x}_0)$$
+
+En el caso de que $\nabla f(\vec{x}_0) = \vec{0}$ no se cumple la condici\'on suficiente (y no necesaria) de independencia lineal de los gradientes de las restricciones, este caso lleva a
+$$\sum_{i\in I} \lambda_i \nabla g_i(\vec{x}_0) + \sum_{j\in J(\vec{x}_0)} \mu_j \nabla h_j(\vec{x}_0) = \vec{0} \:\Rightarrow\: \sum_{j\in J(\vec{x}_0)} \mu_j \nabla h_j(\vec{x}_0) = \vec{0}$$
+
+Para el caso $\nabla f(\vec{x}_0) \neq \vec{0}$ se obtiene
+\begin{gather}\label{cpo-kkt}
+\nabla f(\vec{x}_0) + \sum_{i\in I} \lambda_i \nabla g_i(\vec{x}_0) + \sum_{j\in J(\vec{x}_0)} \mu_j \nabla h_j(\vec{x}_0) = \vec{0} \tag{*}
+\end{gather}
+
+Finalmente, si alguna restricci\'on $h_j$ no participa en la estructura de $S$ entonces $h_j(\vec{x}_0)<0 \:\forall j\notin J(\vec{x}_0)$ y se puede definir $\mu_j = 0 \:\forall j\notin J(\vec{x}_0)$.  Entonces existe $(\vec{\lambda},\vec{\mu}) \in \R^k\times \R^m_+$ tal que
+\begin{align*}
+&\nabla f(\vec{x}_0) + \sum_{i\in I} \lambda_i \nabla g_i (\vec{x}_0) + \sum_{j\in J} \mu_j \nabla h_j (\vec{x}_0) = \vec{0} \cr
+&\mu_j h_j (\vec{x}_0) = 0,\: \mu_j \geq 0 \: \forall j\in J
+\end{align*}
+\end{demostracion}
+
+En las \'ultimas condiciones encontradas la primera se conoce como condici\'on de primer orden y la segunda como condici\'on de holgura complementaria y exige que los multiplicadores asociados a las restricciones inactivas sean nulos. En otras palabras, s\'olo las restricciones activas deben ser tomadas en consideraci\'on. 
+
+\begin{definicion}
+El conjunto de todos los multiplicadores $(\vec{\lambda},\vec{\mu})\in \R^k\times \R^m_+$ que satisfacen las condiciones del teorema de Karush-Kuhn-Tucker ser\'a denotado $\Lambda(\vec{x}_0)$. N\'otese que bajo la condici\'on de independencia lineal el conjunto $\Lambda(\vec{x}_0)$ se reduce a un \'unico vector.
+\end{definicion}
+
+Con lo ya discutido en el cap\'itulo \ref{sec-lagrange} el teorema \ref{teo-kkt-2} tambi\'en es v\'alido para la maximizaci\'on\index{Problema!de maximizaci\'on} si consideramos restricciones de la forma $h_j(\vec{x}_0) \geq  0 \:\forall j\in J$.  Una condici\'on necesaria para que un vector regular y factible $\vec{x}_0$ sea m\'aximo de $f$ en $S$ es que se cumplan las condiciones que describe el teorema  y cuando $f,\:g_i,\:h_j$ son  c\'oncavas la condici\'on es suficiente. Los multiplicadores $\mu_j$ siguen siendo no negativos para el caso de maximizaci\'on.
+
+Respecto de los signos de los multiplicadores, no hay restricci\'on de signo para los multiplicadores asociados a las restricciones de igualdad. En el caso de restricciones de desigualdad, el signo de los multiplicadores depende de si estamos empleando un criterio de maximizaci\'on o minimizaci\'on y si las restricciones se dejan como mayores o iguales a cero. 
+
+Si el problema es de minimizaci\'on sujeto a restricciones de menor o igual entonces los multiplicadores son mayores o iguales a cero y se incluyen con signo positivo en la funci\'on Lagrangeano. Si estamos maximizando con restricciones de mayor o igual no cambia el signo de los multiplicadores.
+
+\subsection{Condiciones de segundo orden para extremos restringidos}
+\index{Condiciones de $2^\text{do}$ orden!para extremos restringidos}
+
+\begin{definicion}
+De manera similar a como se hizo en la secci\'on \ref{seccion-cso-lagrange} definiremos el conjunto de direcciones cr\'iticas para un problema de minimizaci\'on como
+$$K(\vec{x}_0)=\{\vec{d}\in \R^n : \nabla g_i(\vec{x}_0)\cdot \vec{d} = 0 \: \forall i\in I,\:\nabla h_j(\vec{x}_0)\cdot \vec{d} \leq 0 \: \forall j\in J(\vec{x}_0) ,\:\nabla f(\vec{x}_0)\cdot \vec{d} \geq 0\}$$
+\end{definicion}
+
+\begin{teorema}{\rm (Condici\'on necesaria de segundo orden)}\label{cnso-kkt}\index{Condici\'on necesaria!de segundo orden!para extremos con restricciones}
+\\Sea $\vec{x}_0$ un m\'inimo local del problema \ref{problema-kkt2} bajo las condiciones de Mangasarian-Fromovitz. Entonces, para todo $\vec{d} \in K(\vec{x}_0)$ existe un multiplicador $(\vec{\lambda},\vec{\mu})\in \Lambda(\vec{x}_0)$ tal que
+$\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu})) \vec{d} \geq 0$.
+\end{teorema}
+
+\begin{demostracion}
+Por simplicidad se demostrar\'a considerando hip\'otesis de independencia lineal. Sea $\vec{d}\in K(\vec{x}_0)$, definamos $J_d (\vec{x}_0) = \{j\in J(\vec{x}_0) : \nabla h_j(\vec{x}_0)\cdot \vec{d} = 0\}$, y consideremos el sistema 
+\begin{eqnarray*}
+g_i(\vec{x}) &=& 0 \:\forall i \in I \\
+h_j(\vec{x}) &=& 0 \:\forall j\in J_d(\vec{x}_0)
+\end{eqnarray*}
+De manera an\'aloga a la demostraci\'on del teorema \ref{teo-MF}, en virtud del teorema de la funci\'on impl\'cita, es posible encontrar una trayectoria $\vec{x}(t)$ de clase $\mathcal{C}^2$ en torno a $t=0$, la cual cumple que $g_i(\vec{x}(t))=0 \:\forall i \in I$ $h_j(\vec{x}(t))=0 \:\forall i\in J_d (\vec{x}_0)$, con $\vec{x}(0)=0$ y 
+$\frac{d}{dt}\vec{x}(0) = \vec{d}$. Ya que cada una de las restricciones $h_j(\vec{x}_0)\leq 0$ son continuas para $t\approx 0$ tendremos que $h_j(\vec{x}(t))< 0 \:\forall j\in J\setminus J_d(\vec{x}_0)$, de manera que $\vec{x}(t)\in S$ para todo $t \to 0$.
+
+Por otra parte, como $\vec{x}_0$ es m\'inimo local del problema \ref{problema-kkt2} y $\vec{x}(t)$ es factible, entonces $t=0$ genera un m\'inimo local de $f$ en $S$ si evaluamos $f$ en $\vec{x}(t)$. Luego, dado que $\nabla f(\vec{x}_0)\cdot \vec{d} = 0$ ya que $d$ es arbitrario, se deduce que
+\begin{gather}\label{2da-derivada-de-f} 
+0\leq \frac{d^2}{dt^2} f(\vec{x}(0)) = \vec{d}^t (H_x f(\vec{x}_0)) \vec{d} + \nabla f(\vec{x}_0) \cdot \frac{d^2}{dt^2} \vec{x}(0) \tag{*}
+\end{gather}
+An\'alogamente obtenemos
+\begin{eqnarray*}
+0\leq \frac{d^2}{dt^2} g_i(\vec{x}(0)) &=& \vec{d}^t (H_x g_i(\vec{x}_0)) \vec{d} + \nabla g_i(\vec{x}_0) \cdot \frac{d^2}{dt^2} \vec{x}(0) \:\forall i \in I \\
+0\leq \frac{d^2}{dt^2} h_j(\vec{x}(0)) &=& \vec{d}^t (H_x h_j(\vec{x}_0)) \vec{d} + \nabla h_j(\vec{x}_0) \cdot \frac{d^2}{dt^2} \vec{x}(0) \:\forall j \in J_d (\vec{x}_0)
+\end{eqnarray*}
+multiplicando estas igualdades por $\lambda_i$ y $\mu_j$ respectivamente y sumando a \eqref{2da-derivada-de-f} obtenemos
+$0\leq \vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu})) \vec{d}$.
+\end{demostracion}
+
+\begin{teorema}{\rm (Condici\'on sufiente de segundo orden)}\label{csso-kkt}\index{Condici\'on suficiente!de segundo orden!para extremos con restricciones}
+\\Sea $\vec{x}_0$ un vector factible del problema \ref{problema-kkt2} y supongamos que cumple que para todo $\vec{d}\in K(\vec{x}_0)\setminus \{\vec{0}\}$ existe $(\vec{\lambda},\vec{\mu})\in \Lambda(\vec{x}_0)$ tal que 
+$\vec{d}^t(H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu}))\vec{d} > 0$ entonces $\vec{x}_0$ es un m\'inimo local estricto.  
+\end{teorema}
+
+\begin{demostracion}
+Procederemos por contradicci\'on. Si $\vec{x}_0$ no es un m\'inimo local estricto entonces existe $\vec{x}_n \in S$ tal que $\vec{x}_n \to \vec{x}_0$ y $f(\vec{x}_n)\leq f(\vec{x}_0)$ para $\vec{x}_n \neq \vec{x}_0$. 
+
+Sea $\vec{d}_n = \frac{\vec{x}_n-\vec{x}_0}{\|\vec{x}_n-\vec{x}_0\|}$, tal que $\|\vec{d}_n\|=1$, entonces $\{\vec{d}_n\}_{n\in \N}$ es acotada por lo que tiene una subsucesi\'on convergente. En efecto, podemos suponer que converge a $\vec{d}_0 \in K(\vec{x}_0)\setminus \{\vec{0}\}$. Probemos entonces que $\vec{d}_0$ es una direcci\'on cr\'itica. De manera similar a la demostraci\'on del teorema \ref{cso-sin-restricciones} el suponer que $\vec{d}_0 \in K(\vec{x}_0)\setminus \{\vec{0}\}$ conduce a que $\vec{d}_0 \in T_S(\vec{x}_0)\setminus \{\vec{0}\}$ y adem\'as se tiene que $T_S(\vec{x}_0)\subset L_S(\vec{x}_0)$. Por otra parte, la expansi\'on de Taylor de $f(\vec{x}_n)$ est\'a dada por 
+$f(\vec{x}_0) + \nabla f(\vec{x}_0)\cdot (\vec{x}_n-\vec{x}_0) + \|\vec{x}_n-\vec{x}_0\| R_1 (\|\vec{x}_n-\vec{x}_0\|)\leq 0$
+ y esto m\'as la condici\'on $f(\vec{x}_n) \leq f(\vec{x}_0)$ conducen a $\nabla f(\vec{x}_0)\cdot (\vec{x}_n-\vec{x}_0) + \|\vec{x}_n - \vec{x}_0\| R_1(\|\vec{x}_n - \vec{x}_0\|) \leq 0$. Diviendo por $\|\vec{x}_n - \vec{x}_0\|$ y tomando l\'imite cuando $n\to \infty$ resulta $\nabla f(\vec{x}_0)\cdot \vec{d}_0 \leq 0$.
+
+Sea $(\vec{\lambda},\vec{\mu})$ el multiplicador asociado a $\vec{d}$ en la condici\'on suficiente de segundo orden. Como $L(\vec{x},\vec{\lambda},\vec{\mu})$ es de clase $\mathcal{C}^2$ en $\vec{x}$ y $(\vec{\lambda},\vec{\mu})\in \Lambda(\vec{x}_0)$, entonces la expansi\'on de Taylor de $L(\vec{x}_n,\vec{\lambda},\vec{\mu})$ corresponde a
+%\begin{gather}\label{taylor-csso-kkt}
+%L(x_n,\lambda,\mu) = L(x_0,\lambda,\mu) + \frac{1}{2}(x_n-x_0)^t (H_x L(x_0,\lambda,\mu))(x_n-x_0)+\|x_n-x_0\|^2 R_1\|x_n-x_0\| \tag{*}
+%\end{gather}
+%donde $R_1 \to 0$ en la medida que $n\to \infty$. 
+\begin{gather}\label{taylor-csso-kkt}
+L(\vec{x}_0,\vec{\lambda},\vec{\mu}) + \frac{1}{2}(\vec{x}_n-\vec{x}_0)^t (H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu}))(\vec{x}_n-\vec{x}_0)+\|\vec{x}_n-\vec{x}_0\|^2 R_1(\|\vec{x}_n-\vec{x}_0\|) \tag{*}
+\end{gather}
+
+Por otra parte, de las condiciones de Karush-Kuhn-Tucker se tiene que $L(\vec{x}_n,\vec{\lambda},\vec{\mu}) \leq f(\vec{x}_n) \leq f(\vec{x}_0) = L(\vec{x}_0,\vec{\lambda},\vec{\mu})$ lo cual determina que $L(\vec{x}_n,\vec{\lambda},\vec{\mu}) \leq L(\vec{x}_0,\vec{\lambda},\vec{\mu})$ y este resultado m\'as la ecuaci\'on \eqref{taylor-csso-kkt} conducen a
+$$\frac{1}{2}(\vec{x}_n-\vec{x}_0)^t (H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu}))(\vec{x}_n-\vec{x}_0) + \|\vec{x}_n-\vec{x}_0\|^2 R_1(\|\vec{x}_n-\vec{x}_0\|) \leq 0$$ 
+Diviendo por $\|\vec{x}_n - \vec{x}_0\|$ y tomando l\'imite cuando $n\to \infty$ resulta
+$\vec{d}^t (H_x L(\vec{x}_0,\vec{\lambda},\vec{\mu}))\vec{d}  \leq 0$ lo cual es una contradicci\'on.
+\end{demostracion}
+
+De la misma forma que como sucede en el teorema \ref{cso-lagrange3}, para el teorema anterior basta con que el Hessiano del Lagrangreano solo con respecto a $x$ sea definido positivo en el conjunto de direcciones cr\'iticas y no en cualquier direcci\'on arbitraria. Las condiciones suficientes de segundo orden no requiren condiciones de Mangasarian-Fromovitz ni tampoco de independencia lineal.
+
+Para el caso de maximizaci\'on basta con cambiar el sentido de las desigualdades para la condici\'on necesaria y la condici\'on suficiente de segundo orden pues en este caso el conjunto de direcciones cr\'iticas se define
+$$K(\vec{x}_0)=\{\vec{d}\in \R^n : \nabla g_i(\vec{x}_0)\cdot \vec{d} = 0 \: \forall i\in I,\:\nabla h_j(\vec{x}_0)\cdot \vec{d} \leq 0 \: \forall j\in J(\vec{x}_0) ,\:\nabla f(\vec{x}_0)\cdot \vec{d} \geq 0\}$$
+
+\subsection{Interpretaci\'on econ\'omica del teorema de Karush-Kuhn-Tucker}
+
+En el caso de las empresas competitivas resulta razonable suponer que su objetivo es la maximizaci\'on de beneficios econ\'omicos. Simplificando la realidad de una empresa podemos decir que esta es monoproductora y elige un nivel de producci\'on $y\in \R_{+}$, dado el precio de venta $p\in \R_{++}$ de su producto el cual es determinado ex\'ogenamente. 
+
+%dando lugar a una decisi\'on de producci\'on representable por la relaci\'on
+%\begin{eqnarray*}
+%y(p)&=&\operatorname*{arg\max}_{y\in Y} py \\
+%&=&\{y\in Y : p\cdot y = \pi(p)\}
+%\end{eqnarray*}
+%donde $Y$ representa el conjunto de posibilidades t\'ecnicas de producci\'on y $\pi(\cdot)$ corresponde a la funci\'on que cuantifica el beneficio econ\'omico que genera la actividad de la empresa.
+
+%Los beneficios resultantes est\'an dados por la funci\'on de beneficios $\pi:\R^n \to %\R\cup\{+\infty\}$
+%$$\pi(p)=\sup_{y \in Y} p\cdot y$$
+
+Podemos decir que la empresa tiene una funci\'on de producci\'on (o de transformaci\'on de insumos) $y=f(\vec{x})$ donde $y>0$ es el nivel de producci\'on escogido y $\vec{x}\in \R^n_+$ es el vector de insumos utilizados en la producci\'on. Esta funci\'on la definiremos como 
+$$f(\vec{x})=\max(y) \text{ tal que } (y,\vec{x})\in Y,\:Y=\{(y,\vec{x})\in\R_+ \times \R^{n}_{+}, \:f(\vec{x})\geq y\}$$
+ 
+Cada insumo tiene un costo unitario $w_i>0$, lo que se traduce en un vector de costos $\vec{w}\in \R^n_+$. Entonces la empresa debe resolver las siguientes ecuaciones:
+\begin{eqnarray*}
+\pi(p,\vec{w})&=&\sup_{\vec{x}\in \R^n_+} p f(\vec{x}) - \vec{w}\cdot \vec{x} \\
+\vec{x}(p,\vec{w})&=&\operatorname*{arg\max}_{\vec{x}\in \R^n_+} \:p f(\vec{x})-\vec{w}\cdot \vec{x}
+\end{eqnarray*}
+
+%Recordemos que el supremo de un conjunto corresponde a la m\'axima cota superior (no necesariamente se alcanza esta cota) y podr\'ia darse el caso en que el el m\'aximo valor alcanzado no alcanza el valor de la cota. 
+
+$\pi(p,\vec{w})$ corresponde a la funci\'on de beneficios y da cuenta de la diferencia entre ingreso y costos. No hemos hecho los suficientes supuestos para asegurar que se alcanza un m\'aximo beneficio (por ejemplo: $y(p)\neq \varnothing$), entonces no podemos reemplazar $\sup$ por $\max$ ignorando que son diferentes conceptualmente hablando. En particular podr\'ia darse el caso en que $\pi(p)\to +\infty$, lo cual suceder\'ia si $Y$ no es acotado.
+
+Lo que sigue es sobre la base de dos supuestos fuertes: Existe una \'unica decisi\'on de producci\'on que efectivamente maximiza beneficios y las posibilidades de producci\'on est\'an acotadas.
+
+La maximizaci\'on de beneficios se puede separar en dos partes:
+\begin{enumerate}
+\item Primero se encuentra una combinaci\'on de factores que permita producir a costos m\'inimo dado un nivel de producci\'on $y$.
+\begin{eqnarray*}
+\text{Funci\'on de costo: } C(y,\vec{w})&=& \inf_{\vec{x} : f(\vec{x})\geq y} \vec{w}\cdot \vec{x} \\
+\text{Demanda por factores: } X(y,\vec{w}) &=& \operatorname*{arg\min}_{\vec{x} : f(\vec{x})\geq y} \vec{w}\cdot \vec{x} \\
+&=& \{\vec{x} : f(\vec{x})\geq y \:\wedge\: \vec{w}\cdot \vec{x} = C(y,\vec{w})\}
+\end{eqnarray*}
+\item Encontrar un nivel de producci\'on que maximice la diferencia entre los ingresos y los costos 
+$$\max_{y\geq 0} \: py - C(y,\vec{w})$$
+\end{enumerate}
+
+De lo anterior ahora podemos pasar a minimizaci\'on de costos. Supongamos que $Y$ s\'olo considera como restricci\'on que se puede producir a lo m\'as $\overline{y}$ dada la capacidad tecnol\'ogica de la empresa:
+$$Y=\{(y,\vec{x}) : \vec{x}\in\R^n_+ \:\wedge\: f(\vec{x})\geq y\}$$ 
+El problema de minimizaci\'on de costos es simila al de maximizaci\'on de beneficios sobre el conjunto $Y$ si tomamos $y\in Y$ y adem\'as
+\begin{eqnarray*}
+\pi(p,\vec{w}) &=& py - C(y,\vec{w}) \\
+y(\vec{w})&=&(y,X(y,\vec{w}))
+\end{eqnarray*}
+
+Una construcci\'on adecuada del problema de maximizaci\'on de beneficios es la siguiente:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{\vec{x}\in \R^n_+} & pf(\vec{x}) - \vec{w}\cdot \vec{x} \\
+	\text{s.a}				 & x_i \geq 0 \:\forall i\in\{1,\ldots,n\} 
+	\end{array}
+\end{equation*}
+por obvio que parezca la restricci\'on es importante porque valores negativos de $\vec{x}$ carecen de sentido en este contexto. Luego construimos el Lagrangeano del problema
+$$L(\vec{x},\vec{w},p,\vec{\mu})=pf(\vec{x})-\vec{w}\cdot \vec{x} + \vec{\mu} \cdot \vec{x}$$
+De lo cual se obtienen las siguientes condiciones
+
+\begin{center}
+\begin{tabular}{llr}
+Condici\'on de primer orden: & $p\nabla f(\vec{x}_0) - \vec{w} + \vec{\mu} = \vec{0}$ & \\
+Holgura complementaria: & $\mu_i x_{0}^{i} = 0$ & $\forall i\in\{1,\ldots , n\}$ \\
+No negatividad: & $\mu_i \geq 0$ & $\forall i\in\{1,\ldots , n\}$ \\
+Restricci\'on inicial: & $x_0^i \geq 0$ & $\forall i\in\{1,\ldots , n\}$
+\end{tabular}
+\end{center}
+
+\begin{nota}
+De acuerdo a la notaci\'on empleada $\vec{x}_0=(x_0^1,\ldots,x_0^n)\in \R^n$, es decir $x_0^i$ es la i-\'esima coordenada de $\vec{x}_0$. 
+\end{nota}
+
+La consecuencia de estas condiciones consideradas en forma simult\'anea es la siguiente: Para todo $i$ se cumplir\'a que
+$p\cdot \dpr{f(\vec{x}_{0})}{x_i}\leq w_i$ y adem\'as si $x_{0}^i>0$ sabemos que $\mu_i=0$ entonces para cualquier insumo que se utilice en cantidades positivas se tendr\'a que $p\cdot \dpr{f(\vec{x}_{0})}{x_i}= w_i$. Esta condici\'on en los libros de econom\'ia se expresa: ``El valor de producto marginal del factor en competencia perfecta es lo que est\'a dispuesta a pagar la firma (o empresa) por dicho factor''. Si el costo del factor $i$ es superior a $p\cdot \dpr{f(\vec{x}_{0})}{x_i}$ dicho factor no se utilizar\'a.
+
+Centr\'emonos ahora en el problema de minimizaci\'on de costos. Una construcci\'on adecuada del problema es la siguiente:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \min_{\vec{x}\in \R^n_+} & \vec{w}\cdot \vec{x} \\
+	\text{s.a}				 & f(\vec{x})\geq y \\
+							 & x_i \geq 0 \:\forall i\in\{1,\ldots,n\}
+	\end{array}
+\end{equation*}
+por obvio que parezca la restricci\'on es importante pues valores negativos de $\vec{x}$ carecen de sentido en este contexto. Luego construimos el Lagrangeano del problema (asumiremos $f(\vec{x})=y$)
+$$L(\vec{x},\vec{w},y,\lambda,\vec{\mu})=\vec{w}\cdot \vec{x} + \lambda (q-f(\vec{x})) - \vec{\mu}\cdot \vec{x}$$
+Imponiendo las mismas condiciones que en el caso anterior llegamos a lo siguiente:
+
+\begin{center}
+\begin{tabular}{llr}
+Condici\'on de primer orden: & $\vec{w} - \lambda \nabla f(\vec{x}_0) - \vec{\mu} = \vec{0}$ & \\
+Holgura complementaria: & $\mu_i x_{0}^{i} = 0$ & $\forall i\in\{1,\ldots , n\}$ \\
+No negatividad: & $\mu_i \geq 0$ & $\forall i\in\{1,\ldots , n\}$ \\
+Restricci\'on inicial: & $f(\vec{x}_0)=y \:,\: x_{0}^{i} \geq 0$ & $\forall i\in\{1,\ldots , n\}$
+\end{tabular}
+\end{center}
+
+Estas condiciones en forma simult\'anea conducen a 
+$$\lambda \dpr{f(\vec{x}_{0})}{x_i}\leq w_i \:\forall i\in\{1,\ldots , n\}$$
+y para todo $x_{0}^i>0$ se tiene
+$$\lambda \dpr{f(\vec{x}_{0})}{x_i}= w_i$$
+en este caso el multiplicador de Lagrange da cuenta de que el uso de los insumos o factores guarda relaci\'on con la proporci\'on que existe entre el costo del factor y su productividad marginal.
+
+Centr\'emonos ahora en el problema de obtener una cantidad \'optima de producci\'on (es similar a maximizaci\'on de beneficios). Una construcci\'on adecuada del problema es la siguiente:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{y\in \R_+} & py - C(y,\vec{w}) \\
+	\text{s.a}				 & y\geq 0
+	\end{array}
+\end{equation*}
+Luego construimos el Lagrangeano del problema
+$$L(y,p,\vec{w},\mu)=py - C(y,\vec{w}) + \mu y$$
+
+Imponiendo las mismas condiciones que en el caso anterior llegamos a lo siguiente:
+
+\begin{center}
+\begin{tabular}{llr}
+Condici\'on de primer orden: & $p - \dpr{C(y_0,\vec{w})}{y} + \mu = 0$ \\
+Holgura complementaria: & $\mu y_0 = 0$ \\
+No negatividad: & $\mu \geq 0$  \\
+Restricci\'on inicial: & $y_0 \geq 0$
+\end{tabular}
+\end{center}
+
+Estas condiciones en forma simult\'anea conducen a 
+$$p\leq \dpr{C(y_0,\vec{w})}{y}$$
+si $q_0>0$ se tiene
+$$p=\dpr{C(y_0,\vec{w})}{y}$$
+lo cual nos dice que la situaci\'on \'optima se logra con un nivel de producci\'on tal que el costo marginal de producir una unidad adicional es igual al precio de venta del producto.
+
+Notemos que si la soluci\'on \'optima de los tres problemas es $(y_0,\vec{x}_0)>0$ entonces
+$$p\dpr{f(\vec{x}_{0})}{x_i}= w_i \:\wedge\: \lambda \dpr{f(\vec{x}_{0})}{x_i}= w_i \:\Rightarrow\: p\dpr{f(\vec{x}_{0})}{x_i}=\lambda \dpr{f(\vec{x}_{0})}{x_i} \:\Rightarrow\: p=\lambda$$
+y como $p=\dpr{C(y_0,\vec{w})}{y}$ obtenemos
+$$p=\lambda=\dpr{C(y_0,\vec{w})}{y}$$
+Lo cual tiene una conclusi\'on muy importante: El multiplicador de Lagrange corresponde al precio de equilibrio en el \'optimo y la oferta de la firma, bajo los supuestos de los cuales partimos, se determina a partir de su costo marginal cuando se iguala con el precio de venta. Sin embargo esto \'ultimo corresponde a una condici\'on necesaria y no suficiente para determinar la oferta de la firma. Debemos tener presente que las condiciones de KKT son s\'olo necesarias.
+
+\subsection{Ejemplos}
+
+\begin{ejemplo}
+Veremos un caso en el cual el teorema de KKT no es aplicable. Considere el siguiente problema:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \min_{x,y} & -x  \\
+	\text{s.a}				 	 & -(1+x)+y \leq 0 \\
+	& y \leq 0
+	\end{array}
+\end{equation*}
+
+La soluci\'on de este problema es $(1,0)$ (verif\'iquelo), sin embargo no existen $\mu_1 , \mu_2 \geq 0$ tales que 
+$$\nabla L(x_0,\mu_1,\mu_2) =
+\begin{pmatrix}
+1 \\
+0
+\end{pmatrix}
++ \mu_1 \begin{pmatrix}
+3(1-x_0)^2 \\
+1
+\end{pmatrix}
++ \mu_2 \begin{pmatrix}
+0 \\
+-1
+\end{pmatrix}
+= 
+\begin{pmatrix}
+1 \\
+0
+\end{pmatrix}
++ \mu_1 \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}
++ \mu_2 \begin{pmatrix}
+0 \\
+-1
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\
+0
+\end{pmatrix}
+$$
+Lo que sucede es que los gradientes de $h_1$ y $h_2$ no son linealmente independientes en el \'optimo. Realice un gr\'afico de la funci\'on objetivo y las restricciones para observar lo que ocurre.
+\end{ejemplo}
+
+\begin{ejemplo}
+Francisca tiene una funci\'on de utilidad (o nivel de bienestar) por el consumo de frutillas ($x$) y cerezas ($y$) de la forma 
+$$u(x,y)=x^{1/2}+\displaystyle \frac{y}{4}$$
+Lo que le interesa es maximizar utilidad. Sabemos que el precio de venta de cada fruta es de 1 unidad monetaria y que cada d\'ia cuenta con un presupuesto de una unidad monetaria exclusivamente para estas frutas.
+
+Resuelva el problema que enfrenta Francisca utilizando multiplicadores de Lagrange y compare su resultado con la soluci\'on que se encuentra mediante Kuhn-Tucker.
+\end{ejemplo}
+
+\begin{solucion}
+El problema es el siguiente:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{x,y} & x^{1/2}+\displaystyle \frac{y}{4} \\
+	\text{s.a}				 	 & x+y=1 
+	\end{array}
+\end{equation*}
+Entonces el Lagrangeano nos queda de la siguiente forma:
+$$L(x,y,\lambda)=x^{1/2}+\displaystyle \frac{y}{4} + \lambda (1 - x - y)$$
+Las condiciones de primer orden son las siguientes
+\begin{eqnarray*}
+\dpr{L}{x} 		 = 0 &\Leftrightarrow& \frac{1}{2x_{0}^{1/2}} - \lambda = 0 \\
+\dpr{L}{y}	 	 = 0 &\Leftrightarrow& \frac{1}{4} - \lambda = 0 \\
+\dpr{L}{\lambda} = 0 &\Leftrightarrow& 1 - x_{0} - y_{0} = 0
+\end{eqnarray*}
+Si igualamos $\lambda$ en las primeras dos ecuaciones se obtiene $x_0= 4$ y reemplazando en la tercera ecuaci\'on se obtiene $y_0 = -3$. Claramente esta soluci\'on carece de sentido dada la naturaleza del problema.
+
+Si utilizamos Kuhn-Tucker podemos incorporar restricciones de no negatividad al problema y nos queda de la siguiente manera:
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{x,y} & x^{1/2}+\displaystyle \frac{y}{4} \\
+	\text{s.a}	& 1-x-y \geq 0 \\
+				& x\geq 0 \\
+				& y\geq 0 
+	\end{array}
+\end{equation*}
+Entonces el Lagrangeano nos queda de la siguiente forma:
+$$L(x,y,\mu_1,\mu_2,\mu_3)=x^{1/2}+\displaystyle \frac{y}{4} + \mu_1 (1 - x - y) + \mu_2 x + \mu_3 y$$
+Las condiciones de primer orden son las siguientes
+\begin{eqnarray*}
+\dpr{L}{x} 		 = 0 &\Leftrightarrow& \frac{1}{2x_{0}^{1/2}} - \mu_1 + \mu_2 = 0 \\
+\dpr{L}{y}	 	 = 0 &\Leftrightarrow& \frac{1}{4} - \mu_1 + \mu_3 = 0 
+\end{eqnarray*}
+y adem\'as el teorema nos dice que debemos imponer las siguientes condiciones 
+\begin{eqnarray*}
+\mu_1 (1-x-y) &=& 0 \\
+\mu_2 x &=& 0 \\
+\mu_3 y &=& 0
+\end{eqnarray*}
+
+Supongamos que $\mu_1 > 0$ entonces de acuerdo al teorema se tiene que la primera restricci\'on se cumple con igualdad. 
+
+Sin levantar nuestro supuesto digamos que $\mu_2 = 0$ y $\mu_3 > 0$ entonces $x_0 > 0$ e $y_0 = 0$ y en este caso tenemos que tras reemplazar en la restricci\'on la \'unica alternativa es $x_0 = 1$ dado que $y_0 = 0$. El otro caso de inter\'es es decir que $\mu_2 > 0$ y $\mu_3 = 0$ entonces $x_0 = 0$ e $y_0 > 0$ lo cual lleva a que la \'unica alternativa es $y_0 = 1$ dado que $x_0 = 0$.
+
+Resulta que el par $(1,0)$ del primer caso genera un valor en la funci\'on objetivo igual a $f(1,0) = 1$ mientras que el par $(0,1)$ del segundo caso genera un valor en la funci\'on objetivo igual a $f(0,1) = 1/4$ por lo que nos quedamos con la primera soluci\'on.
+
+Otro caso es suponer que $\mu_2 , \mu_3 > 0$ y en tal caso la utilidad es cero.
+\end{solucion}
+
+\begin{ejemplo}\label{ejemplo-gestion}
+Carolina acaba de asumir como la nueva gerente de la empresa Gesti\'on S.A. La primera medida que ha implementado como pol\'itica de la empresa es maximizar el ingreso por ventas teniendo en cuenta que los beneficios econ\'omicos (ingreso menos costos) de la empresa no pueden bajar de un nivel fijo $m$. 
+
+El costo de publicidad en revistas corresponde a un valor $a \in \R_+$. Siendo $I(y,a)=py+f(a)$ el ingreso que recibe la empresa, $p$ el precio de venta, $y\in \R_+$ el nivel de producci\'on y $f$ una funci\'on creciente en el nivel de publicidad el cual es $a\in \R_+$. 
+
+Sea $C(y)$ el costo de producci\'on asociado a fabricar una cantidad $y$ determinada. Se sabe que las funciones de ingreso y costo son funciones $\mathcal{C}^1$ y ambas son crecientes en el nivel de producci\'on, es decir, $\partial C / \partial y > 0$ y $\partial I / \partial a > 0$.
+
+Un estudio de mercado encargado por la gerente revel\'o que $y^*>0$. {\textquestiondown}C\'omo resolver\'ia un problema que permita encontrar un nivel de producci\'on y un gasto en publicidad $(y^*,a^*)$ \'optimo?
+
+\end{ejemplo}
+
+\begin{solucion}
+El problema de la empresa nos queda de la siguiente forma: 
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{y,a} & I(y,a)				    	        \\
+	\text{s.a}				 & \pi(y,a) = I(y,a) - C(y) - a \geq m  \\
+							 & a \geq 0 					        \\
+							 & y \geq 0						        \\
+	\end{array}
+\end{equation*}
+
+Asumamos que existe un par $(y^*,a^*)$ con $y^*>0$ correspondiente a una soluci\'on \'optima. El lagrangeano corresponde a:
+$$L(y,a,\mu_1,\mu_2,\mu_3) = I(y,a) + \mu_1 (I(y,a)-C(y)-a-m) + \mu_2 a + \mu_3 y  $$
+
+Por el teorema de KKT sabemos que $\mu_3 y^* = 0$ e $y^*>0$ implican $\mu_3 = 0$ por lo que sin p\'erdida de generalidad el Lagrangeano del problema se puede escribir:
+$$L(y,a,\mu_1,\mu_2) = I(y,a) + \mu_1 (I(y,a)-C(y)-a-m) + \mu_2 a$$
+
+Si la soluci\'on \'optima cumple la condici\'on de IL o MF, las condiciones de primer orden generan las siguientes ecuaciones
+\begin{align}
+\dpr{L}{y} &= (1+\mu_1)\dpr{I}{y} - \mu_1 \dpr{C}{y} = 0 \label{gestion-1} \tag{*} \\
+\dpr{L}{a} &= (1+\mu_1)\dpr{I}{a} - \mu_1 + \mu_2 = 0 \label{gestion-2} \tag{**}
+\end{align}
+y adem\'as el teorema nos dice que debemos imponer las siguientes condiciones
+\begin{align}
+\mu_1 (m+I(y,a)-C(y)-a) &= 0 \label{gestion-3} \tag{***}\\
+\mu_2 a &= 0 \nonumber
+\end{align}
+
+Como $\partial I / \partial a > 0$ y $\mu_1 \geq 0$ en la ecuaci\'on \eqref{gestion-2} tenemos que $\mu_2 - \mu_1 < 0$. Como $\mu_2 \geq 0$, $\mu_1$ debe ser estrictamente positivo. Por lo tanto, de \eqref{gestion-3} se deduce que $\pi(y^*,a^*)$ por lo que el beneficio percibido es el m\'inimo aceptable.
+
+Como $\mu_1>0$ y $\partial C / \partial y > 0$ de la ecuaci\'on \eqref{gestion-1} se deduce que $\partial I / \partial y > 0$ lo que nos dice que el ingreso marginal el positivo en el \'optimo. 
+
+Por otra parte, tenemos que el beneficio marginal $\partial \pi / \partial y$ en el \'optimo es negativo pues de otra forma el nivel de producci\'on necesariamente tendr\'ia que ser menor y los beneficios ser\'ian mayores pues nos encontramos en la situaci\'on de m\'inimo beneficio aceptable, la ecuaci\'on \eqref{gestion-1} verifica esto pues
+\begin{eqnarray*}
+(1+\mu_1)\dpr{\pi}{y} &=& (1+\mu_1)\left(\dpr{I}{y}-\dpr{C}{y}\right) \\
+&=& \dpr{L(y^*,a^*)}{y} - \dpr{C}{y} \\
+&=& 0 - \dpr{C}{y} \\
+&<& 0
+\end{eqnarray*}
+En consecuencia, verificamos que el nivel de producci\'on $y^*$ es mayor que el que se escoger\'ia en una situaci\'on de maximizaci\'on de beneficios.
+\end{solucion}
+
+\begin{ejemplo}\label{ejemplo-produccion}
+Suponga que An\'ibal asume como el nuevo gerente de la empresa Energ\'ia Solar S.A. la cual  instala calefactores solares modelo B\'asico ($x$) y modelo Premium ($y$). Lo que necesita es determinar su plan de producci\'on \'optimo. Seg\'un un estudio el beneficio por cada unidad de producto instalada est\'a dado por
+
+\begin{center} \begin{tabular}{|c|c|} \hline
+\textbf{B\'asico} & $800-x-y$  \\ \hline
+\textbf{Premium}  & $2000-x-3y$   \\ \hline
+\end{tabular} 
+\end{center}
+
+Donde $x$ e $y$ son las cantidades totales que instala de cada producto.
+Para instalaci\'on se requiere mano de obra y uso de maquinaria seg\'un la siguiente tabla
+
+\begin{center} \begin{tabular}{|c|c|c|} \hline
+ 				  & \multicolumn{2}{c|}{\textbf{Recurso (horas/unidad)}}  	\\ \hline 
+\textbf{Producto} & \textbf{Mano de obra} & \textbf{Maquinaria} 			\\ \hline 
+B\'asico 		  & 8				& 7 		 							\\ \hline 
+Premium  		  & 3				& 6 									\\ \hline
+Disponibilidad    & 1200			& 2100		 							\\
+(horas/mes)		  &					&			 							\\ \hline
+\end{tabular} \end{center}
+
+Se pide:
+\begin{enumerate}
+\item Plantear el problema de optimizaci\'on y formular el Lagrangeano del problema.
+\item Determinar todas las soluciones \'optimas y/o factibles.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{solucion}
+El problema es
+\begin{equation*}
+	\begin{array}{cl}
+	\displaystyle \max_{x,y} & (800-x-y)x + (2000-x-3y)y	\\
+	\text{s.a}				 & 1200-8x-3y\geq 0 		\\
+							 & 2100-7x-6y\geq 0			\\
+							 & x \geq 0 				\\
+							 & y \geq 0
+	\end{array}
+\end{equation*}
+Antes de resolver debemos determinar si las condiciones de KKT son al menos necesarias para la maximizaci\'on. Para esto tenemos que el hessiano de la funci\'on corresponde a
+$$H = \left(
+\begin{array}{cc} 
+-2 & -2 \\
+-2 & -6 \\
+\end{array}\right)$$
+que es definido negativo porque $(-1)^1 \cdot |H_1| > 0$ y $(-1)^2 \cdot |H_2| > 0$ y as\'i la funci\'on es c\'oncava por lo que las condiciones de KKT son suficientes.
+
+El Lagrangeano corresponde a 
+\begin{eqnarray*}
+L(x,y,\vec{\mu})  &=& (800-x-y)x + (2000-x-3y)y \\
+		 		& &  + \mu_1 (1200 - 8x-3y) + \mu_2 (2100 - 7x-6y) + \mu_3 (x-0) + \mu_4 (y-0)
+\end{eqnarray*}
+Entonces las condiciones de primer orden generan el siguiente sistema
+$$
+\left\{
+\begin{array}
+[c]{ll}%
+800 -2x - 2y - 8\mu_1 - 7\mu_2 + \mu_3 &= 0\cr
+2000 -2x - 6y - 3\mu_1 - 6\mu_2 + \mu_4 &= 0
+\end{array}
+\right.
+$$
+y adem\'as el teorema nos dice que debemos imponer las siguientes condiciones
+\begin{align*}
+\mu_1 (1200-8x-3y)=0 \wedge \mu_1 \geq 0 \\
+\mu_2 (2100-7x-6y)=0 \wedge \mu_2 \geq 0 \\
+\mu_3 x			  =0 \wedge \mu_3 \geq 0 \\ 
+\mu_4 y			  =0 \wedge \mu_4 \geq 0 
+\end{align*}
+Sea $x_0 > 0$ e $y_0 > 0$, dejaremos de \emph{tarea} los casos $(x_0 = 0 , y_0 > 0)$ y $(x_0 >0,y_0 = 0)$.  Tenemos que $\mu_3 = 0$ y $\mu_4 = 0$ y sobre este resultado pueden pasar cuatro cosas
+
+\textbf{Caso 1:} $(1200-8x-3y=0)$ y $(2100-7x-6y=0)$
+\\Entonces $\mu_1 > 0$ y $\mu_2 > 0$ por lo que las condiciones de KKT se reducen a
+\begin{align*}
+800-2x-2y-8\mu_1 -  7\mu_2 = 0 \\
+2000-2x-6y-3\mu_1 - 6\mu_2 = 0 \\
+1200-8x-3y				   = 0 \\
+2100-7x-6y				   = 0 \\
+x						   > 0 \\
+y						   > 0
+\end{align*}
+Para resolver se desarrolla el sistema
+\[
+\begin{pmatrix}
+2 & 2 & 8 & 7 \\
+2 & 6 & 3 & 6 \\
+8 & 3 & 0 & 0 \\
+7 & 6 & 0 & 0 
+\end{pmatrix} 
+\begin{pmatrix}
+x \\ y \\ \mu_1 \\ \mu_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+800  \\ 2000 \\ 1200 \\ 2100
+\end{pmatrix}
+\]
+y se obtiene
+$$x_0 = 33,\bar{3} \qquad y_0 = 311,\bar{1} \qquad \mu_1 = 7,407 \qquad \mu_2 = 7,407$$
+que es una soluci\'on \'optima y factible.
+
+\textbf{Caso 2:} $(1200-8x-3y\neq 0)$ y $(2100-7x-6y=0)$
+\\Entonces $\mu_1 = 0$ y $\mu_2 > 0$ por lo que las condiciones de KKT se reducen a
+\begin{align*}
+800-2x-2y-7\mu_2		   = 0 \\
+2000-2x-6y-6\mu_2		   = 0 \\
+1200-8x-3y				   > 0 \\
+2100-7x-6y				   = 0 \\
+x						   > 0 \\
+y						   > 0
+\end{align*}
+Para resolver se desarrolla el sistema
+\[
+\begin{pmatrix}
+2 & 2 & 7 \\
+2 & 6 & 6 \\
+8 & 3 & 0 \\
+7 & 6 & 0  
+\end{pmatrix} 
+\begin{pmatrix}
+x \\ y \\ \mu_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+800  \\ 2000 \\ 2100
+\end{pmatrix}
+\]
+y se obtiene
+$$x_0 = 39,394 \qquad y_0 = 304,04 \qquad \mu_2 = 16,162$$
+que es una soluci\'on \'optima pero no factible.
+
+\textbf{Caso 3:} $(1200-8x-3y=0)$ y $(2100-7x-6y\neq 0)$
+\\Entonces $\mu_1 > 0$ y $\mu_2 = 0$ por lo que las condiciones de KKT se reducen a
+\begin{align*}
+800-2x-2y-8\mu_1		   = 0 \\
+2000-2x-6y-3\mu_1		   = 0 \\
+1200-8x-3y				   = 0 \\
+2100-7x-6y				   > 0 \\
+x						   > 0 \\
+y						   > 0
+\end{align*}
+Para resolver se desarrolla el sistema
+\[
+\begin{pmatrix}
+2 & 2 & 8 \\
+2 & 6 & 3 \\
+8 & 3 & 0 
+\end{pmatrix} 
+\begin{pmatrix}
+x \\ y \\ \mu_1
+\end{pmatrix}
+=
+\begin{pmatrix}
+800  \\ 2000 \\ 1200 
+\end{pmatrix}
+\]
+y se obtiene
+$$x_0 = 31,373 \qquad y_0 = 316,34 \qquad \mu_1 = 13,072 $$
+que es una soluci\'on \'optima pero no factible.
+
+\textbf{Caso 4:} $(1200-8x-3y\neq 0)$ y $(2100-7x-6y\neq 0)$
+\\Entonces $\mu_1 = 0$ y $\mu_2 = 0$ por lo que las condiciones de KKT se reducen a
+\begin{align*}
+800-2x-2y				   = 0 \\
+2000-2x-6y				   = 0 \\
+1200-8x-3y				   > 0 \\
+2100-7x-6y				   > 0 \\
+x						   > 0 \\
+y						   > 0
+\end{align*}
+Para resolver se desarrolla el sistema
+\[
+\begin{pmatrix}
+2 & 2 \\
+2 & 6 
+\end{pmatrix} 
+\begin{pmatrix}
+x \\ y 
+\end{pmatrix}
+=
+\begin{pmatrix}
+800  \\ 2000 
+\end{pmatrix}
+\]
+y se obtiene
+$$x_0 = 100 \qquad y_0 = 300$$
+que es una soluci\'on \'optima pero no factible.
+\end{solucion}
+
+%\begin{nota}
+%Podr\'iamos enunciar y demostrar el teorema de la envolvente junto con condiciones necesarias y suficientes que incluyen condiciones de segundo orden para KKT. Dicha tarea va m\'as all\'a de los objetivos del curso. Ahora cabe preguntarse, {\textquestiondown}Existen m\'etodos m\'as eficientes que KKT para resolver un problema de optimizaci\'on? La respuesta es afirmativa, pero esto se ver\'a en cursos superiores y cabe se\~nalar que KKT nos da la base para adentrarnos en el terreno de la optimizaci\'on.
+%\end{nota}
+
+Podr\'iamos extendernos mucho m\'as sobre optimizaci\'on pero, de acuerdo a los objetivos del curso, con lo ya expuesto hemos presentado toda la base e incluso muchos m\'as temas que en un curso de c\'alculo multivariable habitual o est\'andar. Karush-Kuhn-Tucker nos da la base para la Programaci\'on Lineal y muchos m\'etodos eficientes que se tratan en cursos superiores.
+
+ 
+
+\section{Ejercicios}
+
+\kuhntucker{
+Demuestre que si se tienen $n$ n\'umeros positivos entonces el problema:
+\begin{eqnarray*}
+\begin{array}{cl}
+\displaystyle \min_{\vec{x}}        & \displaystyle \sum_{i=1}^n x_i   \\
+\text{s.a}  & \displaystyle \prod_{i=1}^n x_i = 1 ,\:x_i\geq 0 \:\forall i \in \{1,\ldots,n\}
+\end{array}
+\end{eqnarray*}
+Nos permite encontrar la igualdad
+$$\frac{1}{n} \sum_{i=1}^n x_i \geq \left( \prod_{i=1}^n x_i \right)^{1/n} $$
+}
+
+\kuhntucker{
+Deduzca que el siguiente problema:
+\begin{eqnarray*}
+\begin{array}{cl}
+\displaystyle \max_x        & \displaystyle \prod_{i=1}^n x_i  \\
+\text{s.a}  & \displaystyle \sum_{i=1}^n x_i  = 1,\:x_i\geq 0 \:\forall i \in \{1,\ldots,n\}
+\end{array}
+\end{eqnarray*}
+Nos permite obtener la misma igualdad del problema anterior.
+}

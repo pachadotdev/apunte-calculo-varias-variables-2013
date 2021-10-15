@@ -1,0 +1,398 @@
+\chapter{Complementos de C\'alculo Diferencial}\label{cap6}
+
+Nos interesa extender algunas reglas de derivaci\'on a casos m\'as generales que frecuentemente se utilizan en la ingenier\'ia y daremos los detalles del teorema del cambio de variables en integraci\'on.
+
+\section{Reglas de derivaci\'on adicionales}
+
+\begin{teorema}{\rm (Regla de Leibniz de derivaci\'on)\index{Regla!de Leibniz!de derivaci\'on}}
+\\Sea $f:\R^2\to \R$ de clase $\cl$. $\alpha,\beta:\R\to\R$
+funciones diferenciables. Entonces la funci\'on $F:\R\to\R$
+definida por
+\[F(x)=\int_{\alpha(x)}^{\beta(x)}f(x,t)dt\]
+es diferenciable y su derivada es
+\[\frac{d}{dx}\int_{\alpha(x)}^{\beta(x)}f(x,t)dt=f(x,\beta(x))\beta
+'(x)-f(x,\alpha(x))\alpha
+'(x)+\int_{\alpha(x)}^{\beta(x)}\frac{\dd}{\dd x}f(x,t)dt\]
+\end{teorema}
+
+\begin{demostracion}
+Definamos la funci\'on
+\[G(z,x)=\int_0^zf(x,t)dt\]
+por el $1^{er}$ teorema fundamental del c\'alculo (teorema \ref{teofundamental1}) sabemos que
+\[\frac{\dd}{\dd z}G(z,x)=f(x,z)\]
+demostremos que
+\[\frac{\dd }{\dd x}G(z,x)=\int_0^z\frac{\dd }{\dd x}f(x,t)dt\]
+para ello notemos que
+\begin{eqnarray*}
+& &G(z,x+h)-G(z,x)-h\int_0^z\frac{\dd}{\dd x}f(x,t)dt\\
+ &= &
+\int_0^zf(x+h,t)+f(x,t)-h\frac{\dd}{\dd x}f(x,t)dt \\& = &
+\int_0^z\int_0^1(\frac{\dd}{\dd x}f(x+yh,t)-\frac{\dd}{\dd
+x}f(x,t))hdydt
+\end{eqnarray*}
+La funci\'on $\dd f/\dd x(\cdot,\cdot)$ es continua, y por lo
+tanto, uniformemente continua sobre $[x-|h|,x+|h|]\times [0,z]$,
+asi, dado $\varepsilon >0$, existe $\delta >0$ tal que si
+$\norm{(x,y)-(\bar x,\bar y)}<\delta$ entonces $|\dd f/\dd x
+(x,y)-\dd f/\dd x(\bar x,\bar y)|<\varepsilon/z $. Entonces si
+$|h|<\delta$ se tiene que
+\[|\frac{\dd }{\dd x}f(x+yh,t)-\frac{\dd }{\dd x}f(x,t)|<\varepsilon\:\:\forall t\in [0,z]\:\forall y\in [0,1]\]
+lo que implica que
+\[|G(z,x+h)-G(z,x)-h\int_0^z\frac{\dd}{\dd x}f(x,t)dt|<\varepsilon |h|\]
+si $|h|<\delta$ de donde se sigue el resultado. Luego
+\[\int_{\alpha(x)}^{\beta(x)}f(x,t)dt=G(\beta(x),x)-G(\alpha(x),x)\]
+y aplicando el resultado anterior se tiene que
+\begin{eqnarray*}
+& &\frac{d}{dx}\int_{\alpha(x)}^{\beta(x)}f(x,t)dt\\ &= &
+\frac{\dd}{\dd z}G(\beta(x),x)\beta '(x)+\frac{\dd}{\dd
+x}G(\beta(x),x)\frac{dx}{dx}-\frac{\dd }{\dd
+z}G(\alpha(x),x)\alpha '(x)-\ldots \\& & \ldots-\frac{\dd }{\dd
+x}G(\beta(x),x)\frac{dx}{dx} \\& = & f(x,\beta(x))\beta
+'(x)-f(\alpha(x),x)\alpha '(x)+\int_0^{\beta(x)}\frac{\dd f}{\dd
+x}(x,t)dt-\int_0^{\alpha(x)}\frac{\dd f}{\dd x}(x,t)dt\\& = &
+f(x,\beta(x))\beta '(x)-f(x,\alpha(x))\alpha
+'(x)+\int_{\alpha(x)}^{\beta(x)}\frac{\dd}{\dd x}f(x,t)dt
+\end{eqnarray*}
+\end{demostracion}
+
+\begin{teorema} 
+Sean $A\subseteq \R^n$ y $B\subseteq \R^m$ abiertos y $f:A\times B\to
+\R$ de clase $\cl$. Sea $Q\subset B$  conjunto elemental cerrado.
+Entonces la funci\'on
+\[F(\vec{x})=\int_Q f(\vec{x},\vec{y})d\vec{y} \]
+es de clase $\cl$\index{Funci\'on!de clase $\mathcal{C}^1$} y
+\[\frac{\dd}{\dd x_i}F(\vec{x})=\int_Q\frac{\dd }{\dd x_i}f(\vec{x},\vec{y})d\vec{y}\]
+para todo $i\in\{1,\ldots,n\}$
+\end{teorema}
+
+\begin{demostracion}
+Sea $\vec{x}_0\in A$
+\begin{eqnarray*}
+& &F(\vec{x}_0+\vec{h})-F(\vec{x}_0)-\sum_{i=1}^nh_i\int_Q\frac{\dd}{\dd x_i}f(\vec{x}_0,\vec{y})d\vec{y}\\
+& = & \int_Qf(\vec{x}_0+\vec{h},\vec{y})-f(\vec{x}_0,\vec{y})-\sum_{i=1}^nh_i\frac{\dd f}{\dd
+x_i}(\vec{x}_0,\vec{y})d\vec{y}\\ &=&
+\int_Q(f(\vec{x}_0+\vec{h},\vec{y})-f(\vec{x}_0,\vec{y})-\nabla_xf(\vec{x}_0,\vec{y})\cdot \vec{h})d\vec{y}\\ &=&
+\int_Q\int_0^1\left[(\nabla_xf(\vec{x}_0+t\vec{h},\vec{y})-\nabla_xf(\vec{x}_0,\vec{y}))\cdot \vec{h}\right]dtd\vec{y}
+\end{eqnarray*}
+La funci\'on $\nabla_xf(\cdot,\cdot)$ es continua en $\bar
+B(\vec{x}_0,1)\times Q$ que es compacto, por cual que es uniformemente
+continua. Luego dado $\varepsilon >0$ existe $\delta >0$ tal que si
+$\norm{(\vec{x},\vec{y})-(\vec{x}^*,\vec{y}^*)}<\delta\:\Rightarrow\:\norm{\nabla_xf(\vec{x},\vec{y})-\nabla_xf(\vec{x}^*,\vec{y})}<\varepsilon /{\rm vol}(Q)$. entonces si $\norm{\vec{h}}<\delta$ se tiene
+que
+\[\norm{\nabla_xf(\vec{x}_0+t\vec{h},\vec{y})-\nabla_xf(\vec{x}_0,\vec{y})}<\frac{\varepsilon}{{\rm vol}(Q)}\:\forall\:t\in
+[0,1]\:\forall\:\vec{y}\in Q\] lo que implica que
+\begin{eqnarray*}
+& &|F(\vec{x}_0+\vec{h})-F(\vec{x}_0)-\sum_{i=1}^nh_i\int_Q\frac{\dd f}{\dd
+x_i}(\vec{x}_0,\vec{y})d\vec{y}|\\
+&\leq& \int_Q \int_0^1\norm{\nabla
+f(\vec{x}_0+t\vec{h},\vec{y})-\nabla f(\vec{x}_0,\vec{y})}\norm{\vec{h}}dtd\vec{y}
+\\ &\leq& \int_Q\int_0^1\frac{\varepsilon}{{\rm vol}(Q)}\norm{\vec{h}}=\varepsilon\norm{\vec{h}}
+\end{eqnarray*}
+de este modo 
+$$\left|F(\vec{x}_0+\vec{h})-F(\vec{x}_0)-\sum_{i=1}^nh_i\int_Q\frac{\dd f
+}{\dd x_i}(\vec{x}_0,\vec{y})d\vec{y}\right|\leq \varepsilon\norm{\vec{h}}$$ 
+siempre que $\norm{\vec{h}}<\delta$, es decir, $F$ es diferenciable es $\vec{x}_0$ y
+\[\frac{\dd}{\dd x_i}F(\vec{x}_0)=\int_Q\frac{\dd}{\dd x_i}f(\vec{x}_0,\vec{y})d\vec{y}\]
+para todo $i\in\{1,\ldots,n\}$. La continuidad de las derivadas parciales
+queda de ejercicio.
+\end{demostracion}
+
+\section{La f\'ormula de cambio de variables}\label{sec:cambioVariable}
+
+Recordemos la f\'ormula de cambio de variables
+\[\int_{f(\Omega)}g(\vec{x})d\vec{x}=\int_{\Omega}g(f(\vec{y}))|\det Df(\vec{y})|d\vec{y}\]
+Para dar sentido a la f\'ormula se requiere
+\begin{itemize}
+\item $f:U\to V$ biyectiva de clase $\cl$ y con inversa de clase
+$\cl$. (Esta clase de funciones recibe el nombre de difeomorfismo)\index{Difeomorfismo}
+\item $\Omega$ es un compacto, cuya frontera\index{Frontera} es la uni\'on finita
+de grafos de funciones continuas
+\item $g:f(\Omega)\to \R$ es continua.
+\end{itemize}
+En estas circunstancias las funciones
+\[g^*(\vec{x})=\left\{\begin{matrix} 0 & \vec{x}\nin f(\Omega) \cr g(\vec{x}) & \vec{x}\in
+f(\Omega) \cr\end{matrix}\right.\] y
+\[(g\circ f)^*(\vec{y})|\det Df(\vec{y})|=\left\{\begin{matrix}0 & \vec{y} \nin \Omega \cr
+g(f(\vec{y}))|\det Df(\vec{y})| & \vec{y} \in \Omega\cr \end{matrix}\right.\] son
+integrables.\\ Para demostrar la f\'ormula de cambio de variables,
+tenemos que dar una definici\'on de integrabilidad un poco
+m\'as fuerte.
+
+\begin{definicion} $A\subseteq\R^n$ se dice $v$-medible \index{Conjunto!$v$-medible}si
+$A$ es compacto y su frontera es la uni\'on finita de grafos de
+funciones continuas.
+\end{definicion}
+
+\begin{ejemplo}
+$A=[a,b]^n$ con $a$ y $b$ finitos es $v$-medible
+\end{ejemplo}
+
+\begin{ejemplo}
+Si $A$ es $v$-medible, y $f$ es un difeomorfismo,
+entonces $f(A)$ en $v$-medible 
+\end{ejemplo} 
+
+Observamos que si $A$ es $v$-medible, entonces podemos definir el volumen de $A$ como
+\[{\rm {\rm vol}} (A)=\int 1_A(\vec{x})d\vec{x}\]
+donde
+\[1_A(\vec{x})=\left\{\begin{matrix}0 & \vec{x}\nin A \cr 1 & \vec{x}\in A\cr\end{matrix}\right.\]
+
+\begin{definicion}
+Sea $A$ un conjunto $v$-medible. Una descomposici\'on\index{Descomposici\'on} $\cal D$ {de} $A$ es una colecci\'on de conjuntos
+$C_1,\ldots,C_k$ tales que
+\begin{itemize}
+\item $C_i$ es $v$-medible, $i=1,\ldots,k$
+\item $A=C_1\cup\ldots\cup C_k$
+\item $int(C_i\cap C_j)=\phi$, si $i\neq j$
+\end{itemize}
+Se define tambi\'en el diametro de la descomposici\'on\index{Di\'ametro!de una descomposici\'on} $\cal D$
+como
+ \[{\rm diam}{(\cal D)}=\max_{1\leq i\leq k}{\rm diam} (C_i)\]
+  donde
+el diametro de un conjunto $A$ $v$-medible es igual a diam$
+(A)=\sup\{\norm{\vec{x}-\vec{y}} : \vec{x},\vec{y}\in A\}$
+\end{definicion}
+
+Dada la descomposici\'on $\cal D$ de $A$, consideremos el vector
+$\vec{\xi}=(\xi_1,\ldots,\xi_k)$ tal que $\xi_i\in C_i \:\forall i\in\{1,\ldots,k\}$
+
+\begin{definicion}
+Sea $f:A\to \R$ una funci\'on acotada. Definimos la suma de
+Riemann\index{Suma!de Riemann} asociada a $({\cal D},\vec{\xi})$ como
+\[S(f,{\cal D},\vec{\xi})=\sum_{i=1}^k f(\xi_i){\rm vol}(C_i)\]
+\end{definicion}
+
+\begin{definicion} 
+Decimos que $f$ es $v$-integrable\index{Funci\'on!$v$-integrable} sobre $A$, conjunto $v$-medible,  si existe
+$I\in \R$ tal que
+\[\forall \varepsilon>0\:\exists\delta>0\:\text{ tal que }\forall 
+{\cal D}\:\text{ desc. de }A,
+\]
+\[ ({\rm diam}{(\cal D)}<\delta
+\:\wedge \xi \:\text{ asociado a }{\cal D})\Rightarrow
+|S(f,{\cal D},\vec{\xi})-I|<\varepsilon\] Si tal $I$ existe, es \'unico y denotamos $I=\int_Af(\vec{x})d\vec{x}$. La demostraci\'on de esto \'ultimo queda de \emph{tarea}.
+\end{definicion}
+Con esta definici\'on podemos seguir paso a paso la demostraci\'on
+ya hecha para probar la proposicion siguiente
+
+\begin{proposicion}
+$f:A\to \R$ continua $\Rightarrow$ $f$ es $v$-integrable
+\end{proposicion}
+
+Tambi\'en se puede demostrar que si $f:A\to \R$ es acotada y
+continua salvo sobre el grafo de un n\'umero finito de funciones
+continuas, entonces $f$ es $v$-integrable.
+
+\begin{teorema}\label{teo:cambioDeVariable}{\rm (Teorema del cambio de variables) \index{Teorema!del cambio de variables}}
+\\Sea $\Omega$ $v$-medible y $f:U\to V$ un difeomorfismo,
+$\Omega\subseteq U$. Sea $g:f(\Omega)\to \R$ $v$-integrable.
+Entonces $g\circ f:\Omega \to \R$ es $v$-integrable y
+\[\int_{f(\Omega)}g(\vec{x})d\vec{x}=\int_{\Omega}g(f(\vec{y}))|\det Df(\vec{y})|d\vec{y}\]
+\end{teorema}
+
+La demostraci\'on del teorema tiene dos
+partes: Primero el caso en que $f$ es una funci\'on lineal y
+luego el caso general.
+
+\begin{demostracion} \hspace{2mm} (Caso $f$ lineal)
+\\La demostraci\'on ya fue
+hecha para $\R^3$, y se extiende de manera an\'aloga a $\R^n$,
+por lo que supondremos cierto el resultado en el caso lineal. Asi
+tenemos, si $T$ es lineal que
+\[{\rm vol}(T(A))=\int_{T(A)}1=\int_A1|\det T|={\rm vol}(A)|\det T|\: \forall A\:{\text{ $v$-medible}}\]
+\end{demostracion}
+
+Para el caso general necesitamos dos lemas previos que se describen a continuaci\'on
+
+\begin{lema} Sea $U$ abierto, $X\subset U$ compacto y
+$\varphi:U\times U\to \R$ continua tal que
+$\varphi(\vec{x},\vec{x})=1\:\forall \vec{x}\in U$. Entonces $\forall \varepsilon
+>0\:\exists \delta >0$ tal que
+\[\vec{x},\vec{y}\in X\:\norm{\vec{x}-\vec{y}}<\delta\Rightarrow |\varphi(\vec{x},\vec{y})-1|<\varepsilon\]
+\end{lema}
+
+\begin{demostracion}
+Puesto que $X$ es compacto, entonces $X\times
+X\subset U\times U$ tambi\'en es compacto, por lo que $\varphi$
+ser\'a uniformemente continua sobre $X\times X$. Luego, dado $\varepsilon
+>0\:\exists\delta >0$ tal que
+$\norm{\vec{x}-\vec{z}}+\norm{\vec{y}-\vec{w}}=\norm{(\vec{x},\vec{y})-(\vec{z},\vec{w})}<\delta\Rightarrow
+|\varphi(\vec{x},\vec{y})-\varphi(\vec{z},\vec{w})|<\varepsilon$, en particular, si
+$\norm{\vec{x}-\vec{y}}<\delta$ entonces $\norm{(\vec{x},\vec{y})-(\vec{x},\vec{x})}<\delta$ lo que
+implica que $|\varphi(\vec{x},\vec{y})-\varphi(\vec{x},\vec{x})|=|\varphi(\vec{x},\vec{y})-1|<\varepsilon$
+\end{demostracion}
+
+\begin{lema} Sean $U,V\subseteq \R^n$ abiertos y $f:U\to V$ un
+difeomorfismo de clase $\cl$. Sea $X\subset U$ un compacto
+$v$-medible y $M=\sup\{\norm{Df(\vec{x})} : \vec{x}\in X\}$ ($\norm{\cdot}$
+es cualquier norma matricial, por ejemplo $\norm{A}=\max_{1\leq
+i\leq n}\{\sum_{j=1}^n|a_{ij}|\}$). Entonces,
+\[{\rm vol}(f(X))\leq M^n{\rm vol}(X)\]
+\end{lema}
+
+\begin{demostracion}
+Demostremos primero el caso en que $X$ es un
+cubo, con centro $p$ y lado $2a$, es decir,
+\[X=[p_1-a,p_1+a]\times \ldots\times [p_n-a,p_n+a]=\prod_{i=1}^n
+[p_i-a,p_i+a]\] Por la desigualdad del valor medio tenemos que
+$|f_i(x)-f_i(p)|\leq Ma$ y por lo tanto
+\[\norm{f(\vec{x})-f(p)}_{\infty}\leq Ma\:\forall \vec{x} \in X\]
+es decir, $f(\vec{x})$ est\'a a distancia a lo m\'as $Ma$ de $f(p)$ para
+todo $\vec{x}\in X$ , entonces
+\begin{eqnarray*}
+f(X)&\subseteq& [f_1(p)-Ma,f_1(p)+Ma]\times \ldots \times
+[f_n(p)-Ma,f_n(p)+Ma]\\
+&=&\prod_{i=1}^n [f_i(p)-Ma,f_i(p)+Ma]
+\end{eqnarray*}
+ o sea
+que ${\rm vol}(f(X))\leq {\rm vol}(\prod_{i=1}^n
+[f_i(p)-Ma,f_i(p)+Ma])=M^n(2a)^n=M^n {\rm vol}(X)$
+
+\medskip
+
+El caso general lo hacemos por aproximaci\'on. Sea $\varepsilon >0$, entonces
+existe un abierto $\theta$ tal que $X\subset \theta\subset U$ y
+$\norm{Df(\vec{x})}\leq M+\varepsilon$ para todo $\vec{x}\in \theta$ (Por la
+continuidad de $Df$).\\ El conjunto $X$ se puede cubrir por un
+n\'umero finito de cubos con interiores disjuntos contenidos en
+$\theta$
+\[X\subset \bigcup_{i=1}^k C_i\]
+con $int(C_i)\cap int(C_j)=\phi$ si $i\neq j$. Adem\'as los cubos
+se pueden suponer tan peque\~nos que
+\[\sum_{i=1}^k {\rm vol}(C_i)\leq {\rm vol}(X)+\varepsilon\]
+Luego
+\[f(X)\subseteq\bigcup_{i=1}^k f(C_i)\Rightarrow
+{\rm vol}(f(X))\leq\sum_{i=1}^k {\rm vol}(f(C_i))\leq\sum_{i=1}^k
+M_i^n {\rm vol}(C_i)\] donde $M_i=\sup\{\norm{Df(\vec{x})} : \vec{x}\in
+C_i\}\leq M+\varepsilon$ por lo tanto ${\rm vol}(f(X))\leq
+(M+\varepsilon)^n({\rm vol}(X)+\varepsilon)$. Como esta desigualdad es v\'alida
+para todo $\varepsilon>0$ concluimos que
+\[{\rm vol}(f(X))\leq M^n {\rm vol}(X)\]
+\end{demostracion}
+
+\begin{demostracion} \hspace{2mm} (Caso general)
+\\Para finalizar con la demostraci\'on en el caso general,
+consideremos una descomposici\'on ${\cal D} =\{C_1,\ldots,C_k\}$ de
+$\Omega$ y puntos $\xi_i\in C_i$ para $i:\{i,\ldots,k\}$. Entonces los
+conjuntos $f(C_i)$ definen una descomposici\'on de $f(\Omega )$ y
+los puntos $f(\xi_i)\in f(C_i)$. A esta descomposici\'on la
+denotamos por ${\cal D} f$. Usando la desigualdad del valor medio se
+puede demostrar que existen constantes $a_1,a_2$ tales que
+\[a_1\cdot {\rm diam} ({\cal D} f)\leq {\rm diam} ({\cal D})\leq a_2\cdot {\rm
+diam}({\cal D}
+f)\] gracias a que $\Omega$ es compacto. Definamos
+$T_i=f'(\xi_i)\in M_{n\times n}$ para $i\in\{1,\ldots,k\}$, y
+\[N_i=\sup\{\norm{T_i^{-1}f'(\vec{x})} : \vec{x}\in C_i\}\: M_i=\sup\{\norm{T_i(f^{-1})'(\vec{y})} : \vec{y}\in f(C_i)\}\]
+con $\norm{\cdot}$ la misma del lema anterior. Entonces se tiene
+que
+\begin{eqnarray*}
+{\rm vol}(f(C_i)) &=& {\rm vol}(T_i T_i^{-1}f(C_i))\\ &=& |\det
+(T_i)|{\rm vol} (T_i^{-1}f(C_i))\\ &\leq & |\det (T_i)|N_i^n {\rm
+vol} (C_i)
+\end{eqnarray*}
+de igual manera
+\[{\rm vol} (C_i)\leq |\det (T_i^{-1})|{\rm vol} (f(C_i))M_i^n\]
+De lo anterior se obtiene que
+\begin{eqnarray*}
+{\rm vol}(C_i)|\det(T_i)|-{\rm vol}(f(C_i)) &\leq& {\rm
+vol}(f(C_i))(M_i^n-1)\\ {\rm vol}(C_i)|\det(T_i)|-{\rm
+vol}(f(C_i))&\geq& {\rm vol}(C_i)|\det(T_i)|(1-N_i^n)
+\end{eqnarray*}
+Definamos tambi\'en $\varphi(\vec{x},\vec{y})=\norm{(f'(\vec{y}))^{-1}f'(\vec{x})}$, de
+este modo $\varphi(\vec{x},\vec{x})=1$ para todo $\vec{x}\in \Omega$.\\ Luego,
+gracias a los lemas anteriores, dado $\varepsilon
+>0$ existe $\delta >0$ tal que si ${\rm diam}({\cal D})<\delta$
+entonces
+\[|N_i^n-1|<\varepsilon\:\wedge\:|M_i^n-1|<\varepsilon\]
+De todo lo anterior, se concluye que existe una constante $B$ tal
+que
+\[|{\rm vol}(C_i)|\det (T_i)|-{\rm vol}(f(C_i))|<B\varepsilon {\rm vol}(f(C_i))\]
+Seg\'un la definici\'on de $v$-integrable debemos comparar la suma
+de Riemann de $h=g\circ f|\det Df|$ asociada la partici\'on
+${\cal D}$ y a los puntos $\vec{\xi}$ con el supuesto valor de la integral:
+$I=\int_{f(\Omega)}g(\vec{x})d\vec{x}$
+\begin{eqnarray*}
+& &\left|S(h,{\cal D},\vec{\xi})-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right|\\
+&=&\left|\sum_{i=1}^kg(f(\xi_i))|\det(T_i)|{\rm
+vol}(C_i)-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right| \\ 
+&\leq& \left|\sum_{i=1}^kg(f(\xi_i))|\det(T_i)|{\rm
+vol}(C_i)-\sum_{i=1}^kg(f(\xi_i)){\rm vol}(f(C_i))\right|+\ldots \\ 
+& & + \left|\sum_{i=1}^kg(f(\xi_i)){\rm
+vol}(f(C_i))-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right| \\ 
+&\leq& B\varepsilon\sum_{i=1}^k|g(f(\xi_i))|{\rm vol}(f(C_i))+\ldots \\ 
+& & + \left|\sum_{i=1}^kg(f(\xi_i)){\rm
+vol}(f(C_i))-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right| \\ 
+&\leq&
+B\varepsilon\sum_{i=1}^k|g(f(\xi_i))|{\rm
+vol}(f(C_i))+\left|S(g,{\cal D}f,f(\vec{\xi}))-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right|
+\end{eqnarray*}
+En la \'ultima desigualdad, gracias a que $g$ es $v$-integrable
+sobre $f(\Omega)$ tenemos que la sumatoria de la izquierda est\'a
+acotada y el t\'ermino de la derecha se puede hacer tan peque\~no
+como se desee tomando un $\delta$ suficientemente peque\~no. Por
+lo tanto dado $\bar{\varepsilon}>0$ existe $\bar{\delta}>0$ tal que si
+diam${\cal D}<\bar{\delta}$, entonces
+\[\left|S(h,{\cal D},\vec{\xi})-\int_{f(\Omega)}g(\vec{x})d\vec{x}\right|<\bar{\varepsilon}\]
+es decir, $g\circ f|\det Df|$ es $v$-integrable en $\Omega$ y
+\[\int_{\Omega}g\circ f(\vec{y})|\det Df(\vec{y})|d\vec{y}=\int_{f(\Omega)}g(\vec{x})d\vec{x}\]
+pues la integral es \'unica.
+\end{demostracion}
+
+ 
+
+\section{Ejercicios}
+
+\subsection*{Reglas de derivaci\'on adicionales}
+
+\complementos{
+Sea $f(x,y,z,t) =
+\int\limits^{\ell(1+|x+y|)}_{e^{x+y+z}}(xt+log_z (t)+z)dt$. Calcular
+$\dpr{f}{x} , \dpr{f}{z} ,
+\dpr{f}{t}$ en aquellos puntos donde existan.
+}
+
+\complementos{
+Considere la siguiente ecuaci\'on integral
+$$u(x)=5+\int_0^x\sen(u(s)+x)ds $$ En el cap\'itulo \ref{cap5} se
+demostr\'o que tiene una \'unica soluci\'on en $C([0,1/2],\R)$.
+\\Derivando dos veces la ecuaci\'on integral (justifique por que se
+puede derivar), encuentre la ecuaci\'on diferencial que satisface
+su soluci\'on
+}
+
+\complementos{
+Considere las funciones
+\[F(x)=\int_0^{g(x)}f(x+t,xt)dt,\quad
+G(x,y)=\int_0^{y^2}g(x,y,z)dz\] Calcule $F'(x)$ y $ \frac{\dd
+G}{\dd y}(x,y)$
+}
+
+\complementos{
+Considere la funci\'on 
+\begin{eqnarray*}
+ u(x,t)& = &\frac{1}{2} [ f(x+ct)+ f(x-ct)] +\frac{1}{2c} \int\limits^{x+ct}_{x-ct}
+g(s)ds\\
+& &+ \frac{1}{2c}\int\limits_0^t
+\int\limits_{x-c(t-s)}^{x+c(t-s)} F(\sigma, s)d\sigma ds
+\end{eqnarray*}
+Muestre que
+\begin{eqnarray*}
+\frac{\partial^2u}{\partial t^2} - c^2 \frac{\partial^2u}{\partial
+x^2} &=& F(x,t)\\ u(x,0) &=& f(x)\\ \frac{\partial u}{\partial
+t}(x,0) &=& g(x)
+\end{eqnarray*}
+}
+
+\complementos{
+Se desea resolver la ecuaci\'on de ondas
+$$\dpr{^2\phi}{x^2}-\frac{1}{c}\dpr{^2\phi}{t^2}=0$$
+donde $c$ es una constante distinta de 0.
+\\Haga el cambio de variables $\xi = x +ct$ y $\eta = x - ct$ de modo que se obtenga 
+$$\phi(x,t)=\psi(\xi(x,t),\eta(x,t))$$ 
+donde $\psi(\xi,\eta)$ es la inc\'ognita. 
+En base a este cambio de variables demuestre que:
+$$\dpr{^2\phi}{x^2}-\frac{1}{c}\dpr{^2\phi}{t^2}=4\dpr{^2\psi}{\eta\partial\xi} (\xi(x,y),\eta(x,y))$$
+y en base a este resultado demuestre que toda soluci\'on $\phi$ de clase $\mathcal{C}^2$ de la ecuaci\'on de ondas se escribe
+$$\phi(x,t)=f(\xi)+g(\eta)$$
+con $f$ y $g$ funciones de variable real.
+}

@@ -1,0 +1,1697 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Derivadas de Orden Superior}\label{cap2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Estudiaremos las segundas derivadas y derivadas en\'esimas de funciones de varias variables para luego extendernos con una generalizaci\'on de la aproximaci\'on de Taylor. Ambos conceptos nos permitir\'an ver de forma introductoria la convexidad de funciones y criterios de primer y segundo orden para la optimizaci\'on con y sin restricciones.
+
+\section{Derivadas de orden superior y teorema de Taylor}
+
+Sea $\f1$ una funci\'on diferenciable en $A$, entonces
+$$
+\dfi:A\subset \R^n\to \R
+$$
+define una funci\'on.
+Como tal esta  funci\'on puede tener derivadas parciales y tambi\'en ser
+diferenciable. Cuando  $\dfi$ tiene derivada parcial con respecto a $x_j$
+ en $\vec{x}_0$, esta la anotamos como
+$$\frac{\partial}{\partial x_j}\left(\dfi \right)=\frac{\partial^2f}{\partial x_j\partial x_i}$$
+
+\begin{ejemplo} 
+Calcular $\frac{\partial^2f}{\partial x\partial y}$ y $\frac{\partial^2 f}{\partial x^2}$ si $f(x,y)=\ln(x^2+y^2)$.
+\end{ejemplo}
+
+\begin{solucion}
+$$\dfx=\frac{2x}{x^2+y^2} \text{ y } \ddfyx=\frac{-2x(2y)}{(x^2+y^2)^2}$$
+Entonces
+$$
+\ddfx=\frac{2(x^2+y^2)-2x(2x)}{(x^2+y^2)^2}=\frac{y^2-x^2}{(x^2+y^2)^2}$$
+$$\ddfyx=\frac{-2x(2y)}{(x^2+y^2)^2}$$
+Pero tambi\'en podemos calcular
+$$\ddfxy=\frac{-2y(2x)}{(x^2+y^2)^2}$$
+Notemos que en este caso $\ddfxy=\ddfyx$. Esto no es s\'olo coincidencia como veremos en m\'as adelante.
+
+Tambi\'en podemos observar que
+$$\ddfx+\ddfy=0$$
+Por esta raz\'on la funci\'on $f$ se dice arm\'onica. La combinaci\'on
+$$\triangle f= \ddfx+\ddfy$$ se conoce como el Laplaciano\index{Laplaciano!de una funci\'on} de $f$.
+\end{solucion}
+
+\begin{definicion}
+Se define el laplaciano\index{Laplaciano!de una funci\'on} de $f:\R^n  \to \R$ como: 
+$$\triangle f(\vec{x}) = \sum\limits_{i = 1}^n \dpr{^2 f}{x_i^2}$$
+Para $\vec{x} = (x_1 ,\ldots,x_n) \in \R^n$.
+\end{definicion}
+
+Recordemos que $f$ se dice de clase $\mathcal{C}^1$\index{Funci\'on!de clase $\mathcal{C}^1$} en un dominio $A$ si $f$ es 
+diferenciable en $A$ y todas sus derivadas parciales son continuas en $A$.
+
+\begin{definicion}  $f$ se dir\'a dos veces diferenciables en $\vec{x}_0$ si $f$ es 
+diferenciable en una vecindad de $\vec{x}_0$ y todas sus derivadas parciales 
+son diferenciables en $\vec{x}_0$. $f$ se dir\'a de clase $\mathcal{C}^2$\index{Funci\'on!de clase $\mathcal{C}^2$} en $A$ si todas
+sus segundas derivadas parciales son continuas en $A$.
+\end{definicion}
+Es f\'acil extender estas definiciones a \'ordenes superiores.
+
+A continuaci\'on veremos uno de los resultados m\'as importantes de 
+esta secci\'on que dice relaci\'on con la posibilidad de intercambiar 
+el orden de las derivadas
+
+\begin{teorema}{\rm (Teorema de Schwarz)\index{Teorema!de Schwarz}} 
+\\Sea $\f1$ una funci\'on dos veces continua y diferenciable en $A$. Si las segundas derivadas parciales\index{Simetr\'ia!de las derivadas cruzadas} son continuas en $\vec{x}_0\in A$ entonces:$$\ddfij(\vec{x}_0)=\ddfji(\vec{x}_0)\qquad\forall i,j=1,\ldots,n$$
+\end{teorema}
+
+\begin{demostracion} 
+Una peque\~na reflexi\'on lleva a concluir que basta 
+estudiar el $n=2$. 
+Dado $\vec{x}_0=(x_{01},x_{02})\in A$ y $\vec{h}=(h_1, h_2)\in\R^2$, $\|\vec{h}\|<r$, 
+definimos $F:B(\vec{0},r)\to \R$ de la siguiente forma
+\begin{eqnarray*}
+F(h_1,h_2)=[f(x_{01}+h_1,x_{02}+h_2)-f(x_{01}+h_1,x_{02})]-[f(x_{01},x_{02}+h_2)-f(x_{01},x_{02})]
+\end{eqnarray*}
+Notemos que $F$ queda bien definida para $r$ peque\~no.
+Sea $g(t)=f(t,x_{02}+h_2)-f(t,x_{02})$. Entonces por el teorema del valor
+medio (teorema \ref{valormedio}) existe $h_1'$ tal que $|h'_1|<\|\vec{x}\|$ y
+$$F(h_1,h_2)=g(x_{01}+h_1)-g(x_{01})=g'(x_{01}+h_1')h_1$$
+y entonces
+$$F(h_1,h_2)=\left[\dfx(x_{01}+h'_1,x_{02}+h_2)-\dfx(x_{01}+h'_1,x_{02})\right]h_1$$
+Usando nuevamente el teorema del valor
+medio encontramos $h_2'$ tal que $|h_2'| <|h_2|\le \|\vec{h}\|$ y entonces
+$$
+\frac{F(h_1,h_2)}{h_1h_2}=\ddfyx(x_{01}+h'_1,x_{02}+h_2')$$
+Pero uno tambi\'en puede escribir $F$ de la siguiente manera
+\begin{eqnarray*}
+& F(h_1,h_2)=\\
+& [f(x_{01}+h_1,x_{02}+h_2)-f(x_{01},x_{02}+h_2)]-[f(x_{01}+h_1,x_{02})-f(x_{01},x_{02})]
+\end{eqnarray*}
+y podemos  repetir la misma aplicaci\'on del teorema del valor
+medio para  probar que
+$$\frac{F(h_1,h_2)}{h_1h_2}=\ddfxy(x_{01}+h_1'',x_{02}+h_2'')$$
+con $|h_1''|<|h_1|$ y $|h_2''|<|h_2|$.
+Por lo tanto 
+$$
+\ddfyx(x_{01}+h_1',x_{02}+h_2')=\ddfxy(x_{01}+h_1'',x_{02}+h_2'')$$
+y finalmente, por la continuidad de las derivadas parciales
+$$\ddfxy(\vec{x}_0)=\ddfyx(\vec{x}_0)$$
+\end{demostracion}
+
+\begin{ejemplo} 
+El siguiente ejemplo nos muestra que las derivadas cruzadas pueden ser distintas.
+Consideremos la funci\'on
+$$f(x,y)=\begin{cases}
+\frac{xy(x^2-y^2)}{x^2+y^2} & \text{ si } (x,y)\neq (0,0)\cr 0 & \text{ si }
+ (x,y)=(0,0)\end{cases}$$
+En todo punto $(x,y)\neq (0,0)$ se tiene
+$$\dfx(x,y)=\frac{y(x^4+4x^2y^2+y^4)}{(x^2+y^2)^2}$$
+y en $(x,y)=(0,0)$
+$$\dfx(0,0)=\lim_{x\to 0}\frac{f(x,0)-f(0,0)}{x}=0$$
+De aqu\'i tenemos que 
+$$\dfx=
+\begin{cases}
+\frac{y(x^4+4y^2x^2+y^4)}{(x^2+y^2)^2}& \text{ si } 
+(x,y)\neq (0,0)\cr 0& \text{ si } (x,y)=(0,0)
+\end{cases}$$
+y en consecuencia 
+$$\ddfyx(0,0)=\lim_{y\to 0}\frac{\dfx(0,y)-\dfx(0,0)}{y}=\lim_{y\to 0}\frac{-\frac{y^5}{y^4}}{y}=-1$$
+Por otro lado, y de manera an\'aloga, tenemos que
+$$\dfy=\begin{cases}\frac{-x(y^4+4y^4x^4-x^4)}{(x^2+y^2)^2}& \text{ si }
+ (x,y)\neq (0,0)\cr 0& \text{ si } (x,y)=(0,0)
+\end{cases}$$ y de aqu\'i
+$$\ddfxy(0,0)=1$$
+Es decir,
+$$\ddfxy(0,0)\neq\ddfyx(0,0)$$
+?`C\'omo se interpreta esto a la luz del teorema?
+Estudiemos la continuidad de las derivadas cruzadas
+$$\lim_{y\to 0}\ddfyx(0,y)=\lim_{y\to 0}\frac{\partial}{\partial y}\left(\dfx(0,y)\right)=\lim_{y\to 0}\frac{\partial}{\partial y}\left(-\frac{y^5}{y^4}\right)=\lim_{x\to 0}-1=-1
+$$
+y sin embargo
+$$\lim_{x\to 0}\ddfyx(x,0)=\lim_{x\to 0}\frac{x^8}{x^8}=1$$
+es decir, hay discontinuidad en $\ddfyx$ \: $\Box$
+\end{ejemplo}
+
+\begin{corolario} Sea $\f1$ una funci\'on de clase $\mathcal{C}^k$ con $k\in\N$. Entonces:
+$$\frac{\partial^k f}{\partial x_{i_1}\partial x_{i_2}\ldots\partial x_{i_k}}=\frac{\partial^k f}{\partial x_{\sigma(i_1)}\partial x_{\sigma(i_2)}\ldots\partial x_{\sigma(i_k)}}$$
+Donde $i_1,i_2,\ldots i_k\in\{1,\ldots,n\}$ y $\sigma
+:\{1,\ldots,n\}\to\{1,\ldots,n\}$ es una permutaci\'on cualquiera.
+\end{corolario}
+
+\begin{demostracion}
+Basta aplicar el teorema de intercambio de derivadas reiterativamente.
+\end{demostracion}
+
+Ahora que ya conocemos las derivadas de mayor orden y sus principales propiedades estamos preparados para estudiar los desarrollos de Taylor en varias variables.
+Recordemos el caso de una variable, en el cual vamos a basar nuestro argumento
+para varias variables.
+
+%Para la demostraci\'on del teorema usaremos el teorema fundamental del c\'alculo que nos ser\'a de utilidad m\'as adelante.
+
+%\begin{teorema}{\rm (Teorema de Taylor de $1^{er}$ orden)\index{Teorema!de Taylor de $1^\text{er}$ orden}}
+%\\Sea $f:(a,b)\to\R$ derivable en $x_0\in (a,b)$, y sea
+%$$T_f(x-x_0)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2}(x-x_0)^2+\ldots+\frac{f^{[k]}(x_0)}{k!}(x-x_0)^k + R_k[(x-x_0)^k]$$
+%la aproximaci\'on de orden $k$ de $f$ en torno a $x_0$
+%donde el t\'ermino $R_1(x-x_0)$ se denomina resto. Entonces
+%$$f(x)=T_f(x-x_0)+R_1(x-x_0)$$
+%y $R_k$ es tal que
+%$$\lim_{x\to x_0}\frac{R_k[(x-x_0)^k]}{|x-x_0|^k}=0$$
+%\end{teorema}
+
+%\begin{demostracion}
+%Sea $\varepsilon>0$ tal que $f$ es $(k-1)$ veces derivable en $I(\varepsilon)=(x_0-\varepsilon,x_0+\varepsilon)$, y sea $g(x)=f(x)+T_f(x-x_0)$. Notando que $g(x_0)=g'(x_0)=\ldots=g^{[k-1]}(x_0)$. Para la funci\'on $h(x)=(x-x_0)^k$ podemos aplicar el teorema del valor medio reiterativamente $(k-1)$ veces y deducir que para todo $x\in I(\varepsilon)$, $x\neq x_0$ existe $a = a(x)$ en $(x,x_0)$ tal que
+%$$\frac{g(x)}{h(x)}=\frac{f^{[k-1]}(a)}{g^{[k-1]}(a)}=\frac{1}{k!}\left[\frac{f^{[k-1]}(a)-f^{[k-1]}(x_0)}{a-x_0}-f^{[k]}(x_0)\right]$$ 
+%Dado que $a=a(x)\to x_0$, la composici\'on de l\'imites implica que el lado derecho tiende a 0 lo que concluye la demostraci\'on.
+%\end{demostracion}
+
+\begin{teorema}{\rm (Teorema de Taylor de $1^{er}$ orden)} \index{Teorema!de Taylor de $1^\text{er}$ orden} \label{taylor1}
+\\Sea $f:(a,b)\to\R$ derivable en $x_0\in (a,b)$ entonces es posible obtener una expresi\'on equivalente a $f(x)$ dada por
+$$f(x)=f(x_0)+f'(x_0)(x-x_0)+R_1(x_0,x-x_0)$$
+donde el t\'ermino $R_1(x_0,x-x_0)$ se denomina resto y satisface
+$$\lim_{x\to x_0}\frac{R_1(x_0,x-x_0)}{|x-x_0|}=0$$
+que adem\'as puede ser descrito en t\'erminos de una integral si $f$ es una funci\'on $\mathcal{C}^2$.
+\end{teorema}
+
+\begin{demostracion}
+Del $2^{do}$ teorema fundamental del c\'alculo (teorema \ref{teofundamental2}) tenemos
+$$f(x)-f(x_0)=\int_{x_0}^x f'(t)dt$$
+entonces
+$$f(x)=f(x_0)+\int_{x_0}^x f'(t)dt$$
+
+Integrando por partes ($u=f'(t), v=t-x$) obtenemos
+$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\int_{x_0}^x(x-t)f''(t)dt$$
+As\'i obtenemos la expresi\'on integral para $R_1$ dada por
+$$R_1(x,x_0)=\int_{x_0}^x(x-t)f''(t)dt$$
+Si uno supone que $f$ es $k$ veces derivable en $x_0$, entonces
+$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\ldots+\frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k+R_k(x,x_0)$$
+donde 
+$$\lim_{x\to x_0}\frac{R_k(x,x_0)}{|x-x_0|^k}=  0$$
+Cuando se supone adem\'as que $f$ es de clase $\mathcal{C}^{k+1}$ en una vecindad de $x_0$  
+entonces integrando por partes reiterativamente se obtiene la expresi\'on integral
+para $R_k$ dada por
+$$R_k(x,x_0)=\int_{x_0}^x\frac{(x-t)^k}{k!}f^{(k+1)}(t)dt$$
+Si consideramos
+ $$M=\max_{t\in [x_0-\delta,x_0+\delta]}|f^{(k+1)}(t)| \text{ para } 0<\delta<|x|$$
+entonces
+$$
+|R_k(x,x_0)|\leq M\left|\int_{x_0}^x\frac{(x-t)^k}{k!}dt\right|=
+%\frac{M}{(k+1)!}|(x-t)^{k+1}\text{ tal que }_{x_0}^x|=
+\frac{M}{(k+1)!}|x-x_0|^{k+1}$$
+\end{demostracion}
+
+%\begin{nota}
+%De lo anterior se deduce que todo polinomio\index{Polinomio} es de clase $\mathcal{C}^{\infty}$\index{Funci\'on!de clase $\mathcal{C}^{\infty}$}, es decir, es infinitamente diferenciable y sus en\'esimas derivadas parciales son continuas.
+%\end{nota}
+
+Cuando $f:A\subseteq\R^n\to\R$ tambi\'en podemos establecer un
+teorema de Taylor. Notamos que en caso que $f$ tome valores en $\R^m$ lo que diremos
+se aplica a cada coordenada. Comenzamos con una definici\'on:
+\begin{definicion} Sea $\f1$ dos veces diferenciable en
+$\vec{x}_0\in A$. Se define entonces la matriz Hessiana\index{Matriz!Hessiana} de $f$ en $\vec{x}_0$ como
+\[ Hf(\vec{x})=
+\left[
+\begin{array}{ccc}
+\frac{\partial^2 f}{\partial x_1^2} & \ldots & \frac{\partial^2
+f}{\partial x_n \partial x_1} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_1 \partial x_n} & \ldots &
+\frac{\partial^2 f}{\partial x_n^2}
+\end{array}
+\right] \]
+%$$(Hf(x_0))_{ij}=\frac{\partial^2 f}{\partial x_j\partial x_i}(x_0)$$
+\end{definicion}
+
+\begin{nota} 
+Notamos que, por el teorema anterior, si
+$f$ es de clase $\mathcal{C}^2$ en una vecindad de $x_0$ entonces  la matriz Hessiana de
+$f$ en $\vec{x}_0$ es sim\'etrica\index{Simetr\'ia!de la matriz Hessiana}.
+\end{nota}
+
+\begin{teorema}{\rm (Teorema de Taylor de $2^{do}$ orden)\index{Teorema!de Taylor de $2^\text{do}$ orden}}\label{taylor2}
+\\Sea $\f1$ una funci\'on de clase $\mathcal{C}^3$. Entonces
+$$ f(\vec{x}_0+\vec{h})=f(\vec{x}_0)+\nabla f(\vec{x}_0)\vec{h}+\frac{1}{2}\vec{h}^t Hf(\vec{x}_0)\vec{h}+R_2(\vec{x}_0,\vec{h})$$
+donde el resto $R_2(\vec{x}_0,\vec{h})$ tiene una expresi\'on integral y
+$|R_2(\vec{x}_0,\vec{h})|\leq M\|\vec{h}\|^3$. As\'i\ que en particular
+$$
+\lim_{\vec{h}\to
+\vec{0}}\frac{R_2(\vec{x}_0,\vec{h})}{\|\vec{h}\|^2}=0
+$$
+\end{teorema}
+
+\begin{nota} 
+Se puede demostrar que si $f$ es de
+clase $\mathcal{C}^2$ entonces tambi\'en se tiene que $$\lim_{\vec{x}\to
+\vec{0}}\frac{R_2(\vec{x}_0,\vec{h})}{\|\vec{h}\|^2}=0$$
+aunque la expresi\'on integral del resto no se tiene.
+\end{nota}
+
+\begin{demostracion}
+Utilizando  la regla de la cadena tenemos
+$$\frac{d}{dt}f(\vec{x}_0+t\vec{h})=Df(\vec{x}_0+t\vec{h})\vec{h}=\sum_{i=1}^n\frac{\partial f}{\partial x_i}(\vec{x}_0+t\vec{h})h_i$$
+e integrando entre $0$ y $1$
+$$f(\vec{x}_0+\vec{h})-f(\vec{x}_0)=\sum_{i=1}^n\int_0^1\dfi(\vec{x}_0+t\vec{h})h_idt$$
+Utilizando nuevamente de la cadena obtenemos para $u=\dfi(\vec{x}_0+t\vec{h})h_i$
+$$\frac{du}{dt}=\sum_{j=1}^n\frac{\partial^2 f}{\partial x_j\partial x_i}(\vec{x}_0+t\vec{h})h_j h_i$$ 
+Integrando por partes, considerando $u$ como arriba y $v=t-1$ 
+$$f(\vec{x}_0+\vec{h})=f(\vec{x}_0)+\sum_{i=1}^n\dfi(\vec{x}_0)h_i+\sum_{i=1}^n\sum_{j=1}^n\int_0^1(1-t)\ddfji(\vec{x}_0+t\vec{h})h_ih_jdt$$
+que es un resultado correspondiente a la f\'ormula de Taylor de primer
+orden (teorema \ref{taylor1})
+$$f(\vec{x}_0+\vec{h})=f(\vec{x}_0)+\sum_{i=1}^n\dfi(\vec{x}_0)h_i+R_1(\vec{x}_0,\vec{h})$$
+Integrando nuevamente por partes, con $v=-{(t-1)^2}/{2}$ y  $u=\ddfji(\vec{x}_0+t\vec{h})h_ih_j$ con lo cual
+$$\frac{du}{dt}=\sum_{k=1}^n\frac{\partial^3 f}{\partial x_k\partial x_j\partial x_i}(\vec{x}_0+t\vec{h})h_ih_jh_k$$
+Obtenemos
+$$f(\vec{x}_0+\vec{h})=f(\vec{x}_0)+\sum_{i=1}^n\dfi(\vec{x}_0)h_i+\sum_{i=1}^n\sum_{j=1}^n\frac{1}{2}\ddfji(\vec{x}_0)h_ih_j+R_2(\vec{x}_0,\vec{h})$$
+donde el resto tiene la forma integral
+$$R_2(\vec{x}_0,\vec{h})=\sum_{i=1}^n\sum_{j=1}^n\sum_{k=1}^n\int_0^1\frac{(1-t)^2}{2}\frac{\partial^3 
+f}{\partial x_k\partial x_j\partial x_i}(\vec{x}_0+t\vec{h})h_ih_jh_kdt $$
+Como $\frac{\partial f^3}{\partial x_k\partial x_j\partial x_i}$ son continuas en $\vec{x}_0$, existe $\delta>0$
+y $M>0$ tal que
+$$\|\vec{h}\|<\delta\:\Rightarrow\: 
+\left|\frac{\partial^3 f}{\partial x_k\partial x_j\partial x_i}(\vec{x}_0+t\vec{h})\right|\leq M$$
+La constante $M$ puede tomarse como
+$$M=\max_{\vec{x}\in B(\vec{x}_0,\delta)}\left|\frac{\partial^3 f}{\partial
+x_k\partial x_j\partial x_i}(\vec{x})\right| $$
+Por lo que, para todo $t\in[0,1]$ tenemos   
+$$\left|\frac{\partial^3
+f}{\partial x_k\partial x_j\partial x_i}(\vec{x}_0+t\vec{h})h_ih_jh_k\right|\leq M$$
+Y finalmente
+$$|R_2(\vec{x}_0,\vec{h})|\leq\sum_{i=1}^n\sum_{j=1}^n\sum_{k=1}^n
+\frac{1}{3!}M\|\vec{h}\|^3=\left(\frac{n^3}{3!}M\right)\|\vec{h}\|^3$$
+\end{demostracion}
+
+\begin{ejemplo}
+Encontrar la f\'ormula de Taylor de orden 2 en torno a $x_0=(0,0)$
+para
+\[ f(x,y)=\sen(x+2y) +x^2 \]
+\end{ejemplo}
+
+\begin{solucion}
+Evaluamos $f(0,0) = 0$. Despu\'es calculamos las derivadas parciales
+$$ 
+\frac{\partial f}{\partial x}(x,y) = \cos(x+2y)+2x \text{ y } \frac{\partial f}{\partial y}(x,y) = 2\cos(x+2y)$$
+y evaluamos $\nabla f(0,0) = (1,2)$. Ahora calculamos las derivadas de segundo orden
+$$
+\frac{\partial^2 f}{\partial x^2} = -\sen(x+2y)+2, 
+\: \frac{\partial^2 f}{\partial y \partial x} = -2\sen(x+2y)
+\text{ y }
+\frac{\partial^2 f}{\partial y^2} = -4\sen(x+2y)$$
+y evaluamos
+$$
+\frac{\partial^2 f}{\partial y^2}(0,0) =0 \:,\:
+\frac{\partial^2 f}{\partial x^2}(0,0) = 2 \text{ y }
+\frac{\partial^2 f}{\partial y \partial x}(0,0) = 0
+$$
+Considerando 
+$\vec{h}=(h_1,h_2)$ tenemos finalmente
+\begin{eqnarray*}
+f(\vec{x}_0+\vec{h})&=&f(h_1,h_2)=f(0,0)+(1,2)(h_1,h_2)+\frac{1}{2}(h_1,h_2)
+\left[
+\begin{array}{cc} 
+2 & 0 \\
+0 & 0 \\
+\end{array}\right]
+\left(
+\begin{array}{c}
+h_1 \\
+h_2 \\
+\end{array}\right) +R_2 \cr
+&=& h_1+2h_2+h_1^2+R_2(\vec{0},\vec{h})
+\end{eqnarray*}
+\end{solucion}
+
+Continuando con este ejemplo, sabemos que  la funci\'on
+$P_2(h_1,h_2)=h_1+2h_2+h_1^2 $ aproxima a $ f(h_1,h_2) $ al
+segundo orden, en el sentido que $\frac{R_2(0,h)}{\|h\|^2}
+\Rightarrow 0 $. Pero uno podr\'ia hacer una pregunta m\'as espec\'ifica:
+Si $ \|h\|\leq1/4 $ ?`Qu\'e error se comete por cambiar $ f $ y $
+P_2$?
+Tenemos la f\'ormula integral del error
+\[ R_2(h_1,h_2)=\sum_{i=1}^2 \sum_{j=1}^2 \sum_{k=1}^2 \int_{0}^1
+\frac{(1-t)^2}{2} \frac{\partial^3 f}{\partial x_k \partial x_j
+\partial x_i}(x_0+th)h_ih_jh_kdt. \]
+Usando el teorema del valor medio integral (teorema \ref{valormedio}) vemos que existen 
+$ t_{ijk} \in [0,1] $ tales que
+\[R_2(h_1,h_2)=\frac{1}{3!}\sum_{i=1}^2 \sum_{j=1}^2 \sum_{k=1}^2 \frac{\partial^3
+f}{\partial x_k \partial x_j
+\partial x_i}(x_0+t_{ijk}h)h_ih_jh_k, \]
+de donde podemos hacer nuestra estimaci\'on.
+En nuestro caso calculemos las terceras derivadas
+\begin{eqnarray}
+\frac{\partial^3 f}{\partial x^3}=-\cos(x+2y) &\:,\:& \frac{\partial^3 f}{\partial y^3}=-8\cos(x+2y) \nonumber \\
+\frac{\partial^3 f}{\partial x \partial y^2 }=-4\cos(x+2y) &\:,\:& \frac{\partial^3 f}{\partial y \partial x^2 }=-2\cos(x+2y) \nonumber
+\end{eqnarray}
+Evaluando las derivadas en $x_0=(0,0)$ obtenemos
+\begin{eqnarray*} \abs{R_2(h_1,h_2)} &\leq & \frac{1}{3!}(h_1^3+3\cdot
+2h_1^2h_2+3\cdot4h_1h_2^2+8h_2^3) \\
+\\ & \leq & \frac{1}{3!}(1+6+12+8)\|h\|^3=\frac{27}{6}\|\vec{h}\|^3, \qquad \abs{h_i}\leq
+\|\vec{h}\| \\
+\end{eqnarray*}
+As\'i, si $\|\vec{h}\|\le 1/4$ entonces $\abs{R_2(h_1,h_2)}\le 9/(2\cdot 4^3)$
+
+\section{Extremos de funciones con valores reales}
+\index{Extremos!de funciones con valores reales}
+
+\subsection{Condiciones de primer orden}
+\index{Condiciones de $1^\text{er}$ orden!para extremos sin restricciones}
+
+Dentro de los puntos que pertenecen al dominio de la funci\'on, aquellos en
+donde esta alcanza un m\'inimo o un m\'aximo revisten un especial
+inter\'es por su importancia en muchos problemas pr\'acticos.
+\begin{definicion}
+Sea $f:A\subset \R^n \to \R$ con $A$ un subconjunto abierto de $\R^{n}$. Un
+punto $\vec{x}_{0}\in A$ se dir\'a m\'inimo (m\'aximo) local\index{M\'inimo!local}\index{M\'aximo!local} de $f$ si existe
+una vecindad $V$ de $\vec{x}_{0}$ tal que
+\[
+f(\vec{x})\geq f(\vec{x}_{0})\:\forall \vec{x}\in V\qquad \left(\text{resp. }f(\vec{x})\leq f(\vec{x}_{0})\right)
+\]
+\end{definicion}
+Un punto se dir\'a extremo local\index{Extremo!local} si es un m\'inimo o un m\'aximo local.
+Un punto $\vec{x}_{0}$ se dir\'a cr\'itico de $f$ si $Df(\vec{x}_{0})=0$. Un
+punto cr\'itico que no es extremo se dir\'a punto silla.
+\begin{teorema}
+Sea $f:A\rightarrow\R$ diferenciable, con $A$ un subconjunto abierto de
+$\R^{n}$ y $\vec{x}_{0}\in A$ un extremo local, entonces $Df(\vec{x}_{0})=0$.
+\end{teorema}
+\begin{demostracion}
+Si $f$ tiene un m\'inimo local $\vec{x}_{0}$ entonces si definimos la funci\'on
+de una variable
+\[
+g(t)=f(\vec{x}_{0}+t\vec{h})
+\]
+donde $\vec{h}\in\R^{n}$ es un punto cualquiera se tendr\'ia que $g$ tiene un
+m\'inimo local en $t=0$ pues
+\[
+g(t)=f(\vec{x}_{0}+t\vec{h})\geq f\left(\vec{x}_{0}\right)  =g\left(0\right)
+\]
+y por tanto $g^{\prime}(0)=0$ lo que implica que
+\[
+Df(\vec{x}_{0})\vec{h}=0
+\]
+y como esto es para cualquier $\vec{h}$ entonces se tiene que $Df(\vec{x}_{0})=0$.
+\end{demostracion}
+
+\medskip
+
+Observemos que $Df(\vec{x}_{0})=0$ es equivalente a:
+\[
+\frac{\partial f}{\partial x_{1}}(\vec{x}_{0})=0,\frac{\partial f}{\partial x_{2}%
+}(\vec{x}_{0})=0,\ldots,\frac{\partial f}{\partial x_{n}}(\vec{x}_{0})=0
+\]
+en otras palabras, los m\'aximos y m\'inimos son puntos que satisfacen el
+sistema de ecuaciones
+\[
+Df(\vec{x})=0
+\]
+Este es un sistema de $n$ ecuaciones con $n$ inc\'ognitas. Pero en general
+no es un sistema lineal.
+\begin{ejemplo}
+Busque los puntos cr\'iticos de la siguiente funci\'on y
+clasif\'iquelos:
+\[
+f(x,y)=x^{2}y+y^{2}x
+\]
+\end{ejemplo}
+
+\begin{solucion}
+El sistema de ecuaciones que se obtiene es:
+\begin{align*}
+\frac{\partial f}{\partial x}  & =2xy+y^{2} =0 \\
+\frac{\partial f}{\partial y}  & =2xy+x^{2} =0
+\end{align*}
+de donde se tiene
+\begin{eqnarray*}
+y(2x+y) = 0 & \Rightarrow& y=0 \text{ $\wedge/\vee$ } y=-2x \\
+x(2y+x) = 0 & \Rightarrow& x=0 \text{ $\wedge/\vee$ } x=-2y
+\end{eqnarray*}
+de la primera relaci\'on vemos que los posibles puntos extremos son $(0,0)$
+y $(a,-2a),\:a\in\R$ mientras que de la otra se tiene que son $(0,0)$ y
+$(-2b,b),\:b\in\R$, pero como se tienen que cumplir ambas relaciones a la vez
+entonces el \'unico punto cr\'itico es el $(0,0)$. Por otro lado, haciendo
+$x=y$ se tiene que $f(x,x)=2x^{3}$ el cual toma valores positivos y negativos,
+es decir $(0,0)$ no es ni m\'aximo ni m\'inimo, por lo tanto es un punto silla.
+\end{solucion}
+
+\subsection{Condiciones de segundo orden}
+\index{Condiciones de $2^\text{do}$ orden!para extremos sin restricciones}
+
+Veamos ahora condiciones necesarias de 2$^{\text{do}}$ orden equivalentes a
+las vistas en el caso de funciones de una variable, es decir, $f^{\prime
+\prime}(x)>0$ para m\'inimo y $f^{\prime\prime}(x)<0$ para m\'aximo.
+\begin{definicion}
+Sea $f:A\subset \R^n \to \R$, donde $A$ un subconjunto abierto de $\R^{n}$, una funci\'on con
+derivadas de 2$^{\text{do}}$ orden
+\[
+\frac{\partial^{2}f}{\partial x_i\partial x_{j}}(\vec{x}_{0})
+\]
+en $\vec{x}_{0}$. El Hessiano de $f$ en $\vec{x}_{0}$ es la funci\'on cuadr\'atica
+definida por
+\[
+Hf(\vec{x}_{0})(\vec{d})=\frac{1}{2}\sum\limits_{i,j=1}^{n}\frac{\partial^{2}f}{\partial
+x_i\partial x_{j}}(\vec{x}_{0})v_i v_{j}%
+\]
+\end{definicion}
+Otra forma de escribir la expresi\'on anterior es
+\[
+Hf(\vec{x}_{0})(\vec{d})=\frac{1}{2}\vec{d}^t H \vec{d}
+\]
+donde
+\begin{equation*}
+H =\left(\begin{array}{ccccc}
+\dpr{^{2}f(\vec{x})}{x_{1}^{2}} & \dpr{^{2}f(\vec{x})}{x_{2}\partial x_{1}} & \dpr{^{2}f(\vec{x})}{x_{3}\partial x_{1}} & \ldots & \dpr{^{2}f(\vec{x})}{x_{n}\partial x_{1}} \\
+ & & & & \\
+\dpr{^{2}f(\vec{x})}{x_{1}\partial x_{2}} & \dpr{^{2}f(\vec{x})}{x_{2}^{2}} & \dpr{^{2}f(\vec{x})}{x_{3}\partial x_{2}} & \ldots & \dpr{^{2}f(\vec{x})}{x_{n}\partial x_{2}} \\
+ & & & & \\
+\vdots &        & \ddots &        & \vdots \\
+ & & & & \\
+\dpr{^{2}f(\vec{x})}{x_{1}\partial x_{n}} & \dpr{^{2}f(\vec{x})}{x_{2}\partial x_{n}} & \dpr{^{2}f(\vec{x})}{x_{3}\partial x_{n}} & \ldots & \dpr{^{2}f(\vec{x})}{x_{n}^{2}} \\ \end{array} \right)
+\end{equation*}
+La matriz $H$ se denomina matriz Hessiana\index{Matriz!Hessiana} de la funci\'on $f$.
+Observemos que esta matriz es sim\'etrica\index{Simetr\'ia!de la matriz Hessiana} ya que
+\[
+\frac{\partial^{2}f}{\partial x_i\partial x_{j}}=\frac{\partial^{2}%
+f}{\partial x_{j}\partial x_i}%
+\]
+
+Para desarrollar el criterio de segundo orden retomaremos algunos conceptos de \'Algebra Lineal. Ante las dudas conviene consultar el ap\'endice \ref{ap2}.
+
+\begin{teorema}\label{2doorden}{\rm (Condiciones de 2$^{\text{do}}$ orden)}
+\\Sea $f:A\subset \R^n \to\R$ con $A$ un
+subconjunto abierto de $\R^{n}$ y $f$ de clase $\mathcal{C}^{2}$. Sea
+$\vec{x}_{0}\in A$ un punto cr\'itico de $f$.
+\begin{enumerate}
+\item Si $Hf(\vec{x}_{0})$  es definida positiva entonces $\vec{x}_{0}$ es un
+m\'inimo local\index{M\'inimo!local} de $f$.
+\item Si $Hf(\vec{x}_{0})$  es definida negativa entonces $\vec{x}_{0}$ es un
+m\'aximo local\index{M\'aximo!local} de $f$.
+\end{enumerate}
+\end{teorema}
+
+\begin{demostracion}
+Demostremos solamente la primera parte, la otra se demuestra de forma similar.
+
+Si $\vec{x}_{0}$ es punto cr\'itico, entonces usando el teorema de Taylor de orden
+2 (teorema \ref{taylor2}) se tiene que:
+\[
+f(\vec{x}_{0}+\vec{d})-f(\vec{x}_{0})=Hf(\vec{x}_{0})(\vec{d})+R_{2}(\vec{x}_{0},\vec{d})
+\]
+donde $R_{2}(\vec{x}_{0},\vec{d})\to 0$ cuando $\vec{d}\to 0$.
+
+Como $Hf(\vec{x}_{0})$ es definida positiva entonces existe $c>0$ tal que
+\[
+Hf(\vec{x}_{0})(\vec{d})\geq c\|\vec{d}\|^{2}\:\forall \vec{d}\in\R^{n}%
+\]
+y como $R_{2}(\vec{x}_{0},\vec{d})\to 0$ cuando $\vec{d}\to 0$, existe
+$\delta>0$ tal que si $0<\|\vec{d}\|  <\delta$ entonces
+\[
+|R_{2}(\vec{x}_{0},\vec{d})|<c\|\vec{d}\|^2%
+\]
+y por tanto
+\[
+f(\vec{x}_{0}+\vec{d})-f(\vec{x}_{0})>c\|\vec{d}\|^{2}-c\|\vec{d}\|^{2}=0
+\]
+para todo $0<\|\vec{d}\|<\delta$, lo que implica que $\vec{x}_{0}$ es un
+m\'inimo local.
+\end{demostracion}
+
+\begin{ejemplo}
+Encuentre los puntos cr\'iticos de la siguiente funci\'on y
+clasif\'iquelos.
+\[
+f(x,y)=\ln(x^{2}+y^{2}+1)
+\]
+\end{ejemplo}
+
+\begin{solucion}
+\begin{eqnarray*}
+\frac{\partial f}{\partial x}  =\frac{1}{x^{2}+y^{2}+1}2x=0 &\: \Rightarrow \:&
+x=0\\
+\frac{\partial f}{\partial y}  =\frac{1}{x^{2}+y^{2}+1}2y=0 &\: \Rightarrow \:&
+y=0
+\end{eqnarray*}
+y por tanto el \'unico punto cr\'itico es $(x,y)=(0,0)$. Veamos ahora la
+Hessiana de la funci\'on $f$ evaluada en este punto:
+\begin{align*}
+\left.  \frac{\partial^{2}f}{\partial x^{2}}\right|  _{(0,0)}  & =\left.
+\frac{-x^{2}+y^{2}+1}{\left(  x^{2}+y^{2}+1\right)  ^{2}}\right|  _{(0,0)}=1\\
+\left.  \frac{\partial^{2}f}{\partial x\partial y}\right|  _{(0,0)}  &
+=\left.  \frac{-4xy}{\left(  x^{2}+y^{2}+1\right)  ^{2}}\right|  _{(0,0)}=0\\
+\left.  \frac{\partial^{2}f}{\partial y^{2}}\right|  _{(0,0)}  & =\left.
+\frac{x^{2}-y^{2}+1}{\left(  x^{2}+y^{2}+1\right)  ^{2}}\right|  _{(0,0)}=1
+\end{align*}
+es decir, la matriz Hessiana queda:
+\[H=
+\left(
+\begin{array}
+[c]{ll}%
+1 & 0\\
+0 & 1
+\end{array}
+\right)
+\]
+la cual trivialmente se ve que es definida positiva y por tanto el punto
+$(0,0)$ es un m\'inimo local estricto.
+\end{solucion}
+
+\begin{ejemplo}
+Dada la funci\'on $f(x,y)=y-4x^2+3xy-y^2$, podemos saber si la funci\'on presenta un m\'aximo o un m\'inimo a partir de la Matriz Hessiana.
+\end{ejemplo}
+
+\begin{solucion} Tomamos las primeras y segundas derivadas de la funci\'on
+\begin{align*}
+\dpr{f(x,y)}{x}    &=-8x+3y &\qquad \dpr{f(x,y)}{y}      &=1+3x-2y \\
+\dpr{f(x,y)}{x^2}  &=-8     &\qquad \dpr{^2 f(x,y)}{y^2} &=-2      \\
+\dpr{^2 f(x,y)}{y \partial x}&=3      &\qquad \dpr{^2 f(x,y)}{x \partial y}  &=3 
+\end{align*}
+Las primeras derivadas permiten concluir que el punto $(\frac{3}{7},\frac{8}{7})$ puede ser m\'aximo o m\'inimo, luego tomamos formamos la matriz hessiana de $f$
+$$
+H=\left(\begin{array}{cc}
+-8 & 3  \\
+3  & -2 \\ \end{array} \right)
+$$
+y se tiene que los determinantes de las submatrices corresponden a
+$$
+|H_1|=-8<0 \text{ y }
+|H_2|=\left|\begin{array}{cc}
+-8 & 3  \\
+3  & -2 \\ \end{array} \right|=16-9=7>0
+$$
+A partir de los signos de las submatrices, se tiene que estos son alternados y que $|H_1|$ es negativo por lo que la funci\'on presenta un m\'aximo en el punto $(\frac{3}{7},\frac{8}{7})$.
+\end{solucion}
+
+\section{Funciones convexas}\label{funciones-convexas}
+
+\textbf{Motivaci\'on:} La familia de funciones convexas a valores reales corresponde a una familia mucho m\'as amplia que la de funciones lineales. Lo que nos interesa es caracterizar esta familia y en especial el caso de las funciones convexas diferenciables para presentar condiciones necesarias y sufiencientes para que determinado elemento de un espacio vectorial normado sea m\'inimo de una funci\'on convexa sobre cierto conjunto. La caracterizaci\'on que haremos de las funciones convexas es extensible a las funciones c\'oncavas.
+
+\begin{definicion}\label{convexidad}
+Una funci\'on $f:D\subseteq \R^n \to \R$, con $D$ convexo, es convexa\index{Funci\'on!convexa} (respectivamente estrictamente convexa)\index{Funci\'on!estrictamente convexa} si
+$$f(\lambda \vec{x} + (1-\lambda) \vec{y}) \leq \lambda f(\vec{x}) + (1-\lambda) f(\vec{y}) \qquad \forall \vec{x},\vec{y} \in D , 0\leq \lambda \leq 1 \: (\text{resp. }<)$$
+De manera m\'as intuitiva, una funci\'on $f$ es convexa si el segmento que une dos puntos pertenecientes al grafo de la funci\'on se ubica por sobre este.
+\\Determinar la convexidad de una funci\'on por medio de esta definici\'on resulta complicado por lo que recurriremos a algunos criterios de diferenciabilidad cuando estos son aplicables.
+\end{definicion}
+
+\begin{nota}
+Con esta definici\'on necesitamos que el dominio de la funci\'on defina un conjunto convexo. Esto es importante porque la definici\'on que presentamos requiere que, para dos puntos cualquiera $\vec{x}$ e $\vec{y}$ en el dominio de la funci\'on, todas las combinaciones convexas de $\vec{x}$ e $\vec{y}$, en particular $\lambda f(\vec{x}) + (1-\lambda) f(\vec{y})$ con $\lambda \in [0,1]$, tambi\'en deben estar en el dominio de la funci\'on, lo cual es otra forma de decir que el el dominio debe ser un conjunto convexo. Dicho en otras palabras si $D$ es todo el espacio vectorial $\R^n$ se tiene que el dominio es convexo y en caso de que $D$ sea un parte de $\R^n$ suponemos que esta es una parte convexa de $\R^n$.
+\end{nota}
+
+\begin{definicion}
+El hipografo de una funci\'on\index{Hipografo!de una funci\'on} corresponde a todos los puntos situados en y bajo el contorno del grafo de la funci\'on y queda definido por el conjunto 
+\begin{equation*}
+E=\{(\vec{x},c) : \vec{x}\in D , c\in \R , f(\vec{x})\geq c\}
+\end{equation*}
+\end{definicion}
+
+\begin{definicion}\label{epi}
+El ep\'igrafo de una funci\'on \index{Ep\'igrafo!de una funci\'on} corresponde a todos los puntos situados en y sobre el contorno del grafo de la funci\'on y queda definido por el conjunto 
+\begin{equation*}
+E=\{(\vec{x},c) : \vec{x}\in D , c\in \R , f(\vec{x})\leq c\}
+\end{equation*}
+El ep\'igrafo de una funci\'on nos permite relacionar funciones convexas con conjuntos convexos.
+\end{definicion}
+
+\begin{figure}[H]
+	\centering
+	\input{figuras/epigrafo.pdf_tex}
+	\caption{Ep\'igrafo, hipografo y grafo de una funci\'on}
+\end{figure}
+
+\begin{teorema}\label{teoconvexidad1}
+A partir de la definici\'on \ref{epi} tenemos otro criterio de convexidad. Diremos que $f$ es convexa si y s\'olo si el ep\'igrafo de $f$ es convexo en $\R^{n+1}$\index{Convexidad!del ep\'igrafo}. Esto es,
+$$\lambda (\vec{x},f(\vec{x})) + (1-\lambda)(\vec{y},f(\vec{y}))\in epi(f)$$
+\end{teorema}
+
+\begin{demostracion}\textcolor{white}{linea en blanco}
+\\($\Rightarrow$): Supongamos que $f:D\subseteq \R^n \to \R$ es una funci\'on convexa, entonces debemos demostrar que $epi(f)$ es convexo. Por definici\'on tenemos que
+$$
+f(\lambda \vec{x} + (1-\lambda) \vec{y}) \leq \lambda f(\vec{x}) + (1-\lambda) f(\vec{y}) \qquad \forall \vec{x},\vec{y} \in A , 0\leq \lambda \leq 1 
+$$
+Sean $c_1 , c_1 \in epi(f)$ y escojamos $\vec{x},\vec{y}\in A$ tales que 
+\begin{gather}\label{tc1eq1}
+f(\vec{x})\leq c_1 \:,\: f(\vec{y})\leq c_2 \tag{*}
+\end{gather}
+Para demostrar que $epi(f)$ es convexo debemos demostrar que para todo $\lambda \in [0,1]$, es decir 
+$$(\lambda \vec{x} + (1-\lambda)\vec{y} , \lambda c_1 + (1-\lambda)c_2)\in epi(f)$$
+En \eqref{tc1eq1} vamos a multiplicar la primera desigualdad por $\lambda$ y la segunda por $(1-\lambda)$ para luego sumar, se obtiene
+$$\lambda f(\vec{x}) + (1-\lambda)f(\vec{y}) \leq \lambda c_1 + (1-\lambda)c_2$$
+lo que por convexidad implica
+$$f(\lambda \vec{x} + (1-\lambda)\vec{y}) \leq \lambda c_1 + (1-\lambda)c_2$$
+y entonces $epi(f)$ es convexo.
+
+\medskip
+
+($\Leftarrow$): Supongamos que $epi(f)$ es convexo, entonces debemos demostrar que $f: D\subseteq \R^n \to \R$ es convexa.
+\\Sean $c_1,c_2 \in epi(f)$. Escojamos $\vec{x},\vec{y} \in A$ tales que 
+\begin{gather}\label{tc1eq2}
+f(\vec{x})=c_1 \:,\: f(\vec{y})=c_2 \tag{*}
+\end{gather}
+entonces, $(\vec{x},c_1),(\vec{y},c_2)\in epi(f)$. Como $epi(f)$ es convexo
+\begin{gather}\label{tc1eq3}
+f(\lambda \vec{x} + (1-\lambda)\vec{y})\leq \lambda c_1 + (1-\lambda)c_2 \tag{**}
+\end{gather}
+Reemplazando \eqref{tc1eq2} en \eqref{tc1eq3} se obtiene
+$$f(\lambda \vec{x} + (1-\lambda)\vec{y})\leq \lambda f(\vec{x}) + (1-\lambda) f(\vec{y})$$
+y entonces $f$ es convexa.
+\end{demostracion}
+
+\begin{teorema}\label{teoconvexidad2}
+Sea $f: D \subset \R^n \to \R$ una funci\'on convexa cuyo dominio es un conjunto convexo. Entonces todo m\'inimo local de $f$ en $A$ es m\'inimo global de $f$ en $D$.
+\end{teorema}
+
+\begin{demostracion}
+Sea $\vec{x}_0$ un m\'inimo local de $f$ en $D$ y sea $\vec{x}\neq \vec{x}_0 \:\in D$. Como $D$ es convexo, el punto $(1-\lambda)\vec{x}_0+ \lambda \vec{x} \in D \:\forall \lambda \in (0,1)$ y por definici\'on
+\begin{gather}\label{min-local-global}
+f((1-\lambda)\vec{x}_0+ \lambda \vec{x}) \leq (1-\lambda)f(\vec{x}_0)+ \lambda f(\vec{x}) \tag{*}
+\end{gather}
+en la medida que $\lambda \to 0$, se tendr\'a que $(1-\lambda)\vec{x}_0+ \lambda \vec{x} \to \vec{x}_0$ y entonces $f(\vec{x}_0) \leq f((1-\lambda)\vec{x}_0+ \lambda \vec{x})$ que combinado con \eqref{min-local-global} implica $f(\vec{x}_0) \leq f(\vec{x})$. Como $\vec{x}$ es arbitrario se concluye.
+\end{demostracion}
+
+\begin{teorema}\label{teoconvexidad3}
+Sea $f: D\subseteq \R^n \to \R$ una funci\'on diferenciable con $D$ abierto y convexo. $f$ es convexa (respectivamente estrictamente convexa)\index{Funci\'on!convexa}\index{Funci\'on!estrictamente convexa} si y s\'olo si
+\begin{equation}\label{tc2eq1}
+f(\vec{x})\geq f(\vec{y})+\nabla f(\vec{y})\cdot(\vec{x}-\vec{y}) \qquad \forall \vec{x},\vec{y} \in D \quad (\text{resp. }>)
+\end{equation}
+\end{teorema}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\($\Rightarrow$): Supongamos que $f$ es convexa, entonces
+$$f(\lambda \vec{x} + (1-\lambda)\vec{y})\leq \lambda f(\vec{x}) + (1-\lambda)f(\vec{y}) \qquad \forall \vec{x},\vec{y}\in D ,\: \lambda \in [0,1]$$
+$$f(\vec{y}+\lambda (\vec{x}-\vec{y}))\leq \lambda f(\vec{x}) + (1-\lambda)f(\vec{y})$$
+$$\frac{f(\vec{y}+\lambda (\vec{x}-\vec{y}))-f(\vec{y})}{\lambda}\leq f(\vec{x})-f(\vec{y}) \qquad \forall \vec{x},\vec{y}\in D ,\: \lambda \in (0,1]$$
+Aplicando l\'imite cuando $\lambda \to 0^+$
+$$\nabla f(\vec{y})\cdot(\vec{x}-\vec{y})\leq f(\vec{x})-f(\vec{y})$$
+$$f(\vec{x})\geq f(\vec{y})+\nabla f(\vec{y})\cdot(\vec{x}-\vec{y})$$
+($\Leftarrow$): Sean $\vec{x},\vec{y}\in D$, $\vec{z}=\lambda \vec{x}+(1-\lambda)\vec{y}$ y $\lambda \in [0,1]$. Supongamos que $f$ cumple \eqref{tc2eq1}, entonces
+\begin{align*}
+\lambda f(\vec{x})     & \geq \lambda(f(\vec{z})+\nabla f(\vec{z})\cdot(\vec{x}-\vec{z})) \\
+(1-\lambda) f(\vec{y}) & \geq (1-\lambda)(f(\vec{z})+\nabla f(\vec{z})\cdot(\vec{y}-\vec{z})) 
+\end{align*}
+Sumando las \'ultimas dos desigualdades
+\begin{align*}
+\lambda f(\vec{x})+(1-\lambda)f(\vec{y}) & \geq f(\vec{z})+\nabla f(\vec{z})\cdot(\underbrace{\lambda \vec{x} + (1-\lambda)\vec{y}-\vec{z}}_{0}) \\
+f(\lambda \vec{x} + (1-\lambda)\vec{y})  & \leq \lambda f(\vec{x})+(1-\lambda)f(\vec{y})
+\end{align*}
+\end{demostracion}
+
+\begin{teorema}\label{teoconvexidad4}
+Sea $f: D\subseteq \R^n \to \R$ una funci\'on diferenciable con $D$ abierto y convexo. $f$ es convexa (respectivamente estrictamente convexa)\index{Funci\'on!convexa}\index{Funci\'on!estrictamente convexa} si y s\'olo si
+\begin{equation}\label{tc3eq1}
+(\nabla f(\vec{x}) - \nabla f(\vec{y}))\cdot(\vec{x}-\vec{y}) \geq 0 \qquad \forall \vec{x},\vec{y}\in D \quad (\text{resp. }>)
+\end{equation}
+\end{teorema}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\($\Rightarrow$): Supongamos que $f$ es convexa. De acuerdo al teorema \ref{teoconvexidad2} se cumplen
+\begin{align*}
+f(\vec{x}) &\geq f(\vec{y})+\nabla f(\vec{y})\cdot(\vec{x}-\vec{y}) \\
+f(\vec{y}) &\geq f(\vec{x})+\nabla f(\vec{x})\cdot(\vec{y}-\vec{x})
+\end{align*}
+Sumando estas desigualdades obtenemos
+$$0 \geq \nabla f(\vec{y})\cdot(\vec{x}-\vec{y}) + \nabla f(\vec{x})\cdot(\vec{y}-\vec{x})$$
+$$(\nabla f(\vec{x}) - \nabla f(\vec{y}))\cdot(\vec{x}-\vec{y}) \geq 0$$
+($\Leftarrow$): Sean $\vec{x},\vec{y} \in A$. Definamos $g:[0,1]\to \R$ como  $g(\lambda)=f(\vec{y}+\lambda(\vec{x}-\vec{y}))$. Como $g$ es derivable obtenemos $g'(\lambda)=\nabla f(\vec{y}+\lambda(\vec{x}-\vec{y}))\cdot(\vec{x}-\vec{y})$.
+\\Asumamos que se cumple \eqref{tc3eq1}, entonces
+\begin{align*}
+g'(\lambda)-g'(0) &= (\nabla f(\vec{y}+\lambda(\vec{x}-\vec{y})) - \nabla f(\vec{y}))\cdot(\vec{x}-\vec{y}) \\
+g'(\lambda)-g'(0) &= (\nabla f(\vec{y}+\lambda(\vec{x}-\vec{y})) - \nabla f(\vec{y}))\cdot \left(\frac{\vec{y}+\lambda(\vec{x}-\vec{y})-\vec{y}}{\lambda}\right) \\
+g'(\lambda)-g'(0) &\geq 0
+\end{align*}
+Aplicando el teorema del valor medio (teorema \ref{valormedioenr}) a $g$, existe $\lambda \in (0,1)$ tal que
+$$g(1)-g(0) = g'(\lambda)$$
+Como $g'(\lambda)-g'(0) \geq 0$
+$$g(1)-g(0) \geq g'(0)$$ 
+Esto nos lleva a
+\begin{align*}
+f(\vec{x})-f(\vec{y}) &\geq \nabla f(\vec{y})\cdot(\vec{x}-\vec{y}) \\
+f(\vec{x})      &\geq f(\vec{y})+\nabla f(\vec{y})\cdot(\vec{x}-\vec{y})
+\end{align*}
+Lo cual cumple el teorema \ref{teoconvexidad1} y entonces $f$ es convexa.
+\end{demostracion}
+
+\begin{teorema}\label{teoconvexidad5}
+Sea $f:D\subseteq \R^n \to \R$ de clase $\mathcal{C}^2$ con $D$ abierto y convexo. $f$ es convexa (respectivamente estrictamente convexa)\index{Funci\'on!convexa}\index{Funci\'on!estrictamente convexa} en $D$ si y s\'olo si $Hf(\vec{x})$ es semi-definida positiva (respectivamente definida positiva) para todo $\vec{x}\in D$.
+\end{teorema}
+
+\begin{demostracion}
+\textcolor{white}{linea en blanco}
+\\($\Rightarrow$): Supongamos que $f$ es convexa. Sean $\vec{x}\in D$, $\vec{h}\in \R^n\setminus\{0\}$ y definamos $g:[0,\varepsilon]\to \R$ tal que $\vec{x}+\lambda \vec{h} \in D$ por $g(\lambda)=\nabla f(\vec{x}+\lambda \vec{h})\cdot\lambda$. Como $g$ es derivable se obtiene
+$$g'(\lambda)=\vec{h}^t Hf(\vec{x}+\lambda \vec{h})\vec{h}$$
+debemos demostrar que 
+$$g'(0)=\lim_{\lambda \to 0^+} \frac{g(\lambda)-g(0)}{\lambda}\geq 0$$
+Del teorema \ref{teoconvexidad3} tenemos que
+\begin{align*}
+g(\lambda)-g(0) &= (\nabla f(\vec{x}+\lambda \vec{h})-\nabla f(\vec{x}))\cdot \vec{h} \\
+                &= (\nabla f(\vec{x}+\lambda \vec{h})-\nabla f(\vec{x}))\cdot \left(\frac{\vec{x}+\lambda \vec{h} -\vec{x}}{\lambda}\right) \\
+                &\geq 0  
+\end{align*}
+($\Leftarrow$): Supongamos que $H$ es definida no negativa. Sean $\vec{x},\vec{y} \in D$, $\vec{h}=\vec{x}-\vec{y}$ y $g:[0,1]\to \R$ tal que $\vec{x}+\lambda \vec{h} \in D$. Aplicando el teorema del valor medio (teorema \ref{valormedioenr}) a $g$ en $[0,1]$, existe $\lambda \in (0,1)$ tal que
+\begin{align*}
+g(1)-g(0) &= g'(\lambda) \\
+          &= \vec{h}^t Hf(\vec{x}+\lambda \vec{h})\vec{h} \\
+          &= \vec{h}^t Hf(\vec{x}+\lambda (\vec{y}-\vec{x}))\vec{h} \\
+          &\geq 0
+\end{align*}
+de acuerdo al teorema \ref{teoconvexidad2} esta \'ultima desigualdad verifica que $f$ es convexa. 
+\end{demostracion}
+
+La convexidad es una condici\'on necesaria para la existencia de m\'inimos locales\index{M\'inimo!local} de funciones y la convexidad estricta es una condici\'on suficiente para la existencia de un m\'inimo global\index{M\'inimo!global}. Para una funci\'on $f: D\subset \R^n \to \R$ el teorema \ref{2doorden} nos provee un criterio \'util para determinar la convexidad de una funci\'on cuando esta es diferenciable.
+
+\begin{ejemplo}\label{ejemploconvexidad}
+$-\ln(x)$ con $x\in \R_{++}$ ($x>0$) es convexa. En efecto,
+\begin{eqnarray*}
+-\ln(\lambda x + (1-\lambda)y)      &\leq & -\lambda \ln(x) - (1-\lambda)\ln(y) \\
+\lambda \ln(x) + (1-\lambda)\ln(y)  &\leq &  \ln(\lambda x + (1-\lambda)y) \\
+x^{\lambda} y^{1-\lambda}           &\leq &  \lambda x + (1-\lambda)y \label{eqec}
+\end{eqnarray*}
+Mediante la diferenciabilidad de la funci\'on podemos garantizar que es convexa ya que $\dpr{^2f}{x^2}=\frac{1}{x^2}>0$ $\forall x>0$.
+\end{ejemplo}
+
+\begin{ejemplo}
+Las funciones en $\R$:
+\begin{enumerate}
+\item $ax+b$ de $\R$ en $\R$ con cualquier $a,b\in \R$
+\item $\exp(\alpha x)$ de $\R$ en $\R$ con cualquier $a\in \R$
+\item $x^\alpha$ de $\R_+$ en $\R_+$ con $\alpha \geq 1$
+\item $|x|^\alpha$ de $\R$ en $\R_+$ con $\alpha \geq 1$
+\end{enumerate}
+
+Las funciones en $\R^2$:
+\begin{enumerate}
+\item $\vec{a}^t \vec{x} + b$ de $\R^2$ en $\R$ con $\vec{a},\vec{x}\in \R^2$, $b\in \R$
+\item $A(\alpha x_1 + \beta x_2)^\rho$ de $\R_+^2$ en $\R$ con $A,\alpha,\beta > 0$ y $\rho > 1$
+\item $x_1^{\alpha}x_2^{\beta}$ de $\R_+^2$ en $\R$ con $\alpha + \beta > 1$ 
+\end{enumerate}
+
+Junto a las normas en $\R^n$ y toda funci\'on $f(x)= \vec{a}^t \vec{x} + b$ con $\vec{a},\vec{x}\in \R^n$ y $b \in \R$ son funciones convexas. 
+\end{ejemplo}
+
+\section{Funciones c\'oncavas}
+
+\begin{definicion}\label{def-fconcava}
+Una funcion $f: D\subset \R^n \to \R$, con $D$ abierto y convexo, es c\'oncava \index{Funci\'on!c\'oncava} (respectivamente estrictamente c\'oncava)\index{Funci\'on!estrictamente c\'oncava} si la funci\'on $-f$ es convexa (respectivamente estricatamente convexa).
+De esta forma, $f$ es c\'oncava (resp. estrictamente c\'oncava) si
+$$f(\lambda \vec{x} + (1-\lambda) \vec{y}) \geq \lambda f(\vec{x}) + (1-\lambda) f(\vec{y}) \qquad \forall \vec{x},\vec{y} \in D , 0\leq \lambda \leq 1 \quad (\text{resp. }>)$$
+Alternativamente, una funci\'on es c\'oncava si su hipografo es convexo\index{Convexidad!del hipografo}, esto es
+$$\lambda (\vec{x},f(\vec{x})) + (1-\lambda)(\vec{y},f(\vec{y}))\in hip(f)$$
+\end{definicion}
+
+\begin{nota}
+Seguimos suponiendo que el dominio de la funci\'on es convexo por las mismas razones consideradas para las funciones convexas.% Son tres hechos completamente distintos pero relacionados: La convexidad del dominio, la c\'oncavidad de la funci\'on y la convexidad del hipografo en el caso de las funciones c\'oncavas.
+\end{nota}
+
+De la definici\'on presentada tenemos que todo lo expuesto sobre funciones convexas es v\'alido cambiando $f$ por $-f$. As\'i, en los teoremas \ref{teoconvexidad1}, \ref{teoconvexidad2}, \ref{teoconvexidad3}, \ref{teoconvexidad4} y \ref{teoconvexidad5} nos basta con reemplazar m\'inimo por m\'aximo, invertir las desigualdades, cambiar convexo por c\'oncavo, (semi) definida positiva por (semi) definida negativa y cambiar ep\'igrafo por hipografo para obtener el caso c\'oncavo.
+
+La concavidad es una condici\'on necesaria para la existencia de m\'aximos locales\index{M\'aximo!local} de funciones y la concavidad estricta es una condici\'on suficiente para la existencia un m\'aximo global\index{M\'aximo!global}. Para una funci\'on $f: D\subset \R^n \to \R$ el teorema \ref{2doorden} nos provee un criterio \'util para determinar la concavidad de una funci\'on cuando esta es diferenciable.
+
+\section{Extremos restringidos y Multiplicadores de Lagrange}
+
+\textbf{Motivaci\'on:} Veremos intuitivamente el caso en que aparecen restricciones en un problema de maximizaci\'on o minimizaci\'on. Retomaremos esto m\'as adelante pero es conveniente tener al menos la noci\'on de como afrontar estos problemas. Las demostraciones detalladas las veremos en el cap\'itulo final para seguir con temas tanto o m\'as importantes.
+
+\subsection{Condiciones de \texorpdfstring{1$^{\text{er}}$}{1er} orden para extremos restringidos}
+\index{Condiciones de $1^\text{er}$ orden!para extremos restringidos}
+
+\begin{teorema}{\rm (Teorema de los multiplicadores de Lagrange, forma geom\'etrica)}
+\index{Teorema!de los multiplicadores de Lagrange!Forma geom\'etrica}
+\\Sean $f:A\subset\R^{n}\rightarrow\R$ y
+$g:A\subset\R^{n}\rightarrow\R$ funciones diferenciables. Sea $\vec{x}_{0}\in
+A$ y $g(\vec{x}_{0})=c$, y sea $S$ el conjunto de nivel para $g$ con valor $c$, es
+decir
+\[
+S=\left\{\vec{x}\in A : g(\vec{x})=c\right\}
+\]
+Supongamos que $\nabla g(\vec{x}_{0})\neq 0$. Si $\left.  f\right|  _{S}$ ($f$
+restringida a $S$) tiene un m\'inimo o m\'aximo local\index{M\'inimo!local}\index{M\'aximo!local} en $S$ en $\vec{x}_{0}$, o
+equivalentemente, si $\vec{x}_{0}$ es una soluci\'on del problema:
+\begin{equation*}
+\begin{array}{clccl}
+\displaystyle \min_x 		& f(\vec{x}) 	 & \text{\qquad \'o \qquad} & \displaystyle \max_x 	 & f(\vec{x})\\
+\text{s.a}					& g(\vec{x})=c &  						& \text{s.a} 			 & g(\vec{x})=c
+\end{array}
+\end{equation*}
+ambos problemas se pueden resolver con la funci\'on Lagrangeano\index{Funci\'on!Lagrangeano}:
+$$L(\vec{x},\lambda) = f(\vec{x}) - \lambda (g(\vec{x})-c)$$
+sobre la cual podemos aplicar la condici\'on de primer orden y es posible, cuando el problema tiene soluci\'on, encontrar un valor
+$\lambda \in \R$, llamado multiplicador de Lagrange\index{Multiplicador!de Lagrange}, tal que\index{Problema!de minimizaci\'on}\index{Problema!de maximizaci\'on}
+\[
+\nabla f(\vec{x}_{0})=\lambda\nabla g(\vec{x}_{0})
+\]
+\end{teorema}
+
+\begin{demostracion}
+Supongamos que $\vec{x}_{0}$ es soluci\'on del problema de minimizaci\'on (el
+otro caso es similar) y sea
+\[
+S=\left\{ \vec{x}\in A: g(\vec{x})=c\right\}
+\]
+Como $\nabla g(\vec{x}_{0})\neq \vec{0}$, entonces este vector es normal a la superficie
+$S$, por otro lado, el plano tangente a $S$ en $\vec{x}_{0}$ se caracteriza como
+\[
+\pi:\:\nabla g(\vec{x}_{0})^t\cdot(\vec{x}-\vec{x}_{0})=0
+\]
+o equivalentemente
+\[
+\pi=\left\{  \sigma^{\prime}(0):\sigma:\R\to A,\:\sigma(t)\in
+S\:\forall t,\:\sigma(0)=\vec{x}_{0}\right\}
+\]
+Entonces, siendo $\vec{x}_{0}$ un m\'inimo de $f$, la funci\'on $t\longmapsto
+f(\sigma(t))$ tiene un m\'inimo en $0$ para cada $\sigma$, por tanto
+\[
+\nabla f(\vec{x}_{0})^t\cdot\sigma^{\prime}(0)=0
+\]
+es decir, $\nabla f(\vec{x}_{0})$ es ortogonal al plano tangente o lo que es lo
+mismo, paralelo al vector $\nabla g(\vec{x}_{0})$. Por lo tanto, existe un real
+$\lambda$ tal que
+\[\nabla f(\vec{x}_{0})=\lambda\nabla g(\vec{x}_{0})\]
+\end{demostracion}
+
+%Al valor $\lambda$ se le llama multiplicador de Lagrange\index{Multiplicador!de Lagrange} y a la
+%funci\'on de $n+1$ variables
+%\[
+%L(x,\lambda)=f(x)-\lambda g(x)
+%\]
+%se le conoce como Lagrangeano\index{Funci\'on!Lagrangeano}. 
+
+Observemos que la funci\'on Lagrangeano consta de $n+1$ variables (el multiplicador es una variable m\'as) y que el teorema provee una condici\'on necesaria que es equivalente a que el siguiente sistema tenga soluci\'on:
+\begin{equation}\label{*1}%
+\begin{array}
+[c]{lll}%
+\left\{
+\begin{array}
+[c]{l}%
+\nabla f(\vec{x}_{0})=\lambda\nabla g(\vec{x}_{0})\\
+g(x_{1},\ldots,x_{n})=c
+\end{array}
+\right.
+& \:\Longleftrightarrow\: & \left\{
+\begin{array}
+[c]{l}%
+\displaystyle \frac{\partial f}{\partial x_{1}}(x_{1},\ldots,x_{n})=\lambda\frac{\partial
+g}{\partial x_{1}}(x_{1},\ldots,x_{n})\\
+\vdots \\
+\displaystyle \frac{\partial f}{\partial x_{n}}(x_{1},\ldots,x_{n})=\lambda\frac{\partial
+g}{\partial x_{n}}(x_{1},\ldots,x_{n})\\
+\\g(x_{1},\ldots,x_{n})=c
+\end{array}
+\right.
+\end{array} 
+\end{equation}
+
+\begin{corolario}
+Si $f$ al restringirse a una superficie $S$, tiene un m\'aximo o un
+m\'inimo\index{M\'inimo!local}\index{M\'aximo!local} en $\vec{x}_{0}$, entonces $\nabla f(\vec{x}_{0})$ es perpendicular a $S$ en
+$\vec{x}_{0}$.
+\end{corolario}
+
+%Gr\'aficamente, dado el contorno $C$ de una funci\'on de dos variables $f(x_1,x_2)$ igual a una constante $a$ y el contorno $C'$ de la restricci\'on $g(x_1,x_2)$ igual a una constante $b$ podemos interpretar la condici\'on $\nabla f(x_{0})=\lambda\nabla g(x_{0})$ como sigue
+%\begin{figure}[H]
+%	\centering
+%	\input{figuras/tangencia.pdf_tex}
+%	\caption{Relaci\'on entre el multiplicador de Lagrange y las curvas de nivel}
+%\end{figure}
+
+\begin{ejemplo}\label{1}
+Sea $S\subset\R^{2}$ la recta que pasa por el punto $(-1,0)$ y tiene
+una inclinaci\'on de $45^{\circ}$ y sea $f:\R^{2}\to \R$ tal
+que $(x,y)\mapsto x^{2}+y^{2}$. Hallar los extremos de $f$ sobre la recta
+$S$.
+
+\begin{solucion}
+Veamos que $S$ se puede escribir como
+\[
+S=\left\{  (x,y): y-x-1=0\right\}
+\]
+y denotemos por $(x_{0},y_{0})$ el posible candidato a ser extremo y
+$g(x,y)=y-x-1$, $c=0$. De esta forma, el Lagrangeano del problema corresponde a
+$$L(x,y,\lambda)=x^2 + y^2 -\lambda (y-x-1)$$
+a partir del cual, aplicando el sistema Lagrangeano (\ref{*1}) se obtiene
+%\begin{align*}
+%\nabla f(x_{0},y_{0})  & =(2x_{0},2y_{0})\\
+%\nabla g(x_{0},y_{0})  & =(-1,1)
+%\end{align*}
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+2x_{0}=-\lambda\\
+2y_{0}=\lambda\\
+y_{0}=x_{0}+1
+\end{array}
+\right.   & \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+x_{0}=-y_{0}\\
+y_{0}=x_{0}+1
+\end{array}
+& \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+x_{0}=-1/2\\
+y_{0}=1/2
+\end{array}
+\end{array}
+\]
+Es decir, el extremo de $f$ es $(x_{0},y_{0})=(-\frac{1}{2},\frac{1}{2})$ y el
+valor del multiplicador de Lagrange es $\lambda=1$.
+\end{solucion}
+\end{ejemplo}
+
+\begin{ejemplo}
+Encontrar el m\'aximo valor de $f(x,y,z)=x+2y+3z$ en la curva de la intersecci\'on del plano $x-y+z=1$ y la circunferencia $x^2+y^2=1$.
+
+\begin{solucion}
+Debemos plantear el Lagrangeano del problema, el cual corresponde a
+$$L(x,y,z,\lambda_1,\lambda_2)=x+2y+3z - \lambda_1 (x-y+z-1) - \lambda_2 (x^2+y^2-1)$$
+%Debemos encontrar los valores que cumplen $\nabla f(x_0) = \lambda \nabla g(x_0) + \mu \nabla h(x_0)$. Tenemos que
+%$$\nabla f(x,y,z)=(1,2,3)$$
+%$$\nabla g(x,y,z)=(1,-1,1)$$
+%$$\nabla h(x,y,z)=(2x_0,2y_0,0)$$
+Aplicando el sistema lagrangeano (\ref{*1}) obtenemos
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+1=\lambda_1 + 2\lambda_2 x_0 \\
+2=-\lambda_1 + 2\lambda_2 y_0 \\
+3 = \lambda_1 \\
+x_0-y_0+z_0=1 \\
+x_0^2 + y_0^2=1
+\end{array}
+\right.   & \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+5x_0 = -2y_0 \\
+x_0-y_0+z_0=1 \\
+x_0^2 + y_0^2=1
+\end{array}
+& \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+x_0=\pm 2/\sqrt{29}\\
+y_0=\pm 5/\sqrt{29}\\
+z_0=1\pm 7/\sqrt{29}
+\end{array}
+\end{array}
+\]
+Es decir, $f$ presenta dos extremos que son 
+$$(x_1,y_1,z_1)=\left(\frac{2}{29},\frac{5}{29},1+\frac{7}{29}\right)$$
+$$(x_2,y_2,z_2)=\left(\frac{-2}{29},\frac{-5}{29},1-\frac{7}{29}\right)$$ 
+mientras que los valores de los multiplicadores de Lagrange son $\lambda_1 = 3$ y $\lambda_2 = \pm \sqrt{29}/2$.
+\end{solucion}
+\end{ejemplo}
+
+Los siguientes contraejemplos resultan interesantes:
+
+\begin{ejemplo} Consideremos el problema
+\begin{eqnarray*}
+\begin{array}{cc}
+\displaystyle \min_{x_1,x_2} & x_1+x_2   \\
+\text{s.a}  			 	 & 2x_1-3x_2=0
+\end{array}
+\end{eqnarray*}
+Observemos que $\nabla f(x_1,x_2)|_{(0,0)}= (1,1)$ y $\nabla g(x_1,x_2)|_{(0,0)}=(2,3)$. Entonces, no existe $\lambda\in \R$ que haga sistema que definen las condiciones de primer orden del Lagrangeano tenga soluci\'on dado.
+\end{ejemplo}
+
+\begin{ejemplo} Consideremos el problema
+\begin{eqnarray*}
+\begin{array}{cc}
+\displaystyle \min_{x_1,x_2} & 2x_1+3x_2^2   \\
+\text{s.a}  			 	 & 2x_1-3x_2^2=0
+\end{array}
+\end{eqnarray*}
+Observemos que $\nabla f(x_1,x_2)|_{(0,0)}= (2,0)$ y $\nabla g(x_1,x_2)|_{(0,0)}=(2,0)$. Entonces, los gradientes son linealmente dependientes y no se cumple que $\nabla f(x_1,x_2)|_{(0,0)} - \lambda \nabla g(x_1,x_2)|_{(0,0)}=(0,0)$ a menos que $\lambda = 1$ lo que hace que el sistema que definen las condiciones de primer orden del Lagrangeano no tenga soluci\'on dado que el par $(1,0)$ no cumple la restricci\'on del problema.
+\end{ejemplo}
+
+En general, para poder determinar si los puntos extremos\index{Puntos!extremos} son m\'inimos
+locales, m\'aximos\index{M\'inimo!local}\index{M\'aximo!local} o puntos sillas\index{Punto!silla} debemos analizar el comportamiento de la
+2$^{\text{da}}$ derivada como veremos m\'as adelante, u otros argumentos.
+
+Supongamos ahora que tenemos $k$ restricciones de igualdad, es decir
+\[
+S=\left\{\vec{x}\in\R^{n}: g_{1}(x_{1},\ldots,x_{n})=0,\ldots,g_{k}(x_{1}%
+,\ldots,x_{n})=0\right\}
+\]
+y el problema de optimizaci\'on es:
+\begin{equation}\label{*2}
+\begin{array}
+[c]{lll}
+\displaystyle \min_x f(\vec{x}) & \qquad\text{\'o\qquad} & \displaystyle \max_x f(\vec{x})\\
+\vec{x}\in S &  & \vec{x}\in S
+\end{array}
+\end{equation}
+donde $f,g_i:\R^{n}\to\R,$ $i\in\{1,\ldots,k\}$ son funciones diferenciables.
+
+Entonces el teorema de los multiplicadores de Lagrange se extiende de la siguiente forma:
+
+\begin{teorema}
+Si los problemas (\ref{*2}) tienen un m\'inimo o m\'aximo local\index{M\'inimo!local}\index{M\'aximo!local} $\vec{x}_{0}$,
+es decir, existe una vecindad $V$ de $\vec{x}_{0}$ tal que:
+\[
+f(\vec{x})\geq f(\vec{x}_{0})\:\forall \vec{x}\in V\cap S\qquad\left(  \text{\'o }f(\vec{x})\leq
+f(\vec{x}_{0})\right)
+\]
+entonces existen $k$ n\'umeros reales (multiplicadores) $\lambda
+_{1},\ldots,\lambda_{k}$ tales que:
+\[
+\nabla f(\vec{x}_{0})=\lambda_{1}\nabla g_{1}(\vec{x}_{0})+\ldots+\lambda_{k}\nabla
+g_{k}(\vec{x}_{0})
+\]
+siempre que los vectores $\nabla g_{1}(\vec{x}_{0}),\ldots,\nabla g_{k}(\vec{x}_{0})$ sean
+linealmente independientes.
+\end{teorema}
+
+\subsection{An\'alisis geom\'etrico}
+
+Anteriormente dijimos que la funci\'on Lagrangeano resuelve el problema original por medio de un problema equivalente sin restricciones. Se evidencia esto si diferenciamos $L(x_1,x_2,\lambda)$, es decir
+$$dL(x_1,x_2,\lambda) = \dpr{L(x_1,x_2,\lambda)}{x_1}dx_1 + \dpr{L(x_1,x_2,\lambda)}{x_2}dx_2 + \dpr{L(x_1,x_2,\lambda)}{\lambda}d\lambda$$
+reemplazando cada una de las derivadas parciales que aparecen en esto por las que aparecen en el sistema Lagrangeano se llega a
+\begin{eqnarray*}
+dL(x_{01},x_{02},\lambda_0) &=& \dpr{f(x_{01},x_{02})}{x_1}dx_1 + \dpr{f(x_{01},x_{02})}{x_2}dx_2 \cr
+& & - g(x_{01},x_{02})d\lambda - \lambda \left(\dpr{g(x_{01},x_{02})}{x_1}dx_1 + \dpr{g(x_{01},x_{02})}{x_2}dx_2 \right) \cr
+dL(x_{01},x_{02},\lambda_0) &=& 0						  	 
+\end{eqnarray*}
+Es posible escribir la restricci\'on de la forma $g(x_{01},x_{02})=0$, por lo tanto lo anterior se reduce a
+\begin{align*}
+dL(x_{01},x_{02},\lambda_0) &= \dpr{f(x_{01},x_{02})}{x_1}dx_1 + \dpr{f(x_{01},x_{02})}{x_2}dx_2 - \lambda \left(\dpr{g(x_{01},x_{02})}{x_1}dx_1 + \dpr{g(x_{01},x_{02})}{x_2}dx_2 \right) \cr 
+dL(x_{01},x_{02},\lambda_0) &= 0
+\end{align*}
+a partir de $g(x_{01},x_{02})=0$, se tiene que 
+$$dg(x_{01},x_{02})=\dpr{g(x_{01},x_{02})}{x_1}dx_1 + \dpr{g(x_{01},x_{02})}{x_2}dx_2 = 0$$ 
+y se puede simplificar llevando el diferencial del Lagrangeano al siguiente resultado:
+$$dL(x_{01},x_{02},\lambda_0) = \dpr{f(x_{01},x_{02})}{x_1}dx_1 + \dpr{f(x_{01},x_{02})}{x_2}dx_2 = 0 \quad \forall (x_{01},x_{02})\in S$$
+lo cual nos da la condici\'on de primer orden de $f(x)$. 
+
+De la \'ultima ecuaci\'on se obtiene
+$$\frac{\dpr{f(x_{01},x_{02})}{x_1}}{\dpr{f(x_{01},x_{02})}{x_2}} = -\frac{dx_2}{dx_1}$$
+lo cual es v\'alido siempre y cuando $\dpr{f(x_{01},x_{02})}{x_2} \neq 0$ y $dx_1 \neq 0$, lo cual tiene sentido cuando la soluci\'on del problema es interior. La interpretaci\'on es la siguiente: Por medio de la funci\'on Lagrangeano se llega a una elecci\'on de variables tal que cualquier otra elecci\'on distinta es desfavorable o resulta ineficiente.
+
+Hemos detallado la geometr\'ia de los multiplicadores de Lagrange y ahora veremos un an\'alisis gr\'afico que nos servir\'a para fijar ideas:
+
+De las condiciones de primer orden del Lagrangeano obtuvimos
+$$\frac{\dpr{f(x_{01},x_{02})}{x_1}}{\dpr{f(x_{01},x_{02})}{x_2}} = -\frac{dx_2}{dx_1}$$
+fijando $y=f(x_1,x_2)$ se tiene que en $(x_{01},x_{02})$ la pendiente es $m = -\displaystyle \frac{dx_2}{dx_1}$. 
+
+Diferenciando $g(x_1,x_2)=0$ obtuvimos
+$$\dpr{g(x_{01},x_{02})}{x_1}dx_1 + \dpr{g(x_{01},x_{02})}{x_2}dx_2 = 0$$
+reordenando,
+$$\frac{\dpr{g(x_{01},x_{02})}{x_1}}{\dpr{g(x_{01},x_{02})}{x_2}} = -\frac{dx_2}{dx_1}$$
+esto \'ultimo, fijando $g(x_1,x_2)=0$ nos dice que en $(x_{01},x_{02})$ la pendiente es $m = -\displaystyle \frac{dx_2}{dx_1}$. 
+
+Supongamos que la curva de nivel de la funci\'on objetivo es convexa (esto es nada m\'as que para fijar ideas gr\'aficamente). Suponiendo que la curva de nivel de la restricci\'on, la cual limita el espacio factible, es c\'oncava podemos representar esto geom\'etricamente de la siguiente forma:
+\begin{figure}[H]
+\begin{minipage}[t]{.45\textwidth}
+	\centering
+	\input{figuras/geometria-de-multiplicadores-1.pdf_tex}
+	\caption{Curva de nivel de $f$.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{.45\textwidth}
+	\centering
+	\input{figuras/geometria-de-multiplicadores-2.pdf_tex}
+	\caption{Curva de nivel de $g$.}
+\end{minipage}
+\end{figure}
+
+Combinando ambos gr\'aficos se llega a lo siguiente:
+\begin{figure}[H]
+	\centering
+	\input{figuras/geometria-de-multiplicadores-3.pdf_tex}
+	\caption{Condiciones de primer orden del Lagrangeano.}
+\end{figure}
+
+En $(x_{01},x_{02})$ la pendiente es 
+$$m = -\displaystyle \frac{\dpr{f}{x_1}}{\dpr{f}{x_2}}=\frac{\dpr{g}{x_1}}{\dpr{g}{x_2}}=-\displaystyle \frac{dx_2}{dx_1}$$
+
+Finalmente, concluiremos el an\'alisis geom\'etrico con el siguiente gr\'afico que se deduce a partir del anterior
+\begin{figure}[H]
+	\centering
+	\input{figuras/tangencia.pdf_tex}
+	\caption{Relaci\'on entre el multiplicador y las curvas de nivel.}
+\end{figure}
+Este \'ultimo gr\'afico nos da cuenta de que en el \'optimo los gradientes de la funci\'on objetivo y la restricci\'on son linealmente dependientes, es decir son proporcionales y tenemos que 
+$$\nabla f(x) = \lambda \nabla g(x)$$
+Este resultado ya se demostr\'o anteriormente.
+
+\subsection{Interpretaci\'on del multiplicador de Lagrange}
+
+Para fijar ideas consideremos el sistema Lagrangeano que resuelve la maximizaci\'on de una funci\'on de dos variables sujeta a una restricci\'on de igualdad:
+$$\left\{
+\begin{array}{ll}
+\displaystyle \dpr{L(x_{01},x_{02},\lambda_0)}{x_1} 	&= \displaystyle \dpr{f(x_{01},x_{02})}{x_1}-\lambda_0 \displaystyle \dpr{g(x_{01},x_{02})}{x_1}=0 \\
+\displaystyle \dpr{L(x_{01},x_{02},\lambda_0)}{x_2} 	&= \displaystyle \dpr{f(x_{01},x_{02})}{x_2}-\lambda_0 \displaystyle \dpr{g(x_{01},x_{02})}{x_2}=0 \\
+\displaystyle \dpr{L(x_{01},x_{02},\lambda_0)}{\lambda} &= g(x_{01},x_{02})-c=0 \\
+\end{array}
+\right.$$
+Viendo este sistema en conjunto como una funci\'on $L(x)=(L_1(x),L_2(x),L_3(x))=0$ el Jacobiano est\'a dado por
+$$DF(x_0)=
+\begin{bmatrix}
+-\dpr{g}{x_1}(x_0) & \dpr{^2f}{x_1^2}(x_0)-\lambda \dpr{^2g}{x_1^2}(x_0) & \dpr{^2f}{x_2 \partial x_1}(x_0)-\lambda \dpr{^2g}{x_2 \partial x_1}(x_0) \cr
+-\dpr{g}{x_2}(x_0) & \dpr{^2f}{x_2 \partial x_1}(x_0)-\lambda \dpr{^2g}{x_2 \partial x_1}(x_0) & \dpr{^2f}{x_2^2}(x_0)-\lambda \dpr{^2g}{x_2^2}(x_0) \cr
+0 & -\dpr{g}{x_1}(x_0) & -\dpr{g}{x_2}(x_0) \cr
+\end{bmatrix}
+$$
+y su determinante es $|DF(x_0)|\neq 0$. Dado esto el teorema de la funci\'on impl\'icita nos dice que podemos expresar $(x_{01},x_{02},\lambda_0)$ en funci\'on de $c$. Retomaremos este teorema m\'as adelante pero la idea principal es que es posible despejar las variables para expresarlas en funci\'on de $c$, al menos localmente tal como cuando tomamos $x=\sqrt{1-y^2}$ para una circunferencia. 
+
+Aplicando el teorema tenemos que 
+$$(x_{01},x_{02})=(x_1(c),x_2(c)) \quad \text{y} \quad \lambda_0 = \lambda(c) $$
+y entonces
+$$L(x_{01},x_{02},\lambda_0)=f(x_{01},x_{02})-\lambda g(x_{01},x_{02},c)$$
+Diferenciando con respecto a $c$ se obtiene
+\begin{align*}
+\frac{dL}{dc} &=
+\dpr{f(x_0)}{x_1}\frac{dx_{01}}{dc}+\dpr{f(x_0)}{x_2}\frac{dx_{02}}{dc}
+-\left[g(x_{01},x_{02})-c \right]\frac{d\lambda_0}{dc}
+-\lambda_0 \left[\dpr{g(x_0)}{x_1}\frac{dx_{01}}{dc} 
++ \dpr{g(x_0)}{x_2}\frac{dx_{02}}{dc} - 1\right] \cr
+\frac{dL}{dc} &=
+\left[\dpr{f(x_0)}{x_1} - \lambda_0 \dpr{g(x_0)}{x_1}\right]\frac{dx_{01}}{dc}
++\left[\dpr{f(x_0)}{x_2}-\lambda_0 \dpr{g(x_0)}{x_2}\right]\frac{dx_{02}}{dc}
+-\left[g(x_{01},x_{02})-c \right]\frac{d\lambda_0}{dc}+\lambda_0
+\end{align*}
+y debido a las condiciones de primer orden todos los terminos entre par\'entesis se cancelan, por lo tanto
+$$\frac{dL}{dc}=\lambda_0$$
+Es decir, el multiplicador de Lagrange da cuenta de c\'omo cambia la soluci\'on \'optima ante cambios en la restricci\'on.
+
+
+\subsection{Condiciones de \texorpdfstring{2$^{\text{do}}$}{2do} orden para extremos restringidos}
+\index{Condiciones de $2^\text{do}$ orden!para extremos restringidos}
+Consideremos el siguiente problema:%
+\begin{equation}\label{*3}
+\begin{array}{clcclr}
+\displaystyle \min_x 	 & f(x_1,\ldots , x_n) 	   & \text{\qquad \'o \qquad} & \displaystyle \max_x 	 & f(x_1,\ldots , x_n)     & 						  \\
+\text{s.a}				 & g_i(x_1,\ldots , x_n)=c &  			 			  & \text{s.a} 			 	 & g_i(x_1,\ldots , x_n)=c & \forall i \in \{1,\ldots , k\}
+\end{array}
+\end{equation}
+donde $f,g_i$ son funciones diferenciables.
+
+\begin{nota}
+En lo que sigue denotaremos $I = \{1,\ldots,k\}$.
+\end{nota}
+
+Por el teorema anterior sabemos que si $\{\nabla g_i(x_{1},\ldots,x_{n})\}$ son
+l.i. entonces existe $\lambda\in\R^{k}$ tal que:%
+\[
+\nabla f(x_{1},\ldots,x_{n})=\lambda^t\nabla g(x_{1},\ldots,x_{n})
+\]
+donde $g(x_{1},\ldots,x_{n})=\left(  g_{1}(x_{1},\ldots,x_{n}),\ldots,g_{k}%
+(x_{1},\ldots,x_{n})\right)  ^t$, es decir%
+\[
+\nabla L (x_{1},\ldots,x_{n},\lambda)=0
+\]
+donde $L$ representa el Lagrangeano del problema \eqref{*3}.
+
+De los puntos cr\'iticos para el Lagrangeano, m\'as las restricciones,
+obtenemos posibles candidatos a m\'inimos o m\'aximos locales\index{M\'inimo!local}\index{M\'aximo!local}:%
+\begin{align*}
+\nabla L(\vec{x}) & =0 \\
+g_i(\vec{x})  				& =0 \:\forall i\in I
+\end{align*}
+
+En el caso sin restricciones, el criterio para determinar de que tipo eran los
+posibles extremos era analizando la matriz Hessiana de la funci\'on
+objetivo, en dependencia de si esta era definida negativa o positiva, entonces
+se ten\'ia un m\'aximo o un m\'inimo respectivamente.
+
+Un criterio similar se tiene para el caso de un problema con restricciones,
+sin embargo no ser\'a necesario que el Hessiano, en este caso el del
+Lagrangeano, sea definido positivo o negativo para cada direcci\'on $\vec{d}$, en
+realidad bastar\'a que lo sea en un cierto conjunto que denominaremos
+conjunto de direcciones cr\'iticas\index{Conjunto!de direcciones cr\'iticas} y lo definiremos como:
+$$
+K(\vec{x})=\left\{\vec{d}\in\R^{n}:\nabla g_i(\vec{x}_0)\cdot \vec{d}=0\:\forall i\in I,\: \nabla f(\vec{x}_0)\cdot \vec{d}\geq 0\right\}
+$$
+cuando el problema es de minimizaci\'on\index{Problema!de minimizaci\'on} y
+$$
+K(\vec{x})=\left\{\vec{d}\in\R^{n}:\nabla g_i(\vec{x}_0)\cdot \vec{d}=0\:\forall i\in I,\: \nabla f(\vec{x}_0)\cdot \vec{d} \leq 0\right\}
+$$
+cuando es de maximizaci\'on\index{Problema!de maximizaci\'on}.
+
+\begin{teorema}\label{cso-lagrange}
+Sea $\vec{x}_{0}\in S=\left\{\vec{x}: g_i(\vec{x})=0\:\forall i\in I\right\}  $. Supongamos que
+$$\{\nabla g_1(\vec{x}_{0}),\ldots ,\nabla g_k(\vec{x}_{0})\}$$
+es linealmente independiente, entonces existe $\lambda\in\R^{k}$ tal que%
+\[
+\nabla L(\vec{x}_{0},\lambda)=0
+\]
+Si adem\'as se tiene que%
+\[
+\vec{d}^tH_{x}L(\vec{x}_{0},\lambda)\vec{d}>0\:\forall \vec{d}\in K(\vec{x}),\:\vec{d}\neq
+0\:
+%\left(\vec{d}^t(H_{x}L(\vec{x}_{0},\lambda))\vec{d}>0\:\forall \vec{d}\in
+%K(\vec{x}),\:\vec{d}\neq 0\right)
+\]
+entonces $\vec{x}_{0}$ es un m\'inimo local de \eqref{*3}. Mientras que si se tiene
+\[
+\vec{d}^t(H_{x}L(\vec{x}_{0},\lambda))\vec{d}<0\:\forall \vec{d}\in K(\vec{x}),\:\vec{d}\neq
+0\:
+%\left(\vec{d}^t(H_{x}L(\vec{x}_{0},\lambda))\vec{d}<0\:\forall \vec{d}\in
+%K(\vec{x}),\:\vec{d}\neq 0\right)
+\]
+entonces $\vec{x}_0$ es un m\'aximo local de \eqref{*3}\index{M\'inimo!local}\index{M\'aximo!local}.
+\end{teorema}
+
+Por razones pedag\'ogicas, la demostraci\'on de este teorema no se har\'a hasta el cap\'itulo \ref{cap5} a fin de seguir con contenidos que son tanto o m\'as importantes en el curso y hacerla cuando hayamos visto con detalle el teorema de los multiplicadores de Lagrange.
+
+Hay que tener presente que en el teorema el hessiano del Lagrangeano es solo con respecto
+a $\vec{x}$, es decir
+$$
+H_{x}L(\vec{x}_{0},\lambda)  =\left[
+\begin{array}
+[c]{cccc}%
+\frac{\partial^{2}L}{\partial x_{1}^{2}}(\vec{x}_{0},\lambda) & \frac{\partial^{2}%
+L}{\partial x_{1}\partial x_{2}}(\vec{x}_{0},\lambda) & \cdots & \frac{\partial
+^{2}L}{\partial x_{1}\partial x_{n}}(\vec{x}_{0},\lambda)\\
+\vdots & \vdots & \ddots & \vdots\\
+\frac{\partial^{2}L}{\partial x_{n}\partial x_{1}}(\vec{x}_{0},\lambda) &
+\frac{\partial^{2}L}{\partial x_{n}\partial x_{2}}(\vec{x}_{0},\lambda) & \cdots &
+\frac{\partial^{2}L}{\partial x_{n}^{2}}(\vec{x}_{0},\lambda)
+\end{array}
+\right] 
+=\left[  \frac{\partial^{2}L}{\partial x_i\partial x_{j}}(\vec{x}_{0}%
+,\lambda)\right]  _{i,j=1}^{n}%
+$$
+
+\begin{ejemplo}
+En el ejemplo (\ref{1}), diga si el punto $(x_{0},y_{0})=(-\frac{1}{2}%
+,\frac{1}{2})$ es un m\'aximo o un m\'inimo.
+\end{ejemplo}
+
+\begin{solucion}
+Para esto, construyamos primeramente el Lagrangeano del problema:%
+$$L(x,y,\lambda) = x^{2}+y^{2}-\lambda(y-x-1)$$
+
+Recordemos que el multiplicador de Lagrange era $\lambda=1$, por tanto, el
+Hessiano del Lagrangeano queda:%
+\[
+H_{x}L(x_{0},y_{0},\lambda)=\left(
+\begin{array}
+[c]{ll}%
+2 & 0\\
+0 & 2
+\end{array}
+\right)
+\]
+el cual es definido positivo para todo $d$, en particular para las direcciones
+del conjunto de direcciones cr\'iticas y por tanto el punto $(x_{0}%
+,y_{0})=(-\frac{1}{2},\frac{1}{2})$ es un m\'inimo.
+\end{solucion}
+
+\begin{ejemplo}
+Optimice el valor de la funci\'on $f(x,y)=x$ sobre el conjunto de puntos
+$(x,y)$ tales que $x^{2}+2y^{2}=3$.
+\end{ejemplo}
+
+\begin{solucion}
+El Lagrangeano para este problema queda de la siguiente forma:%
+\[
+L(x,y,\lambda)=x-\lambda(x^{2}+2y^{2}-3)
+\]
+a partir del cual, aplicando el sistema lagrangeano (\ref{*1}) se obtiene
+\[%
+\begin{array}
+[c]{lllll}%
+\left\{
+\begin{array}
+[c]{l}%
+1=2\lambda x_0 \\
+0=4\lambda y_0 \\
+x_0^{2}+2y_0^{2} = 3
+\end{array}
+\right.   & \quad\Rightarrow\quad &
+\begin{array}
+[c]{l}%
+1=2\lambda x_0 \\
+x_0^{2}+2y_0^{2} = 3
+\end{array}
+\end{array}
+\]
+y por tanto, los posibles candidatos a extremos ($\lambda$ no puede ser cero)
+son:%
+\begin{align*}
+(x_{1},y_{1},\lambda_{1})  & =\left(  \sqrt{3},0,\frac{1}{2\sqrt{3}}\right)
+\\
+(x_{2},y_{2},\lambda_{2})  & =\left(  -\sqrt{3},0,-\frac{1}{2\sqrt{3}%
+}\right)
+\end{align*}
+por otro lado se tiene que:
+\[H_{x}L(x,y,\lambda)=
+\begin{pmatrix}
+-2 \lambda & 0 \\
+0 & -4 \lambda
+\end{pmatrix}\]
+es decir, para $$(x_{1},y_{1},\lambda_{1})=\left(\sqrt{3},0,\frac{1}{2\sqrt{3}}\right)$$ $H_{x}L(x_{1},y_{1},\lambda_{1})$ es definida negativa y
+por tanto $(x_{1},y_{1})=(\sqrt{3},0)$ es un m\'aximo local mientras que para $$(x_{2},y_{2},\lambda_{2})=\left(-\sqrt{3},0,-\frac{1}{2\sqrt{3}}\right)$$ $H_{x}L(x_{2},y_{2},\lambda_{2})$ es definida positiva  y por lo
+tanto $(x_{2},y_{2})=(-\sqrt{3},0)$ es un m\'inimo local.
+\end{solucion}
+
+ 
+
+\section{Ejercicios}
+
+\subsection*{Derivadas superiores y teorema de Taylor}
+
+\maxmin{
+Sea $f(u,v,w)$ una funci\'on con derivadas parciales continuas de orden 1 y 2, y sea $g(x,y)=f(x+y,x-y,xy)$. Calcule $g_{xx}+g_{yy}$ en t\'erminos de derivadas de $f(u,v,w)$.
+}
+
+\maxmin{
+Considere la func\'ion $f(x,y)=x^3y+sen(x^2y)$ y verifique que
+$$\frac{\partial^4 f}{\partial x\partial^2 y\partial x}=\frac{\partial^4 f}{\partial^2 y\partial^2x}$$
+}
+
+\maxmin{
+Encuentre una funci\'on $f: \R^2 \rightarrow \R$ continua tal que $\displaystyle\lim_{ \left\|{\vec{x}}\right\| \to{+}\infty}{f(\vec{x})}=0$ y que no posea m\'aximo global.
+}
+
+\maxmin{
+Sea $u(x,y)$ una funci\'on con derivadas parciales continuas de orden 2 y considere la funci\'on $$v(s,t)=u(e^s\cos(t),e^s\sen(t))$$. Demuestre que $$\dpr{^2 v}{s^2}+\dpr{^2 v}{t^2}=e^{2s}\left(\dpr{^2 u}{x^2}+\dpr{^2 u}{y^2}\right)$$
+}
+
+\maxmin{
+Considere la funcion $u:\R^{n+1}  \to \mathbb{R}$, definida como
+$$u(t,\vec{x})=(\beta t)^\gamma \exp\left(\frac{-\alpha\|\vec{x}\|^2}{t}\right)$$
+Muestre que $u$ verifica la ecuacion de difusion:
+$$\dpr{u}{t} (t,\vec{x}) = k^2 \Delta u(t,\vec{x})$$
+Para $k > 0$ y el laplaciano calculado sin considerar la derivada con respecto a $t$, si y s\'olo si $\alpha  = \frac{1}
+{4k^2}$, $\gamma =  -\frac{n}{2}$ y $\beta$ cualquiera.
+}
+
+\maxmin{Una funci\'on $f(\vec{x})$ definida en un dominio $D\subset \R^n$ es homog\'enea de grado $m\geq 0$ si y s\'olo si se cumple
+\begin{equation*}
+f(tx_{1},\ldots,tx_{n})=t^{m}f(x_{1},\ldots,x_{n})
+\end{equation*}
+Dado esto, demuestre que:
+\begin{enumerate}
+\item Si la funci\'on $f(\vec{x})$ es homog\'enea de grado $m\geq 1$ entonces sus derivadas parciales son homog\'eneas de grado $m-1$, esto es
+\begin{equation*}
+\sum_{i=1}^n \dpr{f(tx_{1},\ldots,tx_{n})}{x_{i}}=t^{m-1} \sum_{i=1}^n \dpr{f(x_{1},\ldots,x_{n})}{x_{i}}
+\end{equation*}
+
+\textit{Indicaci\'on}. Defina $g(t)=f(t\vec{x})$ y derive con respecto a $t$.
+
+\item Una funci\'on homog\'enea de grado $m\geq 0$ puede expresarse c\'omo la suma de todas sus variables ponderadas por las derivadas parciales respectivas, esto es
+\begin{equation*}
+mf(x)=\sum_{1}^{n} x_{i} \dpr{f(x)}{x_i}
+\end{equation*}
+
+\textit{Indicaci\'on}. Utilice el resultado de la parte 1.
+\end{enumerate}
+}
+
+\maxmin{
+Demostrar que si $ f $ es de clase $\mathcal{C}^2 $ entonces\[ f(\vec{x}_0+\vec{h})=f(\vec{x}_0)+\nabla f(\vec{x}_0)\vec{h}+ 1/2 Hf(\vec{x}_0)\vec{h}^t+R_2(\vec{x}_0,\vec{h})\]
+donde \[\lim_{\vec{h} \to \vec{0}} \frac{R_2(\vec{x}_0,\vec{h})}{\|\vec{h}\|}=0 \]
+}
+
+\maxmin{
+Una funci\'on $u=f(x,y)$ con segundas derivadas
+parciales continuas que satisfaga la ecuaci\'on de Laplace
+$$\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{
+\partial y^2}=0$$
+se llama funci\'on arm\'onica. Determinar cuales de las
+siguientes funciones son arm\'onicas.
+	\begin{enumerate}
+	\item $u(x,y)=x^3-3xy^2$
+	\item $u(x,y)= \sen (x) \cosh (y)$
+	\item $u(x,y)=e^x sen y$
+	\end{enumerate}
+}
+
+\maxmin{
+Sea $f:\R^2\to\R$. Para cada $x$ defina
+$g_x:\R\to\R,$ $ g_x(y)=f(x,y)$. Suponga que para cada
+$x$ existe un \'unico $y$ tal que $g'_x(y)=0$. Si se denota por
+$c(x)$ tal $y$ y se supone que es diferenciable demostrar:
+	\begin{enumerate}
+	\item Si $\frac{\partial^2f}{ \partial y^2}(x,y)\ne 0 
+	$ para todo $(x,y)$ entonces:
+	$$c'(x) = \frac{\dpr{^2f}{y\partial x}(x,c(x))}{\dpr{^2f}{y^2}(x,c(x))}$$
+	\item Si $c'(x)=0$, entonces existe un $\bar y$
+	tal que
+	$$\dpr{^2f}{y \partial x}(x,\bar y)=0
+	\text{ y } \dpr{f}{y}(x,\bar y)=0$$
+	\end{enumerate}
+}
+
+\maxmin{
+Considere la funci\'on $f: \R^2 \rightarrow \R$ definida por:
+$$f(x,y)=\begin{cases}
+x^2 \arctan(y/x)-y^2 \arctan(x/y) & \text{ si } (x,y)\neq (0,0)  \cr
+0 & \text{ si } (x,y)=(0,0)
+\end{cases}$$
+\begin{enumerate}
+\item Calcule $f(x,0)$ y $f(0,y)$ para $x \neq 0$,$y \neq 0$ respectivamente.
+\item Para $(x,y) \neq (0,0)$, determine $\nabla f(x,y)$ y $H_f(x,y)$. {\textquestiondown}Es $H_f(x,y)$ matriz sim\'etrica?.
+\item {\textquestiondown}Se cumple que $\dfrac{{\partial^2 f}}{{\partial x \partial y}}(0,0)= \dfrac{{\partial^2 f}}{{\partial y \partial x}}(0,0)$?. Justifique.
+\item Encuentre el polinomio de Taylor de orden 2 en torno a (0,0).
+\end{enumerate}
+}
+
+\maxmin{
+Calcular el polinomio de Taylor de orden 2 en torno a $(\frac{\pi}{2},1)$ de la funci\'on definida por
+$$f(x,y)=\sen (xy)+\cos (xy) + 2(x+y)$$ 
+}
+
+\maxmin{
+Calcular la expansi\'on de Taylor de segundo orden de las
+funciones siguientes en los puntos se\~nalados, y calcule una vecindad en
+torno al punto tal que la aproximaci\'on tenga un error de a lo m\'as
+$10^{-2}$.
+	\begin{enumerate}
+	\item $f(x,y,z)=(x^2+2xy+y^2)e^z$ en $\{(1,2,0),(3,2,5)\}$.
+	\item $f(x,y,z)=(x^3+3x^2y+y^3)e^{-z^2}$ en
+	$\{(0,0,0),(3,2,3)\}$.
+	\item $f(x_1,x_2,x_3,x_4)=\log(\cos(x_1+x_2-x_3-x_4))$ en
+	$(0,0,0,0)$.
+	\end{enumerate}
+}
+
+\maxmin{
+Encuentre la aproximaci\'on de primer orden $P_1(x, y, z)$ y la aproximaci\'on de segundo orden $P_2(x, y, z)$ para la funci\'on
+$$f(x, y, z) = x e^y + z e^{2y}$$
+en torno al punto $(x_0, y_0, z_0) = (0, 0, 0)$. Encuentre una vecindad en torno al origen que garantice un error de a lo m\'as
+$10^{-3}$.
+}
+
+\maxmin{
+Sea $f:\R^n\to\R$ de clase $\mathcal{C}^\infty$. Pruebe que en
+general no se tiene que la serie de Taylor de $f$ converge a $f$. Para
+esto considere como contraejemplo la funci\'on $f:\R\to\R$ definida 
+por 
+$$f(x)=
+\begin{cases}e^{-\frac{1}{x^2}} & \text{ si } x<0
+\cr 0 & \text{ si } x\geq 0\cr
+\end{cases}
+$$
+Pruebe que es $\mathcal{C}^\infty$ y estudie su serie de Taylor en torno a cero.  
+}
+
+\maxmin{
+Escribir la f\'ormula general de Taylor de orden 3.
+}
+
+\subsection*{Extremos de funciones con valores reales}
+
+\maxmin{
+Sea $f: \R^2 \rightarrow \R$ una funci\'on continua que satisface $\displaystyle\lim_{ \left\|{\vec{x}}\right\| \to{+}\infty}{f(\vec{x})}=0$ y $f(\vec{x}_0)>0$ para alg\'un $\vec{x}_0 \in \R^2$. Pruebe que $f$ posee un m\'inimo global.
+}
+
+\maxmin{
+Sea $f(x,y)=(ax^2+by^2)e^{-(x^2+y^2)}$, con $a,b > 0$. Calcule todos los m\'aximos y m\'inimos globales.
+
+\textit{Indicaci\'on}. Analice los casos $a=b$,$a<b$ y $a>b$.
+}
+
+\maxmin{
+Calcular los extremos relativos y los puntos silla para las funciones
+\begin{enumerate}
+\item $\cos(x)\cosh(y)$ donde $\cosh(x)=\frac{1}{2}(e^x+e^{-x})$.
+\item $f(\vec{x})=\sum_{i=0}^m \|\vec{x}-\vec{y}^i\|^2$ donde $\vec{x}\in \R^n$ e $\vec{y}^i\in \R^n$, $i\in\{1,\ldots,m\}$.
+\end{enumerate}
+}
+
+\subsection*{Funciones c\'oncavas y convexas}
+
+\maxmin{
+Dados $\vec{d}\in \R^3\setminus \{\vec{0}\}$ y $\varepsilon > 0$, se llama cono de Bishop-Phelps al conjunto
+$$K(\vec{d},\varepsilon)=\{\vec{x}\in \R^3 : \varepsilon \|\vec{d}\| \|\vec{x}\| \leq \langle \vec{x},\vec{d} \rangle \}$$ 
+Demuestre que $K(\vec{d},\varepsilon)$ es convexo para todo $\vec{d}\in \R^3\setminus \{\vec{0}\}$ y $\varepsilon > 0$.
+}
+
+\maxmin{
+Dados $\vec{a},\vec{b} \in \R^2$ y $\gamma \in [0,1]$ se llama p\'etalo de Penot al conjunto 
+$$P_{\gamma} (\vec{a},\vec{b}) = \{\vec{x} \in \R^2 : \gamma \|\vec{a}-\vec{x}\| + \|\vec{x}-\vec{b}\| \leq \|\vec{b}-\vec{a}\| \} $$
+Demuestre que $P_{\gamma}(\vec{d},\varepsilon)$ es convexo para todo $\vec{a},\vec{b}\in \R^2$ y $\gamma \in [0,1]$.
+}
+
+\maxmin{
+Sea $g:\R^n \rightarrow \R$ una funci\'on convexa. Se define $f(\vec{x})=\exp [g(\vec{x})]$. Demuestre que $f$ es convexa.
+}
+
+\subsection*{Extremos restringidos}
+
+\maxmin{
+De un cart\'on de $20m^2$ se va a construir una caja rectangular sin tapa. Determine el m\'aximo volumen de la caja utilizando multiplicadores de Lagrange.
+}
+
+\maxmin{
+Determinar el paralelep\'ipedo de lados paralelos a los ejes de coordenadas, y de m\'aximo volumen que cabe dentro del elipsoide
+$$\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$$
+}
+
+\maxmin{
+Para $p, q, r$ n\'umeros racionales positivos, considere la funci\'on $f(x,y,z) = x^p y^q z^r$ 
+y determine el mayor valor de $f(x,y,z)$ cuando $x+y+z=a$, $x>0$, $y>0$ y $z>0$.
+}
+
+\maxmin{
+Determine todos los valores extremos de $f(x,y)=x^2+y^2+z$ en la regi\'on $x^2+y^2+z^2\leq 1$, $z \geq 0$.
+}
+
+\maxmin{
+Encontrar los puntos de la esfera 
+$$3x^2 + 3y^2 + 3z^2 = 18$$ 
+que est\'an m\'as lejos y m\'as cerca del punto $(3,1,-1)$ mediante multiplicadores de Lagrange.
+}
+
+\maxmin{
+Encuentre el m\'aximo valor de la funci\'on
+$$x+2y+3z$$
+en la curva de la intersecci\'on del plano $2x-y+z=1$ y el cilindro $x^2+y^2=1$ mediante multiplicadores de Lagrange.
+}
+
+\maxmin{
+Sean $p, q > 0$. Encontrar el m\'inimo de la funci\'on $f:\R^2 \rightarrow \R$ definida por
+$$f(x,y) = \frac{x^p}{p} + \frac{y^q}{q}$$ 
+sujeto a $x,y > 0$ y $xy = 1$. Usar este resultado para deducir la siguiente desigualdad cuando $\frac{1}{p}+\frac{1}{q}=1$ y $x,y > 0$
+$$xy \leq \frac{x^p}{p} + \frac{y^q}{q}$$
+}
+
+\maxmin{
+Dada la funci\'on $f: \R^3 \rightarrow \R$ tal que $f(x,y,z)=xy+z$, determine si existe m\'inimos y m\'aximos globales de $f$ en la regi\'on $A=\left\{{(x,y,z) \in \R^3 : x^2+y^2-xy+z^2 \leq 1}\right\}$. En caso de existir, calc\'ulelos.
+}
+
+\maxmin{
+Calcular los extremos y los puntos silla para las funciones
+\begin{enumerate}
+\item $f(x,y,z)=x^2+y^2+z^2$ tal que $xy=1$.
+\item $f(x,y,z)=x^2+3y^2+2z^2-2xy+2xz$ tal que $x+y+z=1$.
+\end{enumerate}
+}
+
+\maxmin{
+Resuelva el siguiente problema:
+\begin{eqnarray*}
+\displaystyle \min_{x,y} 		& \quad x^{2}-y^{2} \\
+\text{s.a}  & \quad x^{2}+y^{2}=1
+\end{eqnarray*}
+}
+
+\maxmin{
+Resuelva el siguiente problema:
+\begin{eqnarray*}
+\displaystyle \min_{x,y,z} 	& \quad x+y+z \\
+\text{s.a}  & x^{2}+y^{2} =2 \\
+& x+z =1
+\end{eqnarray*}
+}
+
+\maxmin{
+Resuelva el siguiente problema:
+\begin{eqnarray*}
+\displaystyle \min_{\vec{d}} 		& \quad \|\vec{c}-\vec{d}\|^2 \\
+\text{s.a}  & \quad A\vec{d}=0
+\end{eqnarray*}
+donde $c,d\in \R^n$, $A\in \mathcal{M}_{m\times n}$ y $m<n$.
+
+\begin{enumerate}
+\item Encuentre una soluci\'on $\vec{d}_0$ para el problema, caracter\'icela.
+\item Determine las condiciones para que la soluci\'on encontrada sea \'unica.
+\item Demuestre que $\vec{d}_0$ satisface $\vec{c}\cdot \vec{d}_0 \geq 0$, y que
+$$\vec{c}\cdot \vec{d}_0 \geq 0 \:\Leftrightarrow\: \exists \lambda \in \R^m \text{ tal que } A^t\lambda = \vec{c}$$
+\end{enumerate}
+}
+
+\maxmin{
+Sean $a,b,c \in \R_{++}$. Considere la funci\'on
+$$f(x,y,z) = x^a y^b z^c$$
+Determine el mayor valor de $f(x,y,z)$ mediante multiplicadores de Lagrange cuando
+$$x+y+z=a \quad , \quad x,y,z>0$$
+}
+
+\maxmin{
+Encuentre el m\'inimo de la funci\'on 
+$$f(x,y)=x^2 + 2y^2$$ 
+sujeto a la restricci\'on
+$$x^2 + y^2 = 2$$
+}
+
+\maxmin{
+Do\~na Paipa es una vendedora que tiene un carrito de sopaipillas a la entrada de Beaucheff y desea maximizar sus utilidades (ingreso menos costos) de la venta diaria. Lo que se sabe es:
+\begin{enumerate}
+\item La producci\'on de sopaipillas es representable por medio de la funci\'on $f:\R^3\rightarrow \R$ definida por $f(x,y,z)=\sqrt{xyz}$ y $(x,y,z)$ son los insumos aceite ($x$), masa ($y$) y gas ($z$). 
+\item Lo que interesa como horizonte de tiempo es la producci\'on de un d\'ia. Cada d\'ia se pueden producir a lo m\'as 500 sopaipillas.
+\item El costo de los insumos es 15, 20 y 35 pesos respectivamente. Cada sopaipilla se vende a 100 pesos.
+\end{enumerate}
+En base a esta informaci\'on:
+\begin{enumerate}
+\item Plantee el problema de optimizaci\'on.
+\item Resuelva utilizando multiplicadores de Lagrange para obtener la cantidad \'optima que debe vender.
+\item Determine el margen de ganancia que tiene Do\~na Paipa luego de un d\'ia de trabajo.
+\end{enumerate}
+}
+
+\maxmin{
+Suponga que ahora Do\~na Paipa logra instalar un local de pizzas frente al edificio CEC. Nuevamente, lo que le interesa es maximizar las utilidades de la venta diaria. La producci\'on de pizzas es representable por medio de la funci\'on $f:\R^3\rightarrow \R$ definida por $f(x,y,z)=(x^2 + y^2 + z^2 + w^2)^{1/2}$ y $(x,y,z,w)$ son los insumos masa ($x$), queso ($y$), otro ingrediente ($z$) y electricidad ($w$). 
+\\Ahora los costos son distintos y todos los insumos tienen un costo unitario de 100 pesos. Cada pizza se vende a 500 pesos y se pueden producir a lo m\'as 200 pizzas por d\'ia.
+
+En base a esta informaci\'on plantee el problema de optimizaci\'on y resuelva.
+}
+
+\maxmin{
+La vi\~na Don Pach\'a produce tres tipos de vinos (Carm\'en\`ere, Cavernet Sauvignon y Merlot). Por razones enol\'ogicas que no son parte del apunte la producci\'on de cada vino viene dada por combinaciones de capital (K) y mano de obra (L) representables por medio de las siguientes funciones
+
+\begin{enumerate}
+	\item Carmenere: $f(K,L)=0,8K^{0,3} L^{0,7}$
+	\item Cavernet Sauvignon: $f(K,L)=KL$
+	\item Merlot: $f(K,L)=(K^{1/2}+L^{1/2})^2$
+\end{enumerate}
+
+Si el costo de una unidad de capital es $m$ y de una unidad mano de obra es $n$. Obtenga la demanda por factores proveniente de la minimizaci\'on de costos para cada caso, planteando el problema de minimizaci\'on general y resuelva utilizando multiplicadores de Lagrange. 
+}
+
+\maxmin{
+Considere la forma cuadr\'atica
+$$(x,y)
+\begin{pmatrix}
+2 & 1 \\
+1 & 2 
+\end{pmatrix}
+\begin{pmatrix}
+x \\
+y 
+\end{pmatrix}$$
+minimice su valor sujeto a la restricci\'on $\|(x,y)\|_2 = 1$.
+}
+
+\subsection*{Criterio de \texorpdfstring{2$^{\text{do}}$}{2do} orden para extremos restringidos}
+
+\maxmin{
+Sea $f:\R^3\to \R$ definida por $f(x,y,z)=\ln(xyz^3)$
+\begin{enumerate}
+\item Encuentre el valor m\'aximo de $f$ sobre
+$$\{(x,y,z)\in \R^3 : x^2+y^2+z^2=5r^2,\:x>0,\:y>0,\:z>0\}$$
+
+\textsc{Indicaci\'on.} Verifique que el hessiano del lagrangeano es definido positivo sobre dicho punto.
+
+\item Usando lo anterior, muestre que para n\'umeros reales positivos se cumple
+$$abc^3 \leq 27\left(\frac{a+b+c}{5} \right)^5$$
+\end{enumerate}
+}
+
+\maxmin{
+Sea $Q\in \mathcal{M}_{n\times n}(\R)$, $\vec{b}\in \R^n$, $c\in \R$ y sea $f(\vec{x})=\vec{x}^tQ\vec{x}+\vec{b}\cdot \vec{x}+c$. Encuentre las condiciones sobre $Q$ para la existencia de m\'aximos y m\'inimos para $f$.
+
+Adem\'as, encuentre las mismas condiciones de la parte anterior pero bajo la restricci\'on $$\sum_{i=1}^n \frac{x_i^2}{n} = 1$$
+}
